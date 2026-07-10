@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4ECD8">
+
+
+
+    <!-- 2. محرك العرض (يملأ الشاشة لمنع الارتجاج) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/quranRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:clipToPadding="false"
+        android:paddingTop="60dp"
+        android:paddingBottom="65dp"/>
+
+    <!-- 3. الشريط العلوي (Overlay) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/topBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp"
+        app:strokeWidth="1dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/topBarInnerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/top_bar_dome"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp">
+
+            <TextView
+                android:id="@+id/topBarJuzText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#3D2B1F"
+                android:textSize="14sp"
+                android:text="الجزء"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#D2B48C">
+                
+                <TextView
+                    android:id="@+id/topBarTimerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="#3D2B1F"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:text="00:00" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/topBarPageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3D2B1F"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginHorizontal="12dp"/>
+
+            <TextView
+                android:id="@+id/topBarSuraText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="#3D2B1F"
+                android:textSize="14sp"
+                android:text="السورة"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 4. الشريط السفلي (Overlay) -->
+    <include layout="@layout/layout_bottom_bar" />
+
+</RelativeLayout>

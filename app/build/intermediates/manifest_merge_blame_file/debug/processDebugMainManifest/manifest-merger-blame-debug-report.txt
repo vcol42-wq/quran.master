@@ -1,0 +1,207 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.quranmaster"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+7-->INJECTED
+8        android:minSdkVersion="24"
+8-->INJECTED
+9        android:targetSdkVersion="34" />
+9-->INJECTED
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\quran.master\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\quran.master\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\quran.master\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\quran.master\app\src\main\AndroidManifest.xml:6:22-76
+13    <uses-permission android:name="android.permission.VIBRATE" />
+13-->C:\quran.master\app\src\main\AndroidManifest.xml:7:5-66
+13-->C:\quran.master\app\src\main\AndroidManifest.xml:7:22-63
+14    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+14-->C:\quran.master\app\src\main\AndroidManifest.xml:8:5-79
+14-->C:\quran.master\app\src\main\AndroidManifest.xml:8:22-76
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->C:\quran.master\app\src\main\AndroidManifest.xml:9:5-81
+15-->C:\quran.master\app\src\main\AndroidManifest.xml:9:22-78
+16
+17    <permission
+17-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+18        android:name="com.example.quranmaster.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+18-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+19        android:protectionLevel="signature" />
+19-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+20
+21    <uses-permission android:name="com.example.quranmaster.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+21-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+21-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+22
+23    <application
+23-->C:\quran.master\app\src\main\AndroidManifest.xml:12:5-63:19
+24        android:allowBackup="true"
+24-->C:\quran.master\app\src\main\AndroidManifest.xml:14:9-35
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\2666bee558c9eaa52515a04f117aa9dd\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+26        android:debuggable="true"
+27        android:extractNativeLibs="false"
+27-->INJECTED
+28        android:icon="@drawable/nnbb"
+28-->C:\quran.master\app\src\main\AndroidManifest.xml:15:9-38
+29        android:label="سبح بخشوع"
+29-->C:\quran.master\app\src\main\AndroidManifest.xml:17:9-34
+30        android:roundIcon="@drawable/nnbb"
+30-->C:\quran.master\app\src\main\AndroidManifest.xml:16:9-43
+31        android:supportsRtl="true"
+31-->C:\quran.master\app\src\main\AndroidManifest.xml:18:9-35
+32        android:testOnly="true"
+33        android:theme="@style/Theme.QuranMaster"
+33-->C:\quran.master\app\src\main\AndroidManifest.xml:19:9-49
+34        android:usesCleartextTraffic="true" >
+34-->C:\quran.master\app\src\main\AndroidManifest.xml:13:9-44
+35        <activity
+35-->C:\quran.master\app\src\main\AndroidManifest.xml:21:9-29:20
+36            android:name="com.example.quranmaster.HomeActivity"
+36-->C:\quran.master\app\src\main\AndroidManifest.xml:22:13-41
+37            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+37-->C:\quran.master\app\src\main\AndroidManifest.xml:24:13-87
+38            android:exported="true" >
+38-->C:\quran.master\app\src\main\AndroidManifest.xml:23:13-36
+39            <intent-filter>
+39-->C:\quran.master\app\src\main\AndroidManifest.xml:25:13-28:29
+40                <action android:name="android.intent.action.MAIN" />
+40-->C:\quran.master\app\src\main\AndroidManifest.xml:26:17-69
+40-->C:\quran.master\app\src\main\AndroidManifest.xml:26:25-66
+41
+42                <category android:name="android.intent.category.LAUNCHER" />
+42-->C:\quran.master\app\src\main\AndroidManifest.xml:27:17-77
+42-->C:\quran.master\app\src\main\AndroidManifest.xml:27:27-74
+43            </intent-filter>
+44        </activity>
+45        <activity
+45-->C:\quran.master\app\src\main\AndroidManifest.xml:31:9-34:40
+46            android:name="com.example.quranmaster.MainActivity"
+46-->C:\quran.master\app\src\main\AndroidManifest.xml:32:13-41
+47            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+47-->C:\quran.master\app\src\main\AndroidManifest.xml:33:13-87
+48            android:exported="false" />
+48-->C:\quran.master\app\src\main\AndroidManifest.xml:34:13-37
+49        <activity
+49-->C:\quran.master\app\src\main\AndroidManifest.xml:36:9-39:40
+50            android:name="com.example.quranmaster.AzkarActivity"
+50-->C:\quran.master\app\src\main\AndroidManifest.xml:37:13-42
+51            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+51-->C:\quran.master\app\src\main\AndroidManifest.xml:38:13-87
+52            android:exported="false" />
+52-->C:\quran.master\app\src\main\AndroidManifest.xml:39:13-37
+53        <activity
+53-->C:\quran.master\app\src\main\AndroidManifest.xml:41:9-43:40
+54            android:name="com.example.quranmaster.TasbeehActivity"
+54-->C:\quran.master\app\src\main\AndroidManifest.xml:42:13-44
+55            android:exported="false" />
+55-->C:\quran.master\app\src\main\AndroidManifest.xml:43:13-37
+56        <activity
+56-->C:\quran.master\app\src\main\AndroidManifest.xml:45:9-48:40
+57            android:name="com.example.quranmaster.AthanActivity"
+57-->C:\quran.master\app\src\main\AndroidManifest.xml:46:13-42
+58            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+58-->C:\quran.master\app\src\main\AndroidManifest.xml:47:13-87
+59            android:exported="false" />
+59-->C:\quran.master\app\src\main\AndroidManifest.xml:48:13-37
+60
+61        <receiver
+61-->C:\quran.master\app\src\main\AndroidManifest.xml:50:9-61:20
+62            android:name="com.example.quranmaster.PrayerWidgetProvider"
+62-->C:\quran.master\app\src\main\AndroidManifest.xml:51:13-49
+63            android:exported="false" >
+63-->C:\quran.master\app\src\main\AndroidManifest.xml:52:13-37
+64            <intent-filter>
+64-->C:\quran.master\app\src\main\AndroidManifest.xml:53:13-57:29
+65                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+65-->C:\quran.master\app\src\main\AndroidManifest.xml:54:17-84
+65-->C:\quran.master\app\src\main\AndroidManifest.xml:54:25-81
+66                <action android:name="com.example.quranmaster.ACTION_WIDGET_INCREMENT" />
+66-->C:\quran.master\app\src\main\AndroidManifest.xml:55:17-90
+66-->C:\quran.master\app\src\main\AndroidManifest.xml:55:25-87
+67                <action android:name="com.example.quranmaster.ACTION_WIDGET_RESET" />
+67-->C:\quran.master\app\src\main\AndroidManifest.xml:56:17-86
+67-->C:\quran.master\app\src\main\AndroidManifest.xml:56:25-83
+68            </intent-filter>
+69
+70            <meta-data
+70-->C:\quran.master\app\src\main\AndroidManifest.xml:58:13-60:62
+71                android:name="android.appwidget.provider"
+71-->C:\quran.master\app\src\main\AndroidManifest.xml:59:17-58
+72                android:resource="@xml/prayer_widget_info" />
+72-->C:\quran.master\app\src\main\AndroidManifest.xml:60:17-59
+73        </receiver>
+74
+75        <provider
+75-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+76            android:name="androidx.startup.InitializationProvider"
+76-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+77            android:authorities="com.example.quranmaster.androidx-startup"
+77-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+78            android:exported="false" >
+78-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+79            <meta-data
+79-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+80                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+80-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+81                android:value="androidx.startup" />
+81-->[androidx.emoji2:emoji2:1.2.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\c4d6ebabc18c29524e9a9517478e4322\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+82            <meta-data
+82-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\775a53055cd8a54978d9ff29276a428b\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+83                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+83-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\775a53055cd8a54978d9ff29276a428b\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+84                android:value="androidx.startup" />
+84-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\775a53055cd8a54978d9ff29276a428b\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+85            <meta-data
+85-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+86-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+87                android:value="androidx.startup" />
+87-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+88        </provider>
+89
+90        <receiver
+90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+92            android:directBootAware="false"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+93            android:enabled="true"
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+94            android:exported="true"
+94-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+95            android:permission="android.permission.DUMP" >
+95-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+97-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+100-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+101            </intent-filter>
+102            <intent-filter>
+102-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+103                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+103-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+104            </intent-filter>
+105            <intent-filter>
+105-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+106                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+106-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\b375232e092c2f8aa347b571574f56ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+107            </intent-filter>
+108        </receiver>
+109    </application>
+110
+111</manifest>
