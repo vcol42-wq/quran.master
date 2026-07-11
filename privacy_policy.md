@@ -1,9 +1,8 @@
-# Privacy Policy for Quran Master
-
+# Privacy Policy for sabah bikhushue " سبح بخشوع "
 **Effective Date:** July 10, 2026
 
 ## 1. Information Collection and Use
-Quran Master is an application dedicated to reading and listening to the Holy Quran. We respect your privacy. **Our application does not collect, store, or share any personal data or sensitive user information.** 
+sabah bikhushue is an application dedicated to reading and listening to the Holy Quran. We respect your privacy. **Our application does not collect, store, or share any personal data or sensitive user information.** 
 
 ## 2. Permissions
 The app may require certain device permissions (such as internet access for downloading audio or location for prayer times). These permissions are used solely for the app's core functionality. No personal data leaves your device.
