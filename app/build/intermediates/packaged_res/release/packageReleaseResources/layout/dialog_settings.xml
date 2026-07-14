@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_sheet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp">
+
+        <!-- Handle line for bottom sheet -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="48dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center_horizontal"
+            app:cardBackgroundColor="#D2B48C"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="0dp"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الإعدادات"
+            android:textColor="#3D2B1F"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Settings Options Frame -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- Shadow Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                app:cardBackgroundColor="#D2B48C"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp" />
+
+            <!-- Main Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="#00A86B">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- Theme Selector -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="لون الخلفية (الثيم)"
+                        android:textColor="#5D4037"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+                        
+                    <!-- Shadow Wrapper for Spinner -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            app:cardBackgroundColor="#D2B48C"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="4dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="1.5dp"
+                            app:strokeColor="#00A86B">
+                            
+                            <Spinner
+                                android:id="@+id/spinnerTheme"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@android:drawable/btn_dropdown"/>
+                        </com.google.android.material.card.MaterialCardView>
+                    </FrameLayout>
+
+                    <!-- Tajweed Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchTajweed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ألوان التجويد"
+                        android:textColor="#3D2B1F"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Vibration Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchVibration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="الاهتزاز"
+                        android:textColor="#3D2B1F"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Sound Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchSound"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="الصوت"
+                        android:textColor="#3D2B1F"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Azan Notifications Switch -->
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchAzan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="إشعارات الأذان"
+                        android:textColor="#3D2B1F"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="20dp"/>
+
+                    <!-- Gemini API Key -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="مفتاح جُمني (Gemini API Key)"
+                        android:textColor="#5D4037"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="8dp"/>
+                        
+                    <!-- Shadow Wrapper for API Key -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="4dp"
+                            app:cardBackgroundColor="#D2B48C"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp" />
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="4dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="1.5dp"
+                            app:strokeColor="#00A86B">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                app:boxStrokeWidth="0dp"
+                                app:boxStrokeWidthFocused="0dp">
+                                
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etApiKey"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="أدخل المفتاح هنا لاستخدام الاستزادة"
+                                    android:inputType="textPassword"
+                                    android:background="@null"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="12dp"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvGetApiKey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="كيف أحصل على مفتاح API مجاني؟"
+                        android:textColor="#00A86B"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- Save Button Frame -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- Shadow Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                app:cardBackgroundColor="#6A3B12"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp" />
+
+            <!-- Main Button Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#8B4513"
+                app:strokeWidth="0dp">
+
+                <TextView
+                    android:id="@+id/btnSaveSettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="حفظ الإعدادات"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- Privacy Policy Frame -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- Shadow Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                app:cardBackgroundColor="#D2B48C"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp" />
+
+            <!-- Main Button Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="#00A86B">
+
+                <TextView
+                    android:id="@+id/btnPrivacyPolicy"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="سياسة الخصوصية"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#00A86B"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- About App Frame -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- Shadow Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                app:cardBackgroundColor="#D2B48C"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp" />
+
+            <!-- Main Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="6dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="#00A86B">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="حول التطبيق"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#00A86B"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1- (¼ ح) وما يشابهها تدل على الأحزاب حيث يُقسم القرآن إلى 60 حزباً.\n\n2- (ع) هو اختصار لكلمة ركوع حيث يستطيع المصلي التوقف عندها لاكتمال المعنى وهي محببة.\n\n3- المنزل هي طريقة لتقسيم القرآن لقراءته في 7 أيام أي مشابه للأجزاء.\n\n4- الألوان وضعت لتمييز أحكام التجويد وفق معايير معتمدة.\n\n5- يمكنك الاستفادة من البحث في شريط البحث في تطبيق سبح بخشوع والأذكار لتجد كل ما تبحث عنه من أذكار وتفسير مختصر لأن التطبيق مزود بقاعدة بيانات محلية.\n\n6- يمكن الاستزادة من البحث في جُمني بعد وضع مفتاحك الخاص لكي يأخذك إلى عالم أوسع لكن محدد بالصحيح منه.\n\n7- نرجو أن تستفيد من التطبيق فينالك الأجر العظيم من ذكر الله.\n\n8- التزام الملكية: نؤكد أن النص القرآني المستخدم والخطوط المدمجة مأخوذة من مصادر عامة ومفتوحة (Public Domain) مثل مجمع الملك فهد، ولا تنتهك أي حقوق نشر."
+                        android:textSize="14sp"
+                        android:textColor="#3D2B1F"
+                        android:lineSpacingExtra="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

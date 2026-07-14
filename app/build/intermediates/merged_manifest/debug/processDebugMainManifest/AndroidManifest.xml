@@ -29,7 +29,6 @@
         android:label="سبح بخشوع"
         android:roundIcon="@drawable/nnbb"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.QuranMaster"
         android:usesCleartextTraffic="true" >
         <activity

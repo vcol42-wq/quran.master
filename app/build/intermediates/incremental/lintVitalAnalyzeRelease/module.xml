@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="C:\quran.master\app"
+    name=":app"
+    type="APP"
+    maven="quran.master:app:unspecified"
+    agpVersion="9.2.1"
+    buildFolder="build"
+    bootClassPath="C:\Users\vcol4\AppData\Local\Android\Sdk\platforms\android-35\android.jar;C:\Users\vcol4\AppData\Local\Android\Sdk\build-tools\36.0.0\core-lambda-stubs.jar"
+    javaSourceLevel="17"
+    compileTarget="android-35"
+    highlightGradualR8Api="false">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

@@ -39,45 +39,106 @@
         android:orientation="vertical"
         android:paddingHorizontal="16dp">
 
-        <TextView
-            android:id="@+id/btnOptionTafsir"
+        <!-- الأولوية العالية (التفسير واستماع الآية) -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="16dp"
-            android:text="تفسير الجلالين"
-            android:textSize="14sp"
-            android:textColor="#3D2B1F"
-            android:drawableStart="@android:drawable/ic_menu_agenda"
-            android:drawablePadding="12dp"
-            android:background="?attr/selectableItemBackground"/>
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#D2B48C"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="#FFFFFF">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <TextView
+                    android:id="@+id/btnOptionTafsir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="14dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="تفسير الجلالين"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#3D2B1F"
+                    android:drawableStart="@android:drawable/ic_menu_agenda"
+                    android:drawablePadding="12dp"
+                    android:background="?attr/selectableItemBackground"/>
+                    
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0D4C3"
+                    android:layout_marginHorizontal="16dp"/>
+                    
+                <TextView
+                    android:id="@+id/btnOptionAudioAyah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="14dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="استماع للآية (الحصري)"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#00A86B"
+                    android:drawableStart="@android:drawable/ic_media_play"
+                    android:drawablePadding="12dp"
+                    android:background="?attr/selectableItemBackground"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-
-
-        <TextView
-            android:id="@+id/btnOptionAudio"
+        <!-- الخيارات الإضافية -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="16dp"
-            android:text="سماع الآية (الحصري)"
-            android:textSize="14sp"
-            android:textColor="#3D2B1F"
-            android:drawableStart="@android:drawable/ic_media_play"
-            android:drawablePadding="12dp"
-            android:background="?attr/selectableItemBackground"/>
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#D2B48C"
+            app:cardBackgroundColor="#FFFFFF">
 
-        <TextView
-            android:id="@+id/btnOptionGoogle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="10dp"
-            android:paddingHorizontal="16dp"
-            android:text="بحث في جوجل"
-            android:textSize="14sp"
-            android:textColor="#3D2B1F"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:drawablePadding="12dp"
-            android:background="?attr/selectableItemBackground"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/btnOptionAudioSurah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="خيارات الاستماع للسورة"
+                    android:textSize="14sp"
+                    android:textColor="#5D4037"
+                    android:drawableStart="@android:drawable/ic_btn_speak_now"
+                    android:drawablePadding="12dp"
+                    android:background="?attr/selectableItemBackground"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0D4C3"
+                    android:layout_marginHorizontal="16dp"/>
+
+                <TextView
+                    android:id="@+id/btnOptionGoogle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:text="بحث في جوجل"
+                    android:textSize="14sp"
+                    android:textColor="#5D4037"
+                    android:drawableStart="@android:drawable/ic_menu_search"
+                    android:drawablePadding="12dp"
+                    android:background="?attr/selectableItemBackground"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
 </LinearLayout>

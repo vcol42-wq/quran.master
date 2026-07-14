@@ -49,11 +49,18 @@ id btnAutoLocation
 id btnBackAzkar
 id btnChooseSound
 id btnCloseGemini
+id btnDownloadSurah
 id btnHome
 id btnManualLocation
-id btnOptionAudio
+id btnMiniForward
+id btnMiniPlayPause
+id btnMiniRewind
+id btnMiniStop
+id btnOptionAudioAyah
+id btnOptionAudioSurah
 id btnOptionGoogle
 id btnOptionTafsir
+id btnPlaySurah
 id btnPrivacyPolicy
 id btnSaveSettings
 id btnSearch
@@ -108,10 +115,14 @@ id llCategories
 id llSearchEmptyState
 id llZikrContainer
 id mainRootLayout
+id mini_player
 id pbAssistantLoading
 id pbSearchLoading
 id quranRecyclerView
 id quranVerseText
+id rbAbdulBasit
+id rbAlafasy
+id rgReciters
 id rvAzkar
 id rvSearchResults
 id scrollView
@@ -138,6 +149,7 @@ id topBarTimerText
 id tsZikrWheel
 id tvAddZikr
 id tvAssistantResponse
+id tvAudioSurahTitle
 id tvAzkarCount
 id tvAzkarDone
 id tvAzkarText
@@ -146,6 +158,7 @@ id tvAzkarVirtue
 id tvCityName
 id tvCoordinates
 id tvCountdown
+id tvDownloadStatus
 id tvDropdownIndicator
 id tvEmptyState
 id tvGeminiResponse
@@ -155,6 +168,7 @@ id tvGoal1000
 id tvGoal33
 id tvIndexTitle
 id tvMainCounter
+id tvMiniPlayerTitle
 id tvNextPrayerTitle
 id tvNextZikr
 id tvPrevZikr
@@ -201,6 +215,7 @@ layout activity_home
 layout activity_main
 layout activity_tasbeeh
 layout dialog_assistant
+layout dialog_audio_options
 layout dialog_gemini_response
 layout dialog_modern_search
 layout dialog_search
@@ -213,6 +228,7 @@ layout item_quran_verse
 layout item_search_result
 layout item_verse
 layout layout_bottom_bar
+layout layout_mini_player
 layout prayer_widget
 layout widget_test
 style Theme.QuranMaster

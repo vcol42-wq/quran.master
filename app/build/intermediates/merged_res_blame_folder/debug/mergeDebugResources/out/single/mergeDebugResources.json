@@ -1,214 +1,226 @@
 [
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_settings.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_settings.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_item_azkar.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\item_azkar.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_modern_search.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_modern_search.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_pill.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_pill.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/anim_slide_in_right.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/anim/slide_in_right.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_unified_index.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_unified_index.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_top_bar_dome.jpg.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/top_bar_dome.jpg"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_reset.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_reset.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_circle_icon.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_circle_icon.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_item_index.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\item_index.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_activity_azkar.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/activity_azkar.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_nnbb.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\nnbb.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_hollow_circle.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_hollow_circle.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_activity_athan.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\activity_athan.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_search.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_search.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_screw_normal.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_screw_normal.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_item_quran_verse.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/item_quran_verse.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_osc.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\osc.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_widget_test.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/widget_test.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_circle_icon.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_circle_icon.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/xml_prayer_widget_info.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/xml/prayer_widget_info.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_verse_options.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_verse_options.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_activity_main.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/activity_main.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\font_amiri_quran.ttf.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\font\\amiri_quran.ttf"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_add.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_add.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_item_search_result.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\item_search_result.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_pill.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_pill.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_assistant.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_assistant.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout-land_activity_tasbeeh.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout-land/activity_tasbeeh.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_settings.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_settings.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_item_index.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/item_index.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_activity_azkar.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\activity_azkar.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_verse_options.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_verse_options.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_search.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_layout_bottom_bar.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/layout_bottom_bar.xml"
+        "merged": "com.example.quranmaster.app-debug-32:/layout_layout_mini_player.xml.flat",
+        "source": "com.example.quranmaster.app-main-34:/layout/layout_mini_player.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_nbnb.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/nbnb.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_modern_search.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_modern_search.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_screw_normal.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_screw_normal.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_activity_tasbeeh.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\activity_tasbeeh.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_activity_athan.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/activity_athan.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_widget_test.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\widget_test.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_settings.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_settings.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_nbnb.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\nbnb.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_assistant.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_assistant.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_qurnt.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\qurnt.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_osc.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/osc.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_gemini_response.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_gemini_response.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_gemini_response.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_gemini_response.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_audio_options.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_audio_options.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_item_verse.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/item_verse.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\anim_slide_in_right.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\anim\\slide_in_right.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_rfrf.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/rfrf.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_sunrise.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_sunrise.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/font_amiri_quran.ttf.flat",
-        "source": "com.example.quranmaster.app-main-34:/font/amiri_quran.ttf"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_refresh_widget.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_refresh_widget.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_widget_prayer.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_widget_prayer.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_tasbeeh_frame.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_tasbeeh_frame.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_item_azkar.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/item_azkar.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_back.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_back.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_widget_counter_btn.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_widget_counter_btn.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_assistant.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_assistant.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_sunrise.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_sunrise.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_activity_home.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\activity_home.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_reset.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_reset.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_filled_circle.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_filled_circle.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_circle_count.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_circle_count.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_widget_counter_btn.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_widget_counter_btn.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_unified_index.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_unified_index.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_rfrf.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\rfrf.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_nnbb.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/nnbb.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_layout_bottom_bar.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\layout_bottom_bar.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_widget.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_widget.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_hizb_badge.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\hizb_badge.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_activity_tasbeeh.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/activity_tasbeeh.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_layout_mini_player.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\layout_mini_player.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_bottom_sheet.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_bottom_sheet.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_settings.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_settings.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_activity_home.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/activity_home.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\activity_main.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_qurnt.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/qurnt.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_top_bar_dome.jpg.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\top_bar_dome.jpg"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_nbnb1.png.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/nbnb1.png"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\ic_add.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/anim_slide_out_left.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/anim/slide_out_left.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout-land_activity_tasbeeh.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout-land\\activity_tasbeeh.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_screw_active.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_screw_active.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_bottom_sheet.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_bottom_sheet.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_tasbeeh_frame.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_tasbeeh_frame.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_nbnb1.png.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\nbnb1.png"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_prayer_widget.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/prayer_widget.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_hollow_circle.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_hollow_circle.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_refresh_widget.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_refresh_widget.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_screw_active.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_screw_active.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_assistant.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_assistant.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\xml_prayer_widget_info.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\xml\\prayer_widget_info.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_item_search_result.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/item_search_result.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_widget_prayer.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_widget_prayer.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/layout_dialog_search.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/layout/dialog_search.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_widget.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_widget.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_bg_filled_circle.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/bg_filled_circle.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_item_quran_verse.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\item_quran_verse.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_hizb_badge.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/hizb_badge.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\drawable_bg_circle_count.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\drawable\\bg_circle_count.xml"
     },
     {
-        "merged": "com.example.quranmaster.app-debug-32:/drawable_ic_back.xml.flat",
-        "source": "com.example.quranmaster.app-main-34:/drawable/ic_back.xml"
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_prayer_widget.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\prayer_widget.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_dialog_search.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\dialog_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\anim_slide_out_left.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\anim\\slide_out_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-debug-32:\\layout_item_verse.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.4.1\\com.example.quranmaster.app-main-34:\\layout\\item_verse.xml"
     }
 ]

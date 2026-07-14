@@ -91,7 +91,10 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- 4. الشريط السفلي (Overlay) -->
+    <!-- 4. شريط مشغل الصوت المصغر -->
+    <include layout="@layout/layout_mini_player" />
+
+    <!-- 5. الشريط السفلي (Overlay) -->
     <include layout="@layout/layout_bottom_bar" />
 
 </RelativeLayout>

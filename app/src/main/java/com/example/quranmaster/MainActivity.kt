@@ -445,9 +445,13 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
             showTafsirDialog(v)
         }
-        view.findViewById<View>(R.id.btnOptionAudio).setOnClickListener {
+        view.findViewById<View>(R.id.btnOptionAudioAyah).setOnClickListener {
             dialog.dismiss()
-            playInternalAudio(v)
+            playInternalAudio(v) // Online streaming for Ayah
+        }
+        view.findViewById<View>(R.id.btnOptionAudioSurah).setOnClickListener {
+            dialog.dismiss()
+            showAudioOptionsDialog(v) // Online/Offline options for Surah
         }
         view.findViewById<View>(R.id.btnOptionGoogle).setOnClickListener {
             dialog.dismiss()
@@ -853,6 +857,125 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             Toast.makeText(this, "تعذر تشغيل الصوت", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private var currentPlayingSura: Int = -1
+
+    private fun showAudioOptionsDialog(v: VerseModel) {
+        val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.dialog_audio_options, null)
+        dialog.setContentView(view)
+
+        view.findViewById<android.widget.TextView>(R.id.tvAudioSurahTitle)?.text = "خيارات الصوت لسورة ${v.suraName}"
+
+        val reciters = listOf(
+            Pair("محمود خليل الحصري", "https://everyayah.com/data/Husary_128kbps/%03d%03d.mp3"),
+            Pair("عبد الباسط عبد الصمد", "https://everyayah.com/data/Abdul_Basit_Murattal_192kbps/%03d%03d.mp3"),
+            Pair("مشاري العفاسي", "https://everyayah.com/data/Alafasy_128kbps/%03d%03d.mp3")
+        )
+
+        val selectedReciterUrl = reciters[0].second
+
+        view.findViewById<View>(R.id.btnPlaySurah)?.setOnClickListener {
+            dialog.dismiss()
+            startAudioPlayback(v.sura, selectedReciterUrl)
+        }
+
+        view.findViewById<View>(R.id.btnDownloadSurah)?.setOnClickListener {
+            dialog.dismiss()
+            android.widget.Toast.makeText(this, "جاري التنزيل...", android.widget.Toast.LENGTH_SHORT).show()
+            downloadSurah(v.sura, selectedReciterUrl) { filePath ->
+                android.widget.Toast.makeText(this, "تم التنزيل: $filePath", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun startAudioPlayback(sura: Int, reciterUrlTemplate: String) {
+        val url = String.format(java.util.Locale.ENGLISH, reciterUrlTemplate, sura, 1)
+        android.widget.Toast.makeText(this, "جاري تشغيل السورة...", android.widget.Toast.LENGTH_SHORT).show()
+        
+        try {
+            mediaPlayer?.release()
+            mediaPlayer = android.media.MediaPlayer().apply {
+                setAudioAttributes(android.media.AudioAttributes.Builder().setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC).build())
+                setDataSource(url)
+                prepareAsync()
+                setOnPreparedListener { 
+                    it.start() 
+                    currentPlayingSura = sura
+                    setupMiniPlayerControls()
+                    findViewById<View>(R.id.mini_player)?.visibility = View.VISIBLE
+                    findViewById<android.widget.TextView>(R.id.tvMiniPlayerTitle)?.text = "سورة رقم $sura"
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun downloadSurah(sura: Int, reciterUrlTemplate: String, onComplete: (String) -> Unit) {
+        Thread {
+            try {
+                val url = String.format(java.util.Locale.ENGLISH, reciterUrlTemplate, sura, 1)
+                val connection = java.net.URL(url).openConnection()
+                connection.connect()
+                val file = java.io.File(getExternalFilesDir(null), "sura_$sura.mp3")
+                connection.getInputStream().use { input ->
+                    java.io.FileOutputStream(file).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+                runOnUiThread { onComplete(file.absolutePath) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                runOnUiThread { android.widget.Toast.makeText(this, "خطأ في التنزيل", android.widget.Toast.LENGTH_SHORT).show() }
+            }
+        }.start()
+    }
+
+    private fun setupMiniPlayerControls() {
+        val btnPlayPause = findViewById<android.widget.ImageView>(R.id.btnMiniPlayPause)
+        val btnStop = findViewById<android.widget.ImageView>(R.id.btnMiniStop)
+        val btnRewind = findViewById<android.widget.ImageView>(R.id.btnMiniRewind)
+        val btnForward = findViewById<android.widget.ImageView>(R.id.btnMiniForward)
+
+        btnPlayPause?.setOnClickListener {
+            mediaPlayer?.let { mp ->
+                if (mp.isPlaying) {
+                    mp.pause()
+                    btnPlayPause.setImageResource(android.R.drawable.ic_media_play)
+                } else {
+                    mp.start()
+                    btnPlayPause.setImageResource(android.R.drawable.ic_media_pause)
+                }
+            }
+        }
+
+        btnRewind?.setOnClickListener {
+            mediaPlayer?.let { mp ->
+                val currentPos = mp.currentPosition
+                val newPos = if (currentPos - 10000 > 0) currentPos - 10000 else 0
+                mp.seekTo(newPos)
+            }
+        }
+
+        btnForward?.setOnClickListener {
+            mediaPlayer?.let { mp ->
+                val currentPos = mp.currentPosition
+                val duration = mp.duration
+                val newPos = if (currentPos + 10000 < duration) currentPos + 10000 else duration
+                mp.seekTo(newPos)
+            }
+        }
+
+        btnStop?.setOnClickListener {
+            mediaPlayer?.stop()
+            mediaPlayer?.release()
+            mediaPlayer = null
+            findViewById<View>(R.id.mini_player)?.visibility = View.GONE
         }
     }
 

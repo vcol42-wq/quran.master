@@ -1,0 +1,214 @@
+[
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_search.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_search.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_pill.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_pill.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_layout_bottom_bar.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/layout_bottom_bar.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_hollow_circle.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_hollow_circle.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_bottom_sheet.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_bottom_sheet.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/font_amiri_quran.ttf.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/font/amiri_quran.ttf"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_screw_active.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_screw_active.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_verse_options.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_verse_options.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_assistant.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_assistant.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_widget.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_widget.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_settings.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_settings.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_nnbb.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/nnbb.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_screw_normal.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_screw_normal.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_circle_count.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_circle_count.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_item_azkar.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/item_azkar.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_rfrf.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/rfrf.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_item_verse.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/item_verse.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_assistant.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_assistant.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/anim_slide_out_left.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/anim/slide_out_left.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_item_index.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/item_index.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_reset.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_reset.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_hizb_badge.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/hizb_badge.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_nbnb.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/nbnb.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_settings.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_activity_tasbeeh.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/activity_tasbeeh.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_activity_main.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/xml_prayer_widget_info.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/xml/prayer_widget_info.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_gemini_response.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_gemini_response.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_add.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_add.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_widget_prayer.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_widget_prayer.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_qurnt.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/qurnt.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout-land_activity_tasbeeh.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout-land/activity_tasbeeh.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_activity_home.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/activity_home.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_item_quran_verse.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/item_quran_verse.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_osc.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/osc.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_filled_circle.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_filled_circle.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_nbnb1.png.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/nbnb1.png"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_widget_test.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/widget_test.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_unified_index.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_unified_index.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_modern_search.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_modern_search.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_activity_athan.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/activity_athan.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_back.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_back.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_widget_counter_btn.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_widget_counter_btn.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_sunrise.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_sunrise.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_dialog_search.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/dialog_search.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/anim_slide_in_right.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/anim/slide_in_right.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_prayer_widget.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/prayer_widget.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_top_bar_dome.jpg.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/top_bar_dome.jpg"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_item_search_result.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/item_search_result.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_ic_refresh_widget.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/ic_refresh_widget.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_tasbeeh_frame.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_tasbeeh_frame.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/drawable_bg_circle_icon.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/drawable/bg_circle_icon.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-release-35:/layout_activity_azkar.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-36:/layout/activity_azkar.xml"
+    }
+]

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mini_player"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#D2B48C"
+    android:padding="8dp"
+    android:visibility="gone"
+    android:gravity="center_vertical"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/tvMiniPlayerTitle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="جاري التشغيل"
+        android:textColor="#3D2B1F"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:fontFamily="@font/amiri_quran" />
+
+    <ImageView
+        android:id="@+id/btnMiniRewind"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_media_rew"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="تأخير 10 ثواني" />
+
+    <ImageView
+        android:id="@+id/btnMiniPlayPause"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_media_pause"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="تشغيل/إيقاف" />
+
+    <ImageView
+        android:id="@+id/btnMiniForward"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_media_ff"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="تقديم 10 ثواني" />
+
+    <ImageView
+        android:id="@+id/btnMiniStop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="إيقاف التشغيل" />
+</LinearLayout>

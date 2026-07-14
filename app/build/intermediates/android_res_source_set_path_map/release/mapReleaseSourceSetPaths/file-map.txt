@@ -1,0 +1,10 @@
+com.sabah.bikhushue.app-pngs-0 C:\quran.master\app\build\generated\res\pngs\release
+com.sabah.bikhushue.app-resValues-1 C:\quran.master\app\build\generated\res\resValues\release
+com.sabah.bikhushue.app-updated_navigation_xml-2 C:\quran.master\app\build\generated\updated_navigation_xml\release
+com.sabah.bikhushue.app-packageReleaseResources-3 C:\quran.master\app\build\intermediates\incremental\release\packageReleaseResources\merged.dir
+com.sabah.bikhushue.app-packageReleaseResources-4 C:\quran.master\app\build\intermediates\incremental\release\packageReleaseResources\stripped.dir
+com.sabah.bikhushue.app-merged-not-compiled-resources-5 C:\quran.master\app\build\intermediates\merged-not-compiled-resources\release
+com.sabah.bikhushue.app-release-6 C:\quran.master\app\build\intermediates\merged_res\release\mergeReleaseResources
+com.sabah.bikhushue.app-main-7 C:\quran.master\app\src\main\res
+com.sabah.bikhushue.app-release-8 C:\quran.master\app\src\release\res
+gradleHome-0 C:\jdk-26.0.1
