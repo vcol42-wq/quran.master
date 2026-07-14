@@ -117,6 +117,7 @@ id llZikrContainer
 id mainRootLayout
 id mini_player
 id pbAssistantLoading
+id pbDownload
 id pbSearchLoading
 id quranRecyclerView
 id quranVerseText

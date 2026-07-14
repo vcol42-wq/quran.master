@@ -82,33 +82,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="2"
+            android:baselineAligned="false">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDownloadSurah"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="تحميل السورة"
-                app:icon="@android:drawable/stat_sys_download"
-                app:iconGravity="textStart"
-                app:backgroundTint="#F4ECD8"
-                android:textColor="#3D2B1F"
-                app:strokeWidth="1dp"
-                app:strokeColor="#D2B48C"/>
+                android:orientation="vertical">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPlaySurah"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDownloadSurah"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="تحميل السورة"
+                    app:icon="@android:drawable/stat_sys_download"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="#F4ECD8"
+                    android:textColor="#3D2B1F"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#D2B48C"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+
+                <ProgressBar
+                    android:id="@+id/pbDownload"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone"
+                    android:max="100" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="تشغيل"
-                app:icon="@android:drawable/ic_media_play"
-                app:iconGravity="textStart"
-                app:backgroundTint="#00A86B"
-                android:textColor="#FFFFFF"/>
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPlaySurah"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="تشغيل"
+                    app:icon="@android:drawable/ic_media_play"
+                    app:iconGravity="textStart"
+                    app:backgroundTint="#00A86B"
+                    android:textColor="#FFFFFF"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

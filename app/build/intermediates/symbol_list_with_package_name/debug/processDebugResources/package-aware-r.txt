@@ -3539,6 +3539,7 @@ id password_toggle
 id path
 id pathRelative
 id pbAssistantLoading
+id pbDownload
 id pbSearchLoading
 id peekHeight
 id percent
