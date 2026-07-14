@@ -22,7 +22,8 @@ class QuranAdapter(
 ) : RecyclerView.Adapter<QuranAdapter.VerseViewHolder>() {
 
     var quranFontSize = 26f
-    var highlightedVerseId = -1
+    var highlightedSura = -1
+    var highlightedAya = -1
     var showTajweedColors = true
     
     var currentBgColor = "#F4ECD8"
@@ -131,7 +132,7 @@ class QuranAdapter(
 
         val plainText = ssb.toString()
         for (range in verseRanges) {
-            if (range.third.id == highlightedVerseId) {
+            if (range.third.sura == highlightedSura && range.third.aya == highlightedAya) {
                 val highlightColor = if (currentBgColor == "#121212") Color.parseColor("#4D3D1F") else Color.parseColor("#FFF8E1")
                 val vText = range.third.textTajweed.trim().replace(Regex("<[^>]*>"), "")
                 val s = plainText.indexOf(vText, range.first)
@@ -153,7 +154,8 @@ class QuranAdapter(
                     val offset = layout.getOffsetForHorizontal(line, event.x)
                     for (range in verseRanges) {
                         if (offset >= range.first && offset <= range.second) {
-                            highlightedVerseId = range.third.id
+                            highlightedSura = range.third.sura
+                            highlightedAya = range.third.aya
                             notifyDataSetChanged()
                             onVerseClickListener(range.third)
                             return@setOnTouchListener true

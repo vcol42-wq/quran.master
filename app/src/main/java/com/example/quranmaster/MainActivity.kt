@@ -414,7 +414,8 @@ class MainActivity : AppCompatActivity() {
                         quranRecyclerView.post {
                             val lm = quranRecyclerView.layoutManager as LinearLayoutManager
                             lm.scrollToPositionWithOffset(blockIndex, 0)
-                            quranAdapter.highlightedVerseId = verse.id
+                            quranAdapter.highlightedSura = verse.sura
+                            quranAdapter.highlightedAya = verse.aya
                             quranAdapter.notifyDataSetChanged()
                             updateTopBar(blockList[blockIndex])
                         }
@@ -834,33 +835,83 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun playInternalAudio(v: VerseModel) {
-        val url = String.format(Locale.ENGLISH, "https://everyayah.com/data/Husary_64kbps/%03d%03d.mp3", v.sura, v.aya)
-        
-        Toast.makeText(this, "جاري الاتصال للتشغيل...", Toast.LENGTH_SHORT).show()
-        
-        try {
-            mediaPlayer?.release()
-            mediaPlayer = MediaPlayer().apply {
-                setAudioAttributes(AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build())
-                setDataSource(url)
-                prepareAsync()
-                setOnPreparedListener { 
-                    it.start() 
-                    Toast.makeText(this@MainActivity, "جاري الاستماع: ${v.suraName} (${v.aya})", Toast.LENGTH_SHORT).show()
-                }
-                setOnErrorListener { mp, what, extra ->
-                    Toast.makeText(this@MainActivity, "خطأ في تشغيل الصوت: $what, $extra", Toast.LENGTH_SHORT).show()
-                    Log.e("QuranAudio", "MediaPlayer error: what=$what extra=$extra")
-                    false
-                }
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "تعذر تشغيل الصوت", Toast.LENGTH_SHORT).show()
-        }
+    private var isPlayingAudio = false
+    private var currentAudioSura = -1
+    private var currentAudioAya = -1
+    private var currentReciterId = ""
+    private var currentReciterUrlTemplate = ""
+    private var isDownloading = false
+
+    private fun getAudioDir(reciterId: String, sura: Int): java.io.File {
+        val dir = java.io.File(getExternalFilesDir(null), "audio/$reciterId/$sura")
+        if (!dir.exists()) dir.mkdirs()
+        return dir
     }
 
-    private var currentPlayingSura: Int = -1
+    private fun getSuraAyahCount(suraNumber: Int): Int {
+        val ayahs = intArrayOf(
+            7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
+            123, 111, 43, 52, 99, 128, 111, 110, 98, 135,
+            112, 78, 118, 64, 77, 227, 93, 88, 69, 60,
+            34, 30, 73, 54, 45, 83, 182, 88, 75, 85,
+            54, 53, 89, 59, 37, 35, 38, 29, 18, 45,
+            60, 49, 62, 55, 78, 96, 29, 22, 24, 13,
+            14, 11, 11, 18, 12, 12, 30, 52, 52, 44,
+            28, 28, 20, 56, 40, 31, 50, 40, 46, 42,
+            29, 19, 36, 25, 22, 17, 19, 26, 30, 20,
+            15, 21, 11, 8, 8, 19, 5, 8, 8, 11,
+            11, 8, 3, 9, 5, 4, 7, 3, 6, 3,
+            5, 4, 5, 6
+        )
+        if (suraNumber in 1..114) {
+            return ayahs[suraNumber - 1]
+        }
+        return 0
+    }
+
+    private fun playInternalAudio(v: VerseModel) {
+        currentReciterId = "Alafasy"
+        currentReciterUrlTemplate = "https://everyayah.com/data/Alafasy_128kbps/%03d%03d.mp3"
+        currentAudioSura = v.sura
+        currentAudioAya = v.aya
+        playNextVerse()
+    }
+
+    private fun isSuraDownloaded(reciterId: String, sura: Int, totalAyas: Int): Boolean {
+        val dir = getAudioDir(reciterId, sura)
+        var count = 0
+        for (i in 1..totalAyas) {
+            val file = java.io.File(dir, String.format("%03d%03d.mp3", sura, i))
+            if (file.exists() && file.length() > 0) count++
+        }
+        return count == totalAyas
+    }
+
+    private fun updateDownloadStatus(view: View, sura: Int, reciter: Triple<String, String, String>) {
+        val tvStatus = view.findViewById<android.widget.TextView>(R.id.tvDownloadStatus)
+        val btnDownload = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDownloadSurah)
+        val pbDownload = view.findViewById<android.widget.ProgressBar>(R.id.pbDownload)
+        
+        val totalAyas = getSuraAyahCount(sura)
+        val downloaded = isSuraDownloaded(reciter.first, sura, totalAyas)
+        
+        if (downloaded) {
+            tvStatus.text = "متاح للاستماع أوفلاين"
+            tvStatus.setTextColor(Color.parseColor("#00A86B"))
+            btnDownload.isEnabled = false
+            btnDownload.text = "تم التحميل"
+            btnDownload.setIconResource(0)
+            pbDownload.visibility = View.GONE
+        } else {
+            tvStatus.text = "يحتاج إلى إنترنت للتحميل أو الاستماع"
+            tvStatus.setTextColor(Color.parseColor("#888888"))
+            if (!isDownloading) {
+                btnDownload.isEnabled = true
+                btnDownload.text = "تحميل السورة"
+                btnDownload.setIconResource(android.R.drawable.stat_sys_download)
+            }
+        }
+    }
 
     private fun showAudioOptionsDialog(v: VerseModel) {
         val dialog = com.google.android.material.bottomsheet.BottomSheetDialog(this)
@@ -870,45 +921,78 @@ class MainActivity : AppCompatActivity() {
         view.findViewById<android.widget.TextView>(R.id.tvAudioSurahTitle)?.text = "خيارات الصوت لسورة ${v.suraName}"
 
         val reciters = listOf(
-            Pair("محمود خليل الحصري", "https://everyayah.com/data/Husary_128kbps/%03d%03d.mp3"),
-            Pair("عبد الباسط عبد الصمد", "https://everyayah.com/data/Abdul_Basit_Murattal_192kbps/%03d%03d.mp3"),
-            Pair("مشاري العفاسي", "https://everyayah.com/data/Alafasy_128kbps/%03d%03d.mp3")
+            Triple("Alafasy", "مشاري العفاسي", "https://everyayah.com/data/Alafasy_128kbps/%03d%03d.mp3"),
+            Triple("Abdul_Basit", "عبد الباسط عبد الصمد", "https://everyayah.com/data/Abdul_Basit_Murattal_192kbps/%03d%03d.mp3")
         )
 
-        val selectedReciterUrl = reciters[0].second
+        var selectedReciter = reciters[0]
+        val rgReciters = view.findViewById<android.widget.RadioGroup>(R.id.rgReciters)
+        rgReciters.setOnCheckedChangeListener { _, checkedId ->
+            selectedReciter = if (checkedId == R.id.rbAlafasy) reciters[0] else reciters[1]
+            updateDownloadStatus(view, v.sura, selectedReciter)
+        }
+
+        updateDownloadStatus(view, v.sura, selectedReciter)
 
         view.findViewById<View>(R.id.btnPlaySurah)?.setOnClickListener {
             dialog.dismiss()
-            startAudioPlayback(v.sura, selectedReciterUrl)
+            currentReciterId = selectedReciter.first
+            currentReciterUrlTemplate = selectedReciter.third
+            currentAudioSura = v.sura
+            currentAudioAya = v.aya
+            playNextVerse()
         }
 
         view.findViewById<View>(R.id.btnDownloadSurah)?.setOnClickListener {
-            dialog.dismiss()
-            android.widget.Toast.makeText(this, "جاري التنزيل...", android.widget.Toast.LENGTH_SHORT).show()
-            downloadSurah(v.sura, selectedReciterUrl) { filePath ->
-                android.widget.Toast.makeText(this, "تم التنزيل: $filePath", android.widget.Toast.LENGTH_SHORT).show()
-            }
+            val pbDownload = view.findViewById<android.widget.ProgressBar>(R.id.pbDownload)
+            val btnDownload = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDownloadSurah)
+            val tvStatus = view.findViewById<android.widget.TextView>(R.id.tvDownloadStatus)
+            downloadSuraVerses(v.sura, selectedReciter, pbDownload, btnDownload, tvStatus, view)
         }
 
         dialog.show()
     }
 
-    private fun startAudioPlayback(sura: Int, reciterUrlTemplate: String) {
-        val url = String.format(java.util.Locale.ENGLISH, reciterUrlTemplate, sura, 1)
-        android.widget.Toast.makeText(this, "جاري تشغيل السورة...", android.widget.Toast.LENGTH_SHORT).show()
+    private fun playNextVerse() {
+        if (currentAudioSura == -1 || currentAudioAya == -1) return
+        val totalAyas = getSuraAyahCount(currentAudioSura)
+        if (currentAudioAya > totalAyas) {
+            stopAudio()
+            return
+        }
+
+        val url = String.format(java.util.Locale.ENGLISH, currentReciterUrlTemplate, currentAudioSura, currentAudioAya)
+        val file = java.io.File(getAudioDir(currentReciterId, currentAudioSura), String.format("%03d%03d.mp3", currentAudioSura, currentAudioAya))
         
+        val dataSource = if (file.exists() && file.length() > 0) file.absolutePath else url
+
         try {
             mediaPlayer?.release()
             mediaPlayer = android.media.MediaPlayer().apply {
                 setAudioAttributes(android.media.AudioAttributes.Builder().setContentType(android.media.AudioAttributes.CONTENT_TYPE_MUSIC).build())
-                setDataSource(url)
+                setDataSource(dataSource)
                 prepareAsync()
                 setOnPreparedListener { 
                     it.start() 
-                    currentPlayingSura = sura
                     setupMiniPlayerControls()
                     findViewById<View>(R.id.mini_player)?.visibility = View.VISIBLE
-                    findViewById<android.widget.TextView>(R.id.tvMiniPlayerTitle)?.text = "سورة رقم $sura"
+                    findViewById<android.widget.TextView>(R.id.tvMiniPlayerTitle)?.text = "سورة $currentAudioSura - آية $currentAudioAya"
+                    findViewById<android.widget.ImageView>(R.id.btnMiniPlayPause)?.setImageResource(android.R.drawable.ic_media_pause)
+                    
+                    if (::quranAdapter.isInitialized) {
+                        quranAdapter.highlightedSura = currentAudioSura
+                        quranAdapter.highlightedAya = currentAudioAya
+                        quranAdapter.notifyDataSetChanged()
+                    }
+                }
+                setOnCompletionListener {
+                    currentAudioAya++
+                    playNextVerse()
+                }
+                setOnErrorListener { _, _, _ ->
+                    currentAudioAya++
+                    playNextVerse()
+                    true
                 }
             }
         } catch (e: Exception) {
@@ -916,22 +1000,51 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun downloadSurah(sura: Int, reciterUrlTemplate: String, onComplete: (String) -> Unit) {
+    private fun downloadSuraVerses(sura: Int, reciter: Triple<String, String, String>, pb: android.widget.ProgressBar, btn: android.widget.Button, tvStatus: android.widget.TextView, parentView: View) {
+        if (isDownloading) return
+        isDownloading = true
+        val totalAyas = getSuraAyahCount(sura)
+        val dir = getAudioDir(reciter.first, sura)
+        
+        runOnUiThread {
+            pb.visibility = View.VISIBLE
+            pb.max = totalAyas
+            pb.progress = 0
+            btn.isEnabled = false
+            tvStatus.text = "جاري التحميل... 0 / $totalAyas"
+        }
+
         Thread {
             try {
-                val url = String.format(java.util.Locale.ENGLISH, reciterUrlTemplate, sura, 1)
-                val connection = java.net.URL(url).openConnection()
-                connection.connect()
-                val file = java.io.File(getExternalFilesDir(null), "sura_$sura.mp3")
-                connection.getInputStream().use { input ->
-                    java.io.FileOutputStream(file).use { output ->
-                        input.copyTo(output)
+                for (i in 1..totalAyas) {
+                    val file = java.io.File(dir, String.format("%03d%03d.mp3", sura, i))
+                    if (!file.exists() || file.length() == 0L) {
+                        val url = String.format(java.util.Locale.ENGLISH, reciter.third, sura, i)
+                        val connection = java.net.URL(url).openConnection()
+                        connection.connect()
+                        connection.getInputStream().use { input ->
+                            java.io.FileOutputStream(file).use { output ->
+                                input.copyTo(output)
+                            }
+                        }
+                    }
+                    runOnUiThread {
+                        pb.progress = i
+                        tvStatus.text = "جاري التحميل... $i / $totalAyas"
                     }
                 }
-                runOnUiThread { onComplete(file.absolutePath) }
+                runOnUiThread {
+                    isDownloading = false
+                    updateDownloadStatus(parentView, sura, reciter)
+                    android.widget.Toast.makeText(this@MainActivity, "اكتمل تحميل السورة", android.widget.Toast.LENGTH_SHORT).show()
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
-                runOnUiThread { android.widget.Toast.makeText(this, "خطأ في التنزيل", android.widget.Toast.LENGTH_SHORT).show() }
+                runOnUiThread {
+                    isDownloading = false
+                    tvStatus.text = "فشل التحميل، يرجى المحاولة لاحقاً"
+                    btn.isEnabled = true
+                }
             }
         }.start()
     }
@@ -955,32 +1068,38 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnRewind?.setOnClickListener {
-            mediaPlayer?.let { mp ->
-                val currentPos = mp.currentPosition
-                val newPos = if (currentPos - 10000 > 0) currentPos - 10000 else 0
-                mp.seekTo(newPos)
+            if (currentAudioAya > 1) {
+                currentAudioAya--
+                playNextVerse()
             }
         }
 
         btnForward?.setOnClickListener {
-            mediaPlayer?.let { mp ->
-                val currentPos = mp.currentPosition
-                val duration = mp.duration
-                val newPos = if (currentPos + 10000 < duration) currentPos + 10000 else duration
-                mp.seekTo(newPos)
-            }
+            currentAudioAya++
+            playNextVerse()
         }
 
         btnStop?.setOnClickListener {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = null
-            findViewById<View>(R.id.mini_player)?.visibility = View.GONE
+            stopAudio()
+        }
+    }
+
+    private fun stopAudio() {
+        mediaPlayer?.stop()
+        mediaPlayer?.release()
+        mediaPlayer = null
+        currentAudioSura = -1
+        currentAudioAya = -1
+        findViewById<View>(R.id.mini_player)?.visibility = View.GONE
+        if (::quranAdapter.isInitialized) {
+            quranAdapter.highlightedSura = -1
+            quranAdapter.highlightedAya = -1
+            quranAdapter.notifyDataSetChanged()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer?.release()
+        stopAudio()
     }
 }
