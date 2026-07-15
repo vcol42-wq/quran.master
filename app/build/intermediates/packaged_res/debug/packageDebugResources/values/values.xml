@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="gcm_defaultSenderId" translatable="false">100367684110</string>
+    <string name="google_api_key" translatable="false">AIzaSyBSsuPXSWn9fI4XNDmluplo0ehEIZP_RTc</string>
+    <string name="google_app_id" translatable="false">1:100367684110:android:aa065a860472247276225f</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBSsuPXSWn9fI4XNDmluplo0ehEIZP_RTc</string>
+    <string name="google_storage_bucket" translatable="false">sabah-bikhushue.firebasestorage.app</string>
+    <string name="project_id" translatable="false">sabah-bikhushue</string>
     <style name="Theme.QuranMaster" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">#8B4513</item>
         <item name="colorPrimaryDark">#3D2B1F</item>

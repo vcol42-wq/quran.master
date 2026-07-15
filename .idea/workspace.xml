@@ -15,6 +15,16 @@
           <theme>@style/Theme.QuranMaster</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_sunrise.xml">
+        <config>
+          <theme>@style/Theme.QuranMaster</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/top_bar_dome.xml">
+        <config>
+          <theme>@style/Theme.QuranMaster</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
         <config>
           <theme>@style/Theme.QuranMaster</theme>
@@ -58,7 +68,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="quran.master" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -73,6 +88,11 @@
         <option value="valueResourceFile" />
       </list>
     </option>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="C:\sabh\sabahbkshua_key.jks" />
+    <option name="KEY_ALIAS" value="key0" />
+    <option name="REMEMBER_PASSWORDS" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -95,6 +115,7 @@
 }</component>
   <component name="ProjectId" id="3G2v8QcBZk9c8ADK8nHTg9pOz7F" />
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -105,6 +126,8 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Android App.app.executor": "Run",
+    "BundleExportedModule": "quran.master.app",
+    "ExportBundle.BundlePathForquran.master.app": "C:\\quran.master\\app",
     "GradleDaemonJvmCriteriaMigrationNotification.isNotificationDisabled": "true",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -118,10 +141,13 @@
     "git-widget-placeholder": "Rebasing master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/quran.master/app/src/main/assets",
+    "last_opened_file_path": "C:/quran.master/app/src/main/res/drawable",
     "settings.editor.selected.configurable": "settings.sync"
   },
   "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
+    ],
     "GitStage.ChangesTree.GroupingKeys": [
       "directory",
       "module",
@@ -131,8 +157,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\quran.master\app\src\main\assets" />
       <recent name="C:\quran.master\app\src\main\res\drawable" />
+      <recent name="C:\quran.master\app\src\main\assets" />
       <recent name="C:\quran.master\app\build\generated\res\resValues\debug" />
       <recent name="C:\quran.master\app\src\main\res\font" />
     </key>
@@ -315,7 +341,15 @@
       <option name="project" value="LOCAL؜" />
       <updated>1783702889730</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL؜-٠٠٠٠٥" summary="ربط مع فايبرس">
+      <option name="closed" value="true" />
+      <created>1784063522177</created>
+      <option name="number" value="٠٠٠٠٥" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٥" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784063522177</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -324,19 +358,30 @@
     <MESSAGE value="Add and update database files (azkar.db, quran_factory.db)" />
     <MESSAGE value="الاصدار1.4  التوافق مع اندرويد ١٥ واضافة ميزة الاستماع للمصحف" />
     <MESSAGE value="Complete audio streaming/download logic, UI restructure, and fix package issues" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete audio streaming/download logic, UI restructure, and fix package issues" />
+    <MESSAGE value="ربط مع فايبرس" />
+    <option name="LAST_COMMIT_MESSAGE" value="ربط مع فايبرس" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.example.quranmaster">
           <value>
-            <CheckInfo lastCheckTimestamp="1783692694807" />
+            <CheckInfo lastCheckTimestamp="1784038761287" />
           </value>
         </entry>
         <entry key="com.example.quranmaster.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1783692694804" />
+            <CheckInfo lastCheckTimestamp="1784038761290" />
+          </value>
+        </entry>
+        <entry key="com.sabah.bikhushue">
+          <value>
+            <CheckInfo lastCheckTimestamp="1784061769963" />
+          </value>
+        </entry>
+        <entry key="com.sabah.bikhushue.test">
+          <value>
+            <CheckInfo lastCheckTimestamp="1784061769963" />
           </value>
         </entry>
       </map>

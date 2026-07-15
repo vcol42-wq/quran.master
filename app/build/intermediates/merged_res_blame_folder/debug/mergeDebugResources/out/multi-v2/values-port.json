@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.quranmaster.app-mergeDebugResources-30:/values-port/values-port.xml",
+            "outputFile": "com.sabah.bikhushue.app-mergeDebugResources-36:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\1238fddfb479cce40fb58ef2e9504f18\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\9df4883db1c66f496c2b46c6322e6214\\transformed\\appcompat-1.6.1\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

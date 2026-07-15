@@ -30,17 +30,18 @@
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="16dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="1.5dp"
+        app:cardElevation="6dp"
+        app:strokeWidth="0dp"
         app:strokeColor="#00A86B"
-        app:cardBackgroundColor="#FFFFFF">
+        app:cardBackgroundColor="@android:color/transparent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center_horizontal">
+        android:padding="8dp"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_decorative_frame">
 
         <TextView
             android:id="@+id/tvAzkarTitle"
@@ -50,7 +51,7 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="#3D2B1F"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/tvAzkarText"
@@ -61,8 +62,8 @@
             android:textSize="24sp"
             android:textColor="#3D2B1F"
             android:gravity="center"
-            android:lineSpacingExtra="8dp"
-            android:layout_marginBottom="12dp" />
+            android:lineSpacingExtra="0dp"
+            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/tvAzkarVirtue"
@@ -72,13 +73,14 @@
             android:textSize="14sp"
             android:textColor="#00A86B"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="4dp" />
 
         <FrameLayout
             android:id="@+id/flCountContainer"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:background="@drawable/bg_circle_count">
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="0.6"
+            android:background="@drawable/qq">
 
             <TextView
                 android:id="@+id/tvAzkarCount"
@@ -86,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 tools:text="100"
-                android:textSize="26sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#3D2B1F" />
                 
@@ -95,8 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="تم"
-                android:textSize="24sp"
+                android:text="❤️"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="#3D2B1F"
                 android:visibility="gone" />

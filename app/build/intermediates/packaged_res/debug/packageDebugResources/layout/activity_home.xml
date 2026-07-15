@@ -43,9 +43,8 @@
                 android:focusable="true"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:strokeWidth="1.5dp"
-                app:strokeColor="#00A86B">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,15 +52,14 @@
                     android:orientation="horizontal"
                     android:gravity="center"
                     android:paddingVertical="4dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="سبح بخشوع"
-                        android:fontFamily="@font/amiri_quran"
-                        android:textSize="36sp"
-                        android:textColor="#3D2B1F" />
+                        android:layout_height="120dp"
+                        android:src="@drawable/ghg"
+                        android:adjustViewBounds="true" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
@@ -114,7 +112,8 @@
                         android:gravity="center"
                         android:paddingVertical="24dp"
                         android:paddingHorizontal="4dp"
-                        android:background="?attr/selectableItemBackground">
+                        android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
                         
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,15 +122,11 @@
                             android:textSize="42sp"
                             android:layout_marginBottom="8dp"/>
                             
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="مصحف الاوراد"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#00A86B"
-                            android:fontFamily="@font/amiri_quran"
-                            android:gravity="center"/>
+                            android:layout_height="64dp"
+                            android:src="@drawable/m"
+                            android:adjustViewBounds="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -176,7 +171,8 @@
                         android:gravity="center"
                         android:paddingVertical="24dp"
                         android:paddingHorizontal="4dp"
-                        android:background="?attr/selectableItemBackground">
+                        android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
                         
                         <TextView
                             android:layout_width="wrap_content"
@@ -185,15 +181,11 @@
                             android:textSize="42sp"
                             android:layout_marginBottom="8dp"/>
                             
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="الأذكار"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#00A86B"
-                            android:fontFamily="@font/amiri_quran"
-                            android:gravity="center"/>
+                            android:layout_height="64dp"
+                            android:src="@drawable/a"
+                            android:adjustViewBounds="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -246,7 +238,8 @@
                         android:gravity="center"
                         android:paddingVertical="24dp"
                         android:paddingHorizontal="4dp"
-                        android:background="?attr/selectableItemBackground">
+                        android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
                         
                         <TextView
                             android:layout_width="wrap_content"
@@ -255,15 +248,11 @@
                             android:textSize="42sp"
                             android:layout_marginBottom="8dp"/>
                             
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="المسبحة"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#00A86B"
-                            android:fontFamily="@font/amiri_quran"
-                            android:gravity="center"/>
+                            android:layout_height="64dp"
+                            android:src="@drawable/s"
+                            android:adjustViewBounds="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -308,7 +297,8 @@
                         android:gravity="center"
                         android:paddingVertical="24dp"
                         android:paddingHorizontal="4dp"
-                        android:background="?attr/selectableItemBackground">
+                        android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
                         
                         <TextView
                             android:layout_width="wrap_content"
@@ -317,15 +307,11 @@
                             android:textSize="42sp"
                             android:layout_marginBottom="8dp"/>
                             
-                        <TextView
+                        <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="أوقات الصلاة"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#00A86B"
-                            android:fontFamily="@font/amiri_quran"
-                            android:gravity="center"/>
+                            android:layout_height="54dp"
+                            android:src="@drawable/k"
+                            android:adjustViewBounds="true" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
@@ -367,36 +353,23 @@
                 android:focusable="true"
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:strokeWidth="1.5dp"
-                app:strokeColor="#00A86B">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:strokeWidth="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:background="@drawable/bg_decorative_frame"
+                    android:foreground="?attr/selectableItemBackground">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="سياسة التطبيق"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#00A86B"
-                        android:fontFamily="@font/amiri_quran"
-                        android:gravity="center"
-                        android:layout_marginBottom="8dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="تطبيق يعينك على ذكر الله ولا ينتهك خصوصيتك ولا يخزن أو يرفع أي معلومات تخصك."
-                        android:textSize="14sp"
-                        android:textColor="#3D2B1F"
-                        android:gravity="center"
-                        android:lineSpacingExtra="4dp" />
+                        android:layout_height="160dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ss"
+                        android:scaleType="fitXY" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>

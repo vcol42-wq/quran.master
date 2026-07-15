@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "100367684110",
+    "project_id": "sabah-bikhushue",
+    "storage_bucket": "sabah-bikhushue.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100367684110:android:79e8517a217ff38676225f",
+        "android_client_info": {
+          "package_name": "com.example.quranmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSsuPXSWn9fI4XNDmluplo0ehEIZP_RTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100367684110:android:aa065a860472247276225f",
+        "android_client_info": {
+          "package_name": "com.sabah.bikhushue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSsuPXSWn9fI4XNDmluplo0ehEIZP_RTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:paddingVertical="14dp"
                     android:paddingHorizontal="16dp"
-                    android:text="استماع للآية (الحصري)"
+                    android:text="استماع للآية"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#00A86B"

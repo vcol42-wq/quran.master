@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer soft frame -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <stroke android:width="2dp" android:color="#8B7355" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+    
+    <!-- Inner gold wire (The string) -->
+    <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="#D2B48C" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- The Beads (Dashed stroke centered on the gold wire) -->
+    <!-- Bluish Crimson = #7E2954 -->
+    <item android:top="8dp" android:bottom="8dp" android:left="8dp" android:right="8dp">
+        <shape android:shape="rectangle">
+            <!-- 3x3 square dots that look like round beads at small scale -->
+            <stroke android:width="3dp" android:color="#7E2954"
+                    android:dashWidth="3dp" android:dashGap="4dp" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</layer-list>

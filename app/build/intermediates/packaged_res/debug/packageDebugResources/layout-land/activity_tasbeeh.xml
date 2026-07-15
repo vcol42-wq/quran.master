@@ -11,7 +11,7 @@
     android:fitsSystemWindows="true">
 
     <!-- Beads & Counter (Strictly Left Side) -->
-    <com.example.quranmaster.BeadsCircleView
+    <com.sabah.bikhushue.BeadsCircleView
         android:id="@+id/beadsCircle"
         android:layout_width="320dp"
         android:layout_height="320dp"

@@ -1,4 +1,4 @@
-com.example.quranmaster
+com.sabah.bikhushue
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -2889,6 +2889,7 @@ dimen tooltip_precise_anchor_threshold
 dimen tooltip_vertical_padding
 dimen tooltip_y_offset_non_touch
 dimen tooltip_y_offset_touch
+drawable a
 drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
 drawable abc_btn_borderless_material
@@ -2970,9 +2971,11 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable azaz
 drawable bg_bottom_sheet
 drawable bg_circle_count
 drawable bg_circle_icon
+drawable bg_decorative_frame
 drawable bg_filled_circle
 drawable bg_hollow_circle
 drawable bg_pill
@@ -2996,9 +2999,12 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ghg
 drawable hizb_badge
 drawable ic_add
 drawable ic_arrow_back_black_24
+drawable ic_arrow_left
+drawable ic_arrow_right
 drawable ic_assistant
 drawable ic_back
 drawable ic_call_answer
@@ -3022,6 +3028,8 @@ drawable ic_search
 drawable ic_search_black_24
 drawable ic_settings
 drawable ic_sunrise
+drawable k
+drawable m
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3043,6 +3051,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable mn
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3081,8 +3090,6 @@ drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
 drawable navigation_empty_icon
-drawable nbnb
-drawable nbnb1
 drawable nnbb
 drawable notification_action_background
 drawable notification_bg
@@ -3098,8 +3105,11 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable osc
+drawable qq
 drawable qurnt
 drawable rfrf
+drawable s
+drawable ss
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3711,6 +3721,7 @@ id tvDownloadStatus
 id tvDropdownIndicator
 id tvEmptyState
 id tvGeminiResponse
+id tvGetApiKey
 id tvGoal10
 id tvGoal100
 id tvGoal1000
@@ -3789,6 +3800,7 @@ integer cancel_button_image_alpha
 integer config_tooltipAnimTime
 integer design_snackbar_text_max_lines
 integer design_tab_indicator_anim_duration_ms
+integer google_play_services_version
 integer hide_password_duration
 integer m3_badge_max_number
 integer m3_btn_anim_delay_ms
@@ -3997,6 +4009,7 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 layout widget_test
 plurals mtrl_badge_content_description
+raw firebase_common_keep
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -4043,11 +4056,17 @@ string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
+string common_google_play_services_unknown_issue
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string item_view_role_description
@@ -4156,6 +4175,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string project_id
 string search_menu_title
 string searchbar_scrolling_view_behavior
 string searchview_clear_text_content_description
@@ -5433,4 +5453,5 @@ styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
+xml ga_ad_services_config
 xml prayer_widget_info

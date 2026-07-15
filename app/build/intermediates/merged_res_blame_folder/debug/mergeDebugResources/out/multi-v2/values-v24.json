@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.quranmaster.app-mergeDebugResources-30:/values-v24/values-v24.xml",
+            "outputFile": "com.sabah.bikhushue.app-mergeDebugResources-36:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\1238fddfb479cce40fb58ef2e9504f18\\transformed\\appcompat-1.6.1\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\9df4883db1c66f496c2b46c6322e6214\\transformed\\appcompat-1.6.1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\6fcd257212f58928ef189eab02bf90e0\\transformed\\material-1.11.0\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\vcol4\\.gradle\\caches\\9.4.1\\transforms\\65b56824bf09002a8733010b36cdb71a\\transformed\\material-1.11.0\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",

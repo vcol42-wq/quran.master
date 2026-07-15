@@ -48,22 +48,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@drawable/bg_pill"
+                android:background="@drawable/bg_decorative_frame"
                 android:paddingHorizontal="16dp"
                 android:gravity="center">
                 
-                <TextView
+                <ImageView
                     android:id="@+id/tvPrevZikr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="⟨"
-                    android:textSize="24sp"
-                    android:textColor="#C4A47C"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_left"
                     android:layout_marginEnd="8dp"
-                    android:includeFontPadding="false"
-                    android:paddingHorizontal="16dp"
-                    android:paddingBottom="2dp" />
+                    android:paddingHorizontal="4dp"
+                    android:translationY="-4dp" />
                     
                 <TextSwitcher
                     android:id="@+id/tsZikrWheel"
@@ -71,18 +68,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
                     
-                <TextView
+                <ImageView
                     android:id="@+id/tvNextZikr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="⟩"
-                    android:textSize="24sp"
-                    android:textColor="#C4A47C"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_right"
                     android:layout_marginStart="8dp"
-                    android:includeFontPadding="false"
-                    android:paddingHorizontal="16dp"
-                    android:paddingBottom="2dp" />
+                    android:paddingHorizontal="4dp"
+                    android:translationY="-4dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
@@ -127,76 +121,108 @@
                 android:id="@+id/tasbeehFrame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_tasbeeh_frame"
+                android:background="@drawable/bg_decorative_frame"
                 android:clickable="true"
                 android:focusable="true">
 
         <!-- Goal 33 (Top Start Screw) -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/mn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+            
         <TextView
             android:id="@+id/tvGoal33"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_hollow_circle"
             android:text="33"
             android:textColor="#3D2B1F"
             android:textSize="18sp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"
+            android:translationY="-10dp"
             android:layout_margin="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Goal 10 (Top End Screw) -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/mn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+            
         <TextView
             android:id="@+id/tvGoal10"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_hollow_circle"
             android:text="10"
             android:textColor="#3D2B1F"
             android:textSize="18sp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"
+            android:translationY="-10dp"
             android:layout_margin="12dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
             
         <!-- Goal 100 (Bottom Start Screw) -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/mn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+            
         <TextView
             android:id="@+id/tvGoal100"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_hollow_circle"
             android:text="100"
             android:textColor="#3D2B1F"
             android:textSize="18sp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"
+            android:translationY="-6dp"
             android:layout_margin="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <!-- Goal 1000 (Bottom End Screw) -->
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="12dp"
+            android:src="@drawable/mn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+            
         <TextView
             android:id="@+id/tvGoal1000"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/bg_hollow_circle"
             android:text="1k"
             android:textColor="#3D2B1F"
             android:textSize="18sp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:includeFontPadding="false"
+            android:translationY="-6dp"
             android:layout_margin="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Beads Circle -->
-        <com.example.quranmaster.BeadsCircleView
+        <com.sabah.bikhushue.BeadsCircleView
             android:id="@+id/beadsCircle"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -216,7 +242,7 @@
             android:fontFamily="sans-serif-medium"
             android:textColor="#3D2B1F"
             android:includeFontPadding="false"
-            android:paddingBottom="12dp"
+            android:translationY="-16dp"
             app:layout_constraintTop_toTopOf="@id/beadsCircle"
             app:layout_constraintBottom_toBottomOf="@id/beadsCircle"
             app:layout_constraintStart_toStartOf="@id/beadsCircle"
