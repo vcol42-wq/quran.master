@@ -34,8 +34,13 @@ class BeadsCircleView @JvmOverloads constructor(
     private val idleColor = Color.parseColor("#66CDAA") // Light Emerald (زمردي فاتح)
     private val pearlColor = Color.parseColor("#FDF2E9") // Pearl (لؤلؤي)
     private val pulseColor = Color.parseColor("#FDF2E9") // Pearl glow
-    private val staticCenterColor = Color.parseColor("#FDF5E6") // Creamy (كريمي)
+    private var staticCenterColor = Color.parseColor("#FDF5E6") // Creamy (كريمي)
     private val stringColor = Color.parseColor("#8C5C38") // Brown string
+    
+    fun setCenterColor(color: Int) {
+        staticCenterColor = color
+        invalidate()
+    }
     
     private var currentCount = 33
     

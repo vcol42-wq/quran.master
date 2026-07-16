@@ -34,31 +34,42 @@ object SettingsHelper {
         val prefs = activity.getSharedPreferences("app", Context.MODE_PRIVATE)
         
         // Theme Setup
-        val themes = arrayOf("كريمي", "زمردي", "سماوي", "ليلي")
+        val themes = arrayOf("قمري", "كريمي", "زمردي", "سماوي", "ليلي", "زهري", "قرمزي")
         spinnerTheme.adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, themes)
         
-        val currentBg = prefs.getString("bg_color", "#F4ECD8")
+        val currentBg = prefs.getString("bg_color", "#455A64")
         spinnerTheme.setSelection(when (currentBg) {
-            "#E0F2F1" -> 1
-            "#E3F2FD" -> 2
-            "#121212" -> 3
+            "#455A64", "#37474F", "#263238", "#D4CEC4" -> 0
+            "#FDFBF7" -> 1
+            "#E0F2F1" -> 2
+            "#E3F2FD" -> 3
+            "#121212" -> 4
+            "#FFF0F5" -> 5
+            "#FBF3F4" -> 6
             else -> 0
         })
 
         spinnerTheme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
                 val newBg = when (position) {
-                    1 -> "#E0F2F1"
-                    2 -> "#E3F2FD"
-                    3 -> "#121212"
-                    else -> "#F4ECD8"
+                    0 -> "#455A64"
+                    1 -> "#FDFBF7"
+                    2 -> "#E0F2F1"
+                    3 -> "#E3F2FD"
+                    4 -> "#121212"
+                    5 -> "#FFF0F5"
+                    6 -> "#FBF3F4"
+                    else -> "#455A64"
                 }
-                if (newBg != prefs.getString("bg_color", "#F4ECD8")) {
+                if (newBg != prefs.getString("bg_color", "#455A64")) {
                     when (position) {
-                        0 -> applyThemeToPrefs(prefs, "#F4ECD8", "#000000", "#E6DCC8")
-                        1 -> applyThemeToPrefs(prefs, "#E0F2F1", "#004D40", "#B2DFDB")
-                        2 -> applyThemeToPrefs(prefs, "#E3F2FD", "#0D47A1", "#BBDEFB")
-                        3 -> applyThemeToPrefs(prefs, "#121212", "#E0E0E0", "#1E1E1E")
+                        0 -> applyThemeToPrefs(prefs, "#455A64", "#FDF5E6", "#37474F")
+                        1 -> applyThemeToPrefs(prefs, "#FDFBF7", "#212121", "#F9F6F0")
+                        2 -> applyThemeToPrefs(prefs, "#E0F2F1", "#004D40", "#B2DFDB")
+                        3 -> applyThemeToPrefs(prefs, "#E3F2FD", "#0D47A1", "#BBDEFB")
+                        4 -> applyThemeToPrefs(prefs, "#121212", "#E0E0E0", "#1E1E1E")
+                        5 -> applyThemeToPrefs(prefs, "#FFF0F5", "#C2185B", "#F8BBD0")
+                        6 -> applyThemeToPrefs(prefs, "#FBF3F4", "#9C143A", "#F0D5DA")
                     }
                     onThemeChanged()
                 }
@@ -107,6 +118,27 @@ object SettingsHelper {
             androidx.appcompat.app.AlertDialog.Builder(activity)
                 .setTitle("سياسة الخصوصية")
                 .setView(webView)
+                .setPositiveButton("حسنا", null)
+                .show()
+        }
+
+        val btnAboutApp = view.findViewById<android.widget.TextView>(R.id.btnAboutApp)
+        btnAboutApp?.setOnClickListener {
+            val aboutText = "1- (¼ ح) وما يشابهها تدل على الأحزاب حيث يُقسم القرآن إلى 60 حزباً.\n\n2- (ع) هو اختصار لكلمة ركوع حيث يستطيع المصلي التوقف عندها لاكتمال المعنى وهي محببة.\n\n3- المنزل هي طريقة لتقسيم القرآن لقراءته في 7 أيام أي مشابه للأجزاء.\n\n4- الألوان وضعت لتمييز أحكام التجويد وفق معايير معتمدة.\n\n5- يمكنك الاستفادة من البحث في شريط البحث في تطبيق سبح بخشوع والأذكار لتجد كل ما تبحث عنه من أذكار وتفسير مختصر لأن التطبيق مزود بقاعدة بيانات محلية.\n\n6- يمكن الاستزادة من البحث في جُمني بعد وضع مفتاحك الخاص لكي يأخذك إلى عالم أوسع لكن محدد بالصحيح منه.\n\n7- نرجو أن تستفيد من التطبيق فينالك الأجر العظيم من ذكر الله.\n\n8- التزام الملكية: نؤكد أن النص القرآني المستخدم والخطوط المدمجة مأخوذة من مصادر عامة ومفتوحة (Public Domain) مثل مجمع الملك فهد، ولا تنتهك أي حقوق نشر.\n\n9- يمكنك الآن الاستماع إلى تلاوة الآيات أو السور كاملة بثاً مباشراً عبر الإنترنت، مع إمكانية تحميل السورة للاستماع إليها لاحقاً بدون إنترنت، وذلك عبر النقر على خيار الصوت في قائمة خيارات الآية.\n\n10- للتواصل والمقترحات:\nvcol42@gmail.com"
+            val tv = android.widget.TextView(activity).apply {
+                text = aboutText
+                textSize = 14f
+                setPadding(40, 40, 40, 40)
+                setTextColor(android.graphics.Color.parseColor("#3D2B1F"))
+                setTextIsSelectable(true)
+            }
+            androidx.appcompat.app.AlertDialog.Builder(activity)
+                .setTitle("حول التطبيق")
+                .setView(
+                    android.widget.ScrollView(activity).apply {
+                        addView(tv)
+                    }
+                )
                 .setPositiveButton("حسنا", null)
                 .show()
         }

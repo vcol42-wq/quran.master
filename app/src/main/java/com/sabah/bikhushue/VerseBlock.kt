@@ -12,6 +12,7 @@ data class VerseModel(
     val juz: Int,
     val hizbQuarter: Int,
     var suraName: String = "",
+    var textClean: String = "",
     var isEndOfRuku: Boolean = false,
     var isEndOfHizb: Boolean = false
 )

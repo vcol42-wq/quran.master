@@ -2975,6 +2975,7 @@ drawable azaz
 drawable bg_bottom_sheet
 drawable bg_circle_count
 drawable bg_circle_icon
+drawable bg_date_chip
 drawable bg_decorative_frame
 drawable bg_filled_circle
 drawable bg_hollow_circle
@@ -3105,6 +3106,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable osc
+drawable pop
 drawable qq
 drawable qurnt
 drawable rfrf
@@ -3114,6 +3116,7 @@ drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable top_bar_dome
+drawable widget_bg_rounded
 font amiri_quran
 id ALT
 id BOTTOM_END
@@ -3224,6 +3227,7 @@ id btn10
 id btn15
 id btn20
 id btn5
+id btnAboutApp
 id btnAddZikr
 id btnAssistant
 id btnAssistantSend
@@ -3246,23 +3250,21 @@ id btnPlaySurah
 id btnPrivacyPolicy
 id btnSaveSettings
 id btnSearch
+id btnSearchAzkar
 id btnSearchGemini
 id btnSearchPlayAudio
 id btnSearchQuran
 id btnSearchTafseer
 id btnSettings
 id btnStartSearch
-id btn_widget_salawat_clicker
-id btn_widget_side_left
-id btn_widget_side_right
 id buttonPanel
 id cache_measures
 id callMeasure
 id cancel_button
-id cardAbout
 id cardAudioToggle
 id cardAzkar
 id cardAzkarRoot
+id cardDaily
 id cardGeneralSettings
 id cardNextPrayer
 id cardPrayer
@@ -3271,6 +3273,8 @@ id cardSearch
 id cardSettings
 id cardTasbeeh
 id cardTimesTable
+id cardZikrInner
+id cardZikrShadow
 id carryVelocity
 id center
 id centerCrop
@@ -3388,6 +3392,8 @@ id hide_ime_id
 id hideable
 id home
 id homeAsUp
+id homeRoot
+id homeScrollView
 id honorRequest
 id horizontal_only
 id icon
@@ -3413,7 +3419,6 @@ id item_touch_helper_previous_elevation
 id ivSearchIcon
 id iv_widget_bg_mosque
 id iv_widget_reset
-id iv_widget_side_icon
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -3426,7 +3431,6 @@ id layoutMaghrib
 id layoutSettingsBody
 id layoutSettingsHeader
 id layoutSunrise
-id layout_expanded_info
 id layout_prayers_row
 id left
 id leftToRight
@@ -3621,6 +3625,9 @@ id spacer
 id special_effects_controller_view_tag
 id spinnerCalcMethod
 id spinnerTheme
+id splashLogo
+id splashRoot
+id splashTitle
 id spline
 id split_action_bar
 id spread
@@ -3666,6 +3673,7 @@ id tag_unhandled_key_listeners
 id tag_window_insets_animation_callback
 id tasbeehFrame
 id tasbeehMainCard
+id tasbeehMainShadow
 id tasbeehRoot
 id text
 id text2
@@ -3694,6 +3702,7 @@ id topBarInnerLayout
 id topBarJuzText
 id topBarPageText
 id topBarSuraText
+id topBarTimerCard
 id topBarTimerText
 id topPanel
 id touch_outside
@@ -3717,6 +3726,7 @@ id tvAzkarVirtue
 id tvCityName
 id tvCoordinates
 id tvCountdown
+id tvDailyContent
 id tvDownloadStatus
 id tvDropdownIndicator
 id tvEmptyState
@@ -3726,6 +3736,8 @@ id tvGoal10
 id tvGoal100
 id tvGoal1000
 id tvGoal33
+id tvGregorianDate
+id tvHijriDate
 id tvIndexTitle
 id tvMainCounter
 id tvMiniPlayerTitle
@@ -3762,8 +3774,9 @@ id tv_maghrib_label
 id tv_maghrib_time
 id tv_motivational_msg
 id tv_next_prayer_name
+id tv_next_prayer_time
 id tv_remaining_time
-id tv_sunrise_label
+id tv_tasbeeh_count
 id tv_test
 id tv_widget_city
 id tv_widget_salawat_counter
@@ -3784,6 +3797,8 @@ id visible_removing_fragment_view_tag
 id west
 id widget_clock
 id widget_root
+id widget_small_root
+id widget_tasbeeh_root
 id withText
 id with_icon
 id withinBounds
@@ -3911,6 +3926,7 @@ layout activity_athan
 layout activity_azkar
 layout activity_home
 layout activity_main
+layout activity_splash
 layout activity_tasbeeh
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -4003,13 +4019,16 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout prayer_widget
+layout prayer_widget_small
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+layout tasbeeh_widget
 layout widget_test
 plurals mtrl_badge_content_description
 raw firebase_common_keep
+raw mm
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -5455,3 +5474,5 @@ styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration
 styleable include constraintSet
 xml ga_ad_services_config
 xml prayer_widget_info
+xml prayer_widget_small_info
+xml tasbeeh_widget_info

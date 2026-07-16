@@ -83,7 +83,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="8dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSearchQuran"
@@ -91,10 +91,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="القرآن"
+            android:textSize="14sp"
+            android:maxLines="1"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="14sp"
             app:cornerRadius="8dp"
-            app:icon="@android:drawable/ic_menu_sort_by_size"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="4dp"
+            android:paddingHorizontal="0dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSearchTafseer"
@@ -102,9 +107,30 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="التفسير"
+            android:textSize="14sp"
+            android:maxLines="1"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="14sp"
             app:cornerRadius="8dp"
-            app:icon="@android:drawable/ic_menu_info_details"
-            style="@style/Widget.MaterialComponents.Button"/>
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_marginEnd="4dp"
+            android:paddingHorizontal="0dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSearchAzkar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="الأذكار"
+            android:textSize="14sp"
+            android:maxLines="1"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="10sp"
+            app:autoSizeMaxTextSize="14sp"
+            app:cornerRadius="8dp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:paddingHorizontal="0dp" />
     </LinearLayout>
 
     <!-- Divider -->

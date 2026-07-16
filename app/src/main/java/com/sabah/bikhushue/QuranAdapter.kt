@@ -57,8 +57,7 @@ class QuranAdapter(
             holder.suraHeaderLayout.visibility = View.VISIBLE
             holder.basmalahText.setTextColor(textColorInt)
             
-            holder.suraNameAndNumberText?.setTextColor(textColorInt)
-            holder.suraTypeAndAyahsText?.setTextColor(textColorInt)
+
             holder.suraNameAndNumberText?.text = "سورة ${block.suraName.replace("سورة ", "")} (${block.suraNumber})"
             val suraInfo = getSuraInfo(block.suraNumber)
             holder.suraTypeAndAyahsText?.text = "${suraInfo.first} - ${suraInfo.second} آية"
@@ -71,10 +70,15 @@ class QuranAdapter(
                 holder.basmalahText.visibility = View.VISIBLE
             }
             
-            val cardBg = if (currentBgColor == "#121212") Color.parseColor("#1A3025") else Color.parseColor("#E8F5E9")
-            val cardStroke = if (currentBgColor == "#121212") Color.parseColor("#2E503F") else Color.parseColor("#A5D6A7")
+            val isCardDark = currentBgColor == "#121212"
+            val cardBg = if (isCardDark) Color.parseColor("#1A3025") else Color.parseColor("#E8F5E9")
+            val cardStroke = if (isCardDark) Color.parseColor("#2E503F") else Color.parseColor("#A5D6A7")
+            val cardText = if (isCardDark) Color.parseColor("#A5D6A7") else Color.parseColor("#1B5E20")
+            
             holder.basmalahCard?.setCardBackgroundColor(cardBg)
             holder.basmalahCard?.strokeColor = cardStroke
+            holder.suraNameAndNumberText?.setTextColor(cardText)
+            holder.suraTypeAndAyahsText?.setTextColor(cardText)
         } else {
             holder.suraHeaderLayout.visibility = View.GONE
         }

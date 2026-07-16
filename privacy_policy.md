@@ -14,4 +14,4 @@ We do not use any third-party tracking services or analytics that collect person
 We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. 
 
 ## 5. Contact Us
-If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us.
+If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at vcol42@gmail.com.

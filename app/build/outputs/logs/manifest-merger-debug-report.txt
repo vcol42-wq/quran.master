@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-75:12
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-120:12
+INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-120:12
+INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-120:12
+INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:2:1-120:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\65b56824bf09002a8733010b36cdb71a\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\e4cb0d855d69e3ae5180b047f1ae19c5\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\ab9bfd02ed8aca561ef18df0a86e8f39\transformed\jetified-appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
@@ -114,9 +114,25 @@ uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:9:5-81
 	android:name
 		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:10:5-77
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:10:22-74
+uses-permission#android.permission.SCHEDULE_EXACT_ALARM
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:11:5-79
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:11:22-76
+uses-permission#android.permission.USE_EXACT_ALARM
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:12:5-74
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:12:22-71
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:13:5-81
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:13:22-78
 application
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:12:5-74:19
-INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:12:5-74:19
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:16:5-119:19
+INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml:16:5-119:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\65b56824bf09002a8733010b36cdb71a\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\65b56824bf09002a8733010b36cdb71a\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\e4cb0d855d69e3ae5180b047f1ae19c5\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -168,115 +184,179 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\vcol4\.gradle\cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\vcol4\.gradle\caches\9.4.1\transforms\db1b99e1c9281c1fe01414b60fd1c04c\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:18:9-35
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:22:9-35
 	android:label
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:17:9-34
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:21:9-34
 	android:roundIcon
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:16:9-43
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:20:9-43
 	android:icon
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:15:9-38
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:19:9-38
 	android:allowBackup
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:18:9-35
 	android:theme
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:19:9-49
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:23:9-49
 	android:usesCleartextTraffic
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:13:9-44
-activity#com.sabah.bikhushue.HomeActivity
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:21:9-40:20
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:17:9-44
+activity#com.sabah.bikhushue.SplashActivity
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:25:9-34:20
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:28:13-49
 	android:exported
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:23:13-36
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:27:13-36
 	android:configChanges
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:24:13-87
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:29:13-87
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:22:13-41
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:26:13-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:25:13-28:29
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:30:13-33:29
 action#android.intent.action.MAIN
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:26:17-69
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:31:17-69
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:26:25-66
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:31:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:27:17-77
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:32:17-77
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:27:27-74
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:32:27-74
+activity#com.sabah.bikhushue.HomeActivity
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:36:9-51:20
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:39:13-49
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:38:13-36
+	android:configChanges
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:40:13-87
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:37:13-41
 intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:sabah-bikhushue.web.app+data:host:sabah-bikhushue.web.app+data:host:vcol42-wq.github.io+data:host:vcol42-wq.github.io+data:scheme:http+data:scheme:http+data:scheme:https+data:scheme:https
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:31:13-39:29
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:42:13-50:29
 	android:autoVerify
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:31:28-53
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:42:28-53
 action#android.intent.action.VIEW
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:32:17-69
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:43:17-69
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:32:25-66
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:43:25-66
 category#android.intent.category.DEFAULT
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:33:17-76
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:44:17-76
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:33:27-73
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:44:27-73
 category#android.intent.category.BROWSABLE
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:34:17-78
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:45:17-78
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:34:27-75
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:45:27-75
 data
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:35:17-83
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:46:17-83
 	android:host
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:35:46-80
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:46:46-80
 	android:scheme
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:35:23-45
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:46:23-45
 activity#com.sabah.bikhushue.MainActivity
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:42:9-45:40
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:53:9-57:40
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:55:13-49
 	android:exported
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:45:13-37
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:57:13-37
 	android:configChanges
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:44:13-87
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:56:13-87
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:43:13-41
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:54:13-41
 activity#com.sabah.bikhushue.AzkarActivity
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:47:9-50:40
-	android:exported
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:50:13-37
-	android:configChanges
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:49:13-87
-	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:48:13-42
-activity#com.sabah.bikhushue.TasbeehActivity
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:52:9-54:40
-	android:exported
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:54:13-37
-	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:53:13-44
-activity#com.sabah.bikhushue.AthanActivity
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:56:9-59:40
-	android:exported
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:59:13-37
-	android:configChanges
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:58:13-87
-	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:57:13-42
-receiver#com.sabah.bikhushue.PrayerWidgetProvider
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:61:9-72:20
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:59:9-63:40
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:61:13-49
 	android:exported
 		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:63:13-37
+	android:configChanges
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:62:13-87
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:62:13-49
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:60:13-42
+activity#com.sabah.bikhushue.TasbeehActivity
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:65:9-68:40
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:67:13-49
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:68:13-37
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:66:13-44
+activity#com.sabah.bikhushue.AthanActivity
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:70:9-74:40
+	android:screenOrientation
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:72:13-49
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:74:13-37
+	android:configChanges
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:73:13-87
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:71:13-42
+receiver#com.sabah.bikhushue.PrayerNotificationReceiver
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:76:9-89
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:76:62-86
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:76:19-61
+receiver#com.sabah.bikhushue.AzkarAlarmReceiver
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:77:9-81
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:77:54-78
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:77:19-53
+receiver#com.sabah.bikhushue.BootReceiver
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:78:9-82:20
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:78:48-71
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:78:19-47
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:79:13-81:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:80:17-79
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:80:25-76
+receiver#com.sabah.bikhushue.PrayerWidgetProvider
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:84:9-95:20
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:86:13-36
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:85:13-49
 intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE+action:name:com.sabah.bikhushue.ACTION_WIDGET_INCREMENT+action:name:com.sabah.bikhushue.ACTION_WIDGET_RESET
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:64:13-68:29
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:87:13-91:29
 action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:65:17-84
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:88:17-84
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:65:25-81
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:88:25-81
 action#com.sabah.bikhushue.ACTION_WIDGET_INCREMENT
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:66:17-86
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:89:17-86
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:66:25-83
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:89:25-83
 action#com.sabah.bikhushue.ACTION_WIDGET_RESET
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:67:17-82
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:90:17-82
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:67:25-79
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:90:25-79
 meta-data#android.appwidget.provider
-ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:69:13-71:62
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:92:13-94:62
 	android:resource
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:71:17-59
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:94:17-59
 	android:name
-		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:70:17-58
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:93:17-58
+receiver#com.sabah.bikhushue.PrayerSmallWidgetProvider
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:97:9-106:20
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:99:13-36
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:98:13-54
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:100:13-102:29
+receiver#com.sabah.bikhushue.TasbeehWidgetProvider
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:108:9-118:20
+	android:exported
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:110:13-36
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:109:13-50
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE+action:name:com.sabah.bikhushue.ACTION_TASBEEH_INCREMENT
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:111:13-114:29
+action#com.sabah.bikhushue.ACTION_TASBEEH_INCREMENT
+ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:113:17-87
+	android:name
+		ADDED from C:\quran.master\app\src\main\AndroidManifest.xml:113:25-84
 uses-sdk
 INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\quran.master\app\src\main\AndroidManifest.xml

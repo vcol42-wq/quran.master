@@ -60,6 +60,8 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, D
                 var suraNameIdx = cursor.getColumnIndex("sura_name_ar")
                 if (suraNameIdx == -1) suraNameIdx = cursor.getColumnIndex("sura_name")
                 if (suraNameIdx == -1) suraNameIdx = cursor.getColumnIndex("sura_ar")
+                
+                val textCleanIdx = cursor.getColumnIndex("text_clean")
 
                 do {
                     val currentSura = if (suraIdx != -1) cursor.getInt(suraIdx) else 0
@@ -84,7 +86,8 @@ class DatabaseHelper(private val context: Context) : SQLiteOpenHelper(context, D
                         manzil = if (manzilIdx != -1) cursor.getInt(manzilIdx) else 0,
                         juz = if (juzIdx != -1) cursor.getInt(juzIdx) else 0,
                         hizbQuarter = if (hizbIdx != -1) cursor.getInt(hizbIdx) else 0,
-                        suraName = if (suraNameIdx != -1) cursor.getString(suraNameIdx) else ""
+                        suraName = if (suraNameIdx != -1) cursor.getString(suraNameIdx) else "",
+                        textClean = if (textCleanIdx != -1) cursor.getString(textCleanIdx) else textT.replace(Regex("<[^>]*>"), "")
                     )
                     list.add(verse)
                 } while (cursor.moveToNext())

@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:padding="24dp">
+                android:padding="24dp"
+                android:background="@drawable/bg_decorative_frame">
 
                 <TextView
                     android:id="@+id/tvNextPrayerTitle"
@@ -74,7 +75,40 @@
                     android:fontFamily="sans-serif-thin"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Date Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_date_chip"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:id="@+id/tvGregorianDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="16 يوليو 2026"
+                        android:textColor="#FDF5E6"
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:alpha="0.85" />
+
+                    <TextView
+                        android:id="@+id/tvHijriDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1 محرم 1448"
+                        android:textColor="#D4AF37"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/amiri_quran"
+                        android:textStyle="bold"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
 
                 <!-- Region / Timezone -->
                 <TextView
@@ -399,7 +433,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:padding="16dp"
-                android:background="?attr/selectableItemBackground">
+                android:background="@drawable/bg_decorative_frame">
 
                 <TextView
                     android:id="@+id/tvSoundStatusIcon"
@@ -459,7 +493,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/bg_decorative_frame">
 
                 <!-- Header of settings (Toggle dropdown) -->
                 <LinearLayout
@@ -600,7 +635,8 @@
                             <Spinner
                                 android:id="@+id/spinnerCalcMethod"
                                 android:layout_width="match_parent"
-                                android:layout_height="48dp"
+                                android:layout_height="wrap_content"
+                                android:minHeight="48dp"
                                 android:background="@android:drawable/btn_dropdown"/>
                         </com.google.android.material.card.MaterialCardView>
                     </FrameLayout>
@@ -624,6 +660,16 @@
                         android:textColor="#8B7355"
                         android:gravity="center"
                         android:layout_marginTop="6dp" />
+                        
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="للتواصل والمقترحات:\nvcol42@gmail.com"
+                        android:textSize="12sp"
+                        android:textColor="#3D2B1F"
+                        android:gravity="center"
+                        android:textIsSelectable="true"
+                        android:layout_marginTop="16dp" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

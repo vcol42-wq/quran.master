@@ -92,6 +92,8 @@ class AthanActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tvRegion).text = regionName
         findViewById<TextView>(R.id.tvCoordinates).text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
 
+        updateDates()
+
         // Switch Sound Setup
         val switchSound: SwitchMaterial = findViewById(R.id.switchSound)
         val tvSoundStatusText: TextView = findViewById(R.id.tvSoundStatusText)
@@ -200,22 +202,18 @@ class AthanActivity : AppCompatActivity() {
     }
 
     private fun applyTheme() {
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-        val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
-        val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
-
-        val bgColor = Color.parseColor(savedBg)
-        val txtColor = Color.parseColor(savedTxt)
-        val barColor = Color.parseColor(savedBar)
-        val cardBgColor = if (savedBg == "#121212") Color.parseColor("#2D2D2D") else Color.WHITE
+        val theme = ThemeHelper.getThemeColors(this)
+        val bgColor = theme.bg
+        val txtColor = theme.txt
+        val barColor = theme.bar
+        val cardBgColor = theme.cardBg
 
         val root: View = findViewById(R.id.scrollView)
         root.setBackgroundColor(bgColor)
 
         window.statusBarColor = barColor
         window.navigationBarColor = barColor
-        if (savedBg == "#121212") {
+        if (theme.isDark) {
             @Suppress("DEPRECATION")
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         } else {
@@ -226,23 +224,41 @@ class AthanActivity : AppCompatActivity() {
         // Apply color to cards
         findViewById<MaterialCardView>(R.id.cardTimesTable).apply {
             setCardBackgroundColor(cardBgColor)
-            strokeColor = barColor
+            strokeColor = theme.shadow
         }
         findViewById<MaterialCardView>(R.id.cardAudioToggle).apply {
             setCardBackgroundColor(cardBgColor)
-            strokeColor = barColor
+            strokeColor = theme.shadow
         }
         findViewById<MaterialCardView>(R.id.cardGeneralSettings).apply {
             setCardBackgroundColor(cardBgColor)
-            strokeColor = barColor
+            strokeColor = theme.shadow
+        }
+        val cardNextPrayer = findViewById<MaterialCardView>(R.id.cardNextPrayer)
+        if (cardNextPrayer != null) {
+            cardNextPrayer.setCardBackgroundColor(cardBgColor)
+            cardNextPrayer.strokeColor = theme.shadow
+            cardNextPrayer.strokeWidth = 3
+        }
+
+        // Apply theme to buttons
+        findViewById<MaterialButton>(R.id.btnAutoLocation)?.apply {
+            setTextColor(txtColor)
+            strokeColor = android.content.res.ColorStateList.valueOf(txtColor)
+        }
+        findViewById<MaterialButton>(R.id.btnManualLocation)?.apply {
+            setTextColor(txtColor)
+            strokeColor = android.content.res.ColorStateList.valueOf(txtColor)
+        }
+        findViewById<MaterialButton>(R.id.btnChooseSound)?.apply {
+            backgroundTintList = android.content.res.ColorStateList.valueOf(barColor)
+            setTextColor(txtColor)
         }
 
         fun updateTextViews(view: View) {
             if (view is TextView) {
-                val id = view.id
-                if (id != R.id.tvNextPrayerTitle && id != R.id.tvCountdown && id != R.id.tvCityName && id != R.id.tvRegion) {
-                    view.setTextColor(txtColor)
-                }
+                // Allow all text views inside to take the theme color
+                view.setTextColor(txtColor)
             } else if (view is ViewGroup) {
                 for (i in 0 until view.childCount) {
                     updateTextViews(view.getChildAt(i))
@@ -638,5 +654,35 @@ class AthanActivity : AppCompatActivity() {
         bottomBarLayout.animate()
             .translationY(if (isBottomBarVisible) 0f else bottomBarLayout.height.toFloat() + 100f)
             .setDuration(300).start()
+    }
+
+    private fun updateDates() {
+        val gregorianCalendar = java.util.Calendar.getInstance()
+        val d = gregorianCalendar.get(java.util.Calendar.DAY_OF_MONTH)
+        val m = gregorianCalendar.get(java.util.Calendar.MONTH)
+        val y = gregorianCalendar.get(java.util.Calendar.YEAR)
+        
+        val gregMonths = arrayOf(
+            "يناير (كانون الثاني)", "فبراير (شباط)", "مارس (آذار)", "أبريل (نيسان)", 
+            "مايو (أيار)", "يونيو (حزيران)", "يوليو (تموز)", "أغسطس (آب)", 
+            "سبتمبر (أيلول)", "أكتوبر (تشرين الأول)", "نوفمبر (تشرين الثاني)", "ديسمبر (كانون الأول)"
+        )
+        val gregorianStr = "$d ${gregMonths[m]} $y"
+        findViewById<android.widget.TextView>(R.id.tvGregorianDate)?.text = gregorianStr
+
+        val hijriCalendar = android.icu.util.IslamicCalendar()
+        hijriCalendar.add(android.icu.util.Calendar.DAY_OF_MONTH, 2) // Fix Hijri date offset
+        val hd = hijriCalendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
+        val hm = hijriCalendar.get(android.icu.util.Calendar.MONTH)
+        val hy = hijriCalendar.get(android.icu.util.Calendar.YEAR)
+        
+        val hijriMonths = arrayOf(
+            "محرم", "صفر", "ربيع الأول", "ربيع الآخر", 
+            "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", 
+            "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+        )
+        val hijriMonthName = if (hm in 0..11) hijriMonths[hm] else ""
+        val hijriStr = "$hd $hijriMonthName $hy"
+        findViewById<android.widget.TextView>(R.id.tvHijriDate)?.text = hijriStr
     }
 }

@@ -63,6 +63,18 @@ class MainActivity : AppCompatActivity() {
             topBarContainer.visibility = View.GONE
             bottomBarLayout.visibility = View.GONE
         }
+        
+        if (intent.getBooleanExtra("OPEN_SEARCH", false)) {
+            openSearchDialog()
+        }
+    }
+    
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (intent.getBooleanExtra("OPEN_SEARCH", false)) {
+            openSearchDialog()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: android.content.res.Configuration) {
@@ -98,22 +110,25 @@ class MainActivity : AppCompatActivity() {
         topBarPageText = findViewById(R.id.topBarPageText)
         topBarTimerText = findViewById(R.id.topBarTimerText)
 
-        BottomBarHelper.setupBottomBar(this, searchAction = { openSearchDialog() })
-
-        findViewById<View>(R.id.btnSettings).setOnClickListener { 
-            SettingsHelper.showSettingsDialog(this, onThemeChanged = {
-                val prefs = getSharedPreferences("app", MODE_PRIVATE)
-                val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-                val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
-                val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
-                applyTheme(savedBg, savedTxt, savedBar)
-            }, onTajweedChanged = { isChecked ->
-                if (::quranAdapter.isInitialized) {
-                    quranAdapter.showTajweedColors = isChecked
-                    quranAdapter.notifyDataSetChanged()
-                }
-            })
+        val onThemeChangedAction = {
+            val prefs = getSharedPreferences("app", MODE_PRIVATE)
+            val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+            val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
+            val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
+            applyTheme(savedBg, savedTxt, savedBar)
         }
+        val onTajweedChangedAction = { isChecked: Boolean ->
+            if (::quranAdapter.isInitialized) {
+                quranAdapter.showTajweedColors = isChecked
+                quranAdapter.notifyDataSetChanged()
+            }
+        }
+        BottomBarHelper.setupBottomBar(
+            this,
+            searchAction = { openSearchDialog() },
+            onThemeChanged = onThemeChangedAction,
+            onTajweedChanged = onTajweedChangedAction
+        )
         
         topBarSuraText.setOnClickListener { openUnifiedIndex(0) }
         topBarJuzText.setOnClickListener { openUnifiedIndex(1) }
@@ -264,10 +279,11 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun applyTheme(bg: String, txt: String, bar: String) {
+        val isDarkMode = bg == "#121212"
         val bgColor = Color.parseColor(bg)
-        val txtColor = Color.parseColor(txt)
-        val barColor = Color.parseColor(bar)
-        val subtleBorder = if (bg == "#121212") Color.parseColor("#2D2D2D") else Color.parseColor("#E4D7B4")
+        val txtColor = if (isDarkMode) Color.parseColor("#E0E0E0") else Color.parseColor(txt)
+        val barColor = if (isDarkMode) Color.parseColor("#2D2D2D") else Color.parseColor(bar)
+        val subtleBorder = if (isDarkMode) Color.parseColor("#555555") else Color.parseColor("#E4D7B4")
 
         mainRootLayout.setBackgroundColor(bgColor)
         quranRecyclerView.setBackgroundColor(Color.TRANSPARENT)
@@ -288,6 +304,27 @@ class MainActivity : AppCompatActivity() {
         topBarContainer.strokeWidth = 1
         bottomBarLayout.strokeWidth = 1
 
+        val topBarTimerCard = findViewById<com.google.android.material.card.MaterialCardView>(R.id.topBarTimerCard)
+        val miniPlayer = findViewById<View>(R.id.mini_player)
+        
+        if (bg == "#121212") {
+            topBarTimerCard?.setCardBackgroundColor(Color.parseColor("#555555"))
+            miniPlayer?.setBackgroundColor(Color.parseColor("#2D2D2D"))
+            findViewById<TextView>(R.id.tvMiniPlayerTitle)?.setTextColor(Color.parseColor("#E0E0E0"))
+            findViewById<ImageView>(R.id.btnMiniRewind)?.setColorFilter(Color.parseColor("#E0E0E0"))
+            findViewById<ImageView>(R.id.btnMiniPlayPause)?.setColorFilter(Color.parseColor("#E0E0E0"))
+            findViewById<ImageView>(R.id.btnMiniForward)?.setColorFilter(Color.parseColor("#E0E0E0"))
+            findViewById<ImageView>(R.id.btnMiniStop)?.setColorFilter(Color.parseColor("#E0E0E0"))
+        } else {
+            topBarTimerCard?.setCardBackgroundColor(Color.parseColor("#D2B48C"))
+            miniPlayer?.setBackgroundColor(Color.parseColor("#D2B48C"))
+            findViewById<TextView>(R.id.tvMiniPlayerTitle)?.setTextColor(txtColor)
+            findViewById<ImageView>(R.id.btnMiniRewind)?.setColorFilter(txtColor)
+            findViewById<ImageView>(R.id.btnMiniPlayPause)?.setColorFilter(txtColor)
+            findViewById<ImageView>(R.id.btnMiniForward)?.setColorFilter(txtColor)
+            findViewById<ImageView>(R.id.btnMiniStop)?.setColorFilter(txtColor)
+        }
+
         findViewById<View>(R.id.topBarInnerLayout)?.setBackgroundColor(Color.TRANSPARENT)
         findViewById<View>(R.id.bottomBarInnerLayout)?.setBackgroundColor(Color.TRANSPARENT)
 
@@ -296,7 +333,25 @@ class MainActivity : AppCompatActivity() {
         topBarPageText.setTextColor(txtColor)
         topBarTimerText.setTextColor(txtColor)
 
-        BottomBarHelper.setupBottomBar(this, searchAction = { openSearchDialog() })
+        val onThemeChangedAction = {
+            val prefs = getSharedPreferences("app", MODE_PRIVATE)
+            val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+            val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
+            val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
+            applyTheme(savedBg, savedTxt, savedBar)
+        }
+        val onTajweedChangedAction = { isChecked: Boolean ->
+            if (::quranAdapter.isInitialized) {
+                quranAdapter.showTajweedColors = isChecked
+                quranAdapter.notifyDataSetChanged()
+            }
+        }
+        BottomBarHelper.setupBottomBar(
+            this,
+            searchAction = { openSearchDialog() },
+            onThemeChanged = onThemeChangedAction,
+            onTajweedChanged = onTajweedChangedAction
+        )
 
         if (::quranAdapter.isInitialized) {
             quranAdapter.currentTextColor = txt
@@ -349,7 +404,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun openSearchDialog() {
+    fun openSearchDialog() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.dialog_modern_search, null)
         dialog.setContentView(view)
@@ -358,17 +413,56 @@ class MainActivity : AppCompatActivity() {
         val et = view.findViewById<EditText>(R.id.etModernSearch)
         val btnQuran = view.findViewById<Button>(R.id.btnSearchQuran)
         val btnTafseer = view.findViewById<Button>(R.id.btnSearchTafseer)
+        val btnAzkar = view.findViewById<Button>(R.id.btnSearchAzkar)
         val rv = view.findViewById<RecyclerView>(R.id.rvSearchResults)
         rv.layoutManager = LinearLayoutManager(this)
         
-        btnQuran.setOnClickListener { performSearch(et.text.toString().trim(), 0, rv, dialog) }
-        btnTafseer.setOnClickListener { performSearch(et.text.toString().trim(), 1, rv, dialog) }
+        val incomingQuery = intent.getStringExtra("search_query")
+        if (!incomingQuery.isNullOrEmpty()) {
+            et.setText(incomingQuery)
+            intent.removeExtra("search_query")
+        }
+        
+        var currentSearchType = 0
+        
+        btnQuran.setOnClickListener {
+            currentSearchType = 0
+            performSearch(et.text.toString().trim(), currentSearchType, rv, dialog)
+        }
+        btnTafseer.setOnClickListener {
+            currentSearchType = 1
+            performSearch(et.text.toString().trim(), currentSearchType, rv, dialog)
+        }
+        btnAzkar?.setOnClickListener {
+            currentSearchType = 2
+            val q = et.text.toString().trim()
+            if (q.isNotEmpty()) {
+                val intentAzkar = android.content.Intent(this, AzkarActivity::class.java)
+                intentAzkar.putExtra("search_query", q)
+                startActivity(intentAzkar)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(this, "يرجى كتابة كلمة للبحث", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        et.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (currentSearchType != 2) {
+                    performSearch(s.toString().trim(), currentSearchType, rv, dialog)
+                }
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
         
         dialog.show()
     }
 
     private fun String.removeTashkeel(): String {
-        return this.replace(Regex("[\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]"), "")
+        return this.replace(Regex("<[^>]*>"), "")
+            .replace(Regex("\\[[^\\]]*\\]"), "")
+            .replace(Regex("[\\u064B-\\u065F\\u0670\\u06D6-\\u06ED]"), "")
             .replace(Regex("[أإآٱ]"), "ا")
             .replace("ة", "ه")
             .replace("ى", "ي")
@@ -392,9 +486,9 @@ class MainActivity : AppCompatActivity() {
             for (i in blockList.indices) {
                 for (v in blockList[i].verses) {
                     val match = if (type == 0) {
-                        v.textTajweed.removeTashkeel().contains(qClean)
+                        v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean)
                     } else {
-                        v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirJalalayn.contains(q)
+                        v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirJalalayn.contains(q)
                     }
                     if (match) {
                         res.add(Triple(v, v.textTajweed, i))
@@ -541,246 +635,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openAssistantDialog() {
-        val dialog = BottomSheetDialog(this)
-        val view = layoutInflater.inflate(R.layout.dialog_assistant, null)
-        dialog.setContentView(view)
-        setupExpandedBottomSheet(dialog)
-        
-        val tvResponse = view.findViewById<TextView>(R.id.tvAssistantResponse)
-        val etInput = view.findViewById<EditText>(R.id.etAssistantInput)
-        val btnSend = view.findViewById<ImageView>(R.id.btnAssistantSend)
-        val pbLoading = view.findViewById<ProgressBar>(R.id.pbAssistantLoading)
-        
-        val apiKey = getSharedPreferences("app", MODE_PRIVATE).getString("api", "") ?: ""
-        var pendingExternalQuestion: String? = null
-        
-        btnSend.setOnClickListener {
-            val q = etInput.text.toString().trim()
-            if (q.isEmpty()) return@setOnClickListener
-            
-            etInput.setText("")
-            tvResponse.append("\n\nأنت: $q")
-            view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-            pbLoading.visibility = View.VISIBLE
-            
-            if (pendingExternalQuestion != null) {
-                if (q.contains("نعم") || q.contains("موافق") || q.contains("اجل") || q.contains("yes", true)) {
-                    val externalQ = pendingExternalQuestion!!
-                    pendingExternalQuestion = null
-                    
-                    Thread {
-                        val prompt = "أجب على هذا السؤال من مصادر موثوقة وغير مختلف عليها. الإجابة يجب أن تكون مختصرة ودقيقة وصحيحة. إذا كان السؤال لا يتعلق بالقرآن والأذكار، أجب فقط بـ 'أنا مخصص للقرآن والأذكار فقط ولا يمكنني الإجابة على هذا السؤال'. السؤال: $externalQ"
-                        try {
-                            val url = java.net.URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey")
-                            val conn = url.openConnection() as java.net.HttpURLConnection
-                            conn.requestMethod = "POST"
-                            conn.setRequestProperty("Content-Type", "application/json")
-                            conn.doOutput = true
-                            
-                            val jsonBody = org.json.JSONObject().apply {
-                                put("contents", org.json.JSONArray().apply {
-                                    put(org.json.JSONObject().apply {
-                                        put("parts", org.json.JSONArray().apply {
-                                            put(org.json.JSONObject().apply {
-                                                put("text", prompt)
-                                            })
-                                        })
-                                    })
-                                })
-                            }.toString()
-                            
-                            conn.outputStream.use { it.write(jsonBody.toByteArray(Charsets.UTF_8)) }
-                            
-                            if (conn.responseCode == 200) {
-                                val response = conn.inputStream.bufferedReader().use { it.readText() }
-                                try {
-                                    val jsonResponse = org.json.JSONObject(response)
-                                    val text = jsonResponse.getJSONArray("candidates")
-                                        .getJSONObject(0)
-                                        .getJSONObject("content")
-                                        .getJSONArray("parts")
-                                        .getJSONObject(0)
-                                        .getString("text")
-                                    runOnUiThread { 
-                                        pbLoading.visibility = View.GONE
-                                        tvResponse.append("\n\nالمساعد: $text") 
-                                        view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                                    }
-                                } catch (e: Exception) {
-                                    runOnUiThread { 
-                                        pbLoading.visibility = View.GONE
-                                        tvResponse.append("\n\nتعذر استخراج النص من الاستجابة.") 
-                                    }
-                                }
-                            } else {
-                                val error = conn.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-                                runOnUiThread { 
-                                    pbLoading.visibility = View.GONE
-                                    tvResponse.append("\n\nخطأ في الاتصال: ${conn.responseCode}\n$error") 
-                                }
-                            }
-                        } catch (e: Exception) {
-                            runOnUiThread { 
-                                pbLoading.visibility = View.GONE
-                                tvResponse.append("\n\nحدث خطأ: ${e.message}") 
-                            }
-                        }
-                    }.start()
-                } else {
-                    pendingExternalQuestion = null
-                    tvResponse.append("\n\nالمساعد: حسناً، تم الإلغاء. كيف يمكنني مساعدتك؟")
-                    view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                    pbLoading.visibility = View.GONE
-                }
-                return@setOnClickListener
-            }
-            
-            if (q.contains("ليلي") || q.contains("داكن") || q.contains("اسود")) {
-                applyTheme("#121212", "#E0E0E0", "#1E1E1E")
-                tvResponse.append("\n\nالمساعد: تم تفعيل الثيم الليلي بنجاح.")
-                pbLoading.visibility = View.GONE
-                return@setOnClickListener
-            } else if (q.contains("سماوي") || q.contains("ازرق")) {
-                applyTheme("#E3F2FD", "#0D47A1", "#BBDEFB")
-                tvResponse.append("\n\nالمساعد: تم تفعيل الثيم السماوي بنجاح.")
-                pbLoading.visibility = View.GONE
-
-                return@setOnClickListener
-            } else if (q.contains("زمردي") || q.contains("اخضر")) {
-                applyTheme("#E0F2F1", "#004D40", "#B2DFDB")
-                tvResponse.append("\n\nالمساعد: تم تفعيل الثيم الزمردي بنجاح.")
-                pbLoading.visibility = View.GONE
-                return@setOnClickListener
-            } else if (q.contains("كريمي") || q.contains("فاتح")) {
-                applyTheme("#F4ECD8", "#000000", "#E6DCC8")
-                tvResponse.append("\n\nالمساعد: تم تفعيل الثيم الكريمي بنجاح.")
-                pbLoading.visibility = View.GONE
-                return@setOnClickListener
-            } else if (q.contains("تجويد")) {
-                val newState = !quranAdapter.showTajweedColors
-                quranAdapter.showTajweedColors = newState
-                quranAdapter.notifyDataSetChanged()
-                getSharedPreferences("app", MODE_PRIVATE).edit().putBoolean("tajweed_on", newState).apply()
-                tvResponse.append("\n\nالمساعد: تم " + (if(newState) "تفعيل" else "إيقاف") + " التجويد.")
-                pbLoading.visibility = View.GONE
-                return@setOnClickListener
-            }
-            
-            Thread {
-                if (apiKey.isEmpty()) {
-                    var localAnswer = ""
-                    val qClean = q.removeTashkeel()
-                    for (i in blockList.indices) {
-                        for (v in blockList[i].verses) {
-                            if (v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirJalalayn.contains(qClean)) {
-                                localAnswer += "سورة ${v.suraName} آية ${v.aya}: ${v.textTajweed}\nالتفسير: ${v.tafsirJalalayn}\n\n"
-                            }
-                        }
-                    }
-                    runOnUiThread {
-                        pbLoading.visibility = View.GONE
-                        if (localAnswer.isNotEmpty()) {
-                            tvResponse.append("\n\nالمساعد (بحث محلي مجاني): \n$localAnswer\n\n(للحصول على شرح أعمق، أضف مفتاح جُمني في الإعدادات).")
-                            view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                        } else {
-                            tvResponse.append("\n\nالمساعد: لم أجد إجابة في قاعدة البيانات المحلية. يرجى إضافة مفتاح جُمني في الإعدادات للبحث المتقدم.")
-                            view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                        }
-                    }
-                    return@Thread
-                }
-                
-                val qWords = q.removeTashkeel().split(" ").filter { it.length > 2 }
-                var localData = ""
-                var matches = 0
-                for (i in blockList.indices) {
-                    for (v in blockList[i].verses) {
-                        var matchCount = 0
-                        val vClean = v.textTajweed.removeTashkeel()
-                        for (w in qWords) {
-                            if (vClean.contains(w) || v.tafsirJalalayn.contains(w)) matchCount++
-                        }
-                        if (matchCount > 0) {
-                            localData += "سورة ${v.suraName} آية ${v.aya}: ${v.textTajweed}\nالتفسير: ${v.tafsirJalalayn}\n\n"
-                            matches++
-                            if (matches >= 3) break
-                        }
-                    }
-                    if (matches >= 3) break
-                }
-                
-                if (localData.isNotEmpty()) {
-                    pendingExternalQuestion = q
-                    runOnUiThread { 
-                        pbLoading.visibility = View.GONE
-                        tvResponse.append("\n\nالمساعد (نتيجة محلية من قاعدة البيانات):\n$localData\nهل ترغب في الاستزادة من المساعد الذكي (جُمني)؟ (نعم / لا)") 
-                        view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                    }
-                    return@Thread
-                }
-                
-                val prompt = "أجب على هذا السؤال من مصادر موثوقة وغير مختلف عليها. الإجابة يجب أن تكون مختصرة ودقيقة وصحيحة. إذا كان السؤال لا يتعلق بالقرآن والأذكار، أجب فقط بـ 'أنا مخصص للقرآن والأذكار فقط ولا يمكنني الإجابة على هذا السؤال'. السؤال: $q"
-                
-                try {
-                    val url = java.net.URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey")
-                    val conn = url.openConnection() as java.net.HttpURLConnection
-                    conn.requestMethod = "POST"
-                    conn.setRequestProperty("Content-Type", "application/json")
-                    conn.doOutput = true
-                    
-                    val jsonBody = org.json.JSONObject().apply {
-                        put("contents", org.json.JSONArray().apply {
-                            put(org.json.JSONObject().apply {
-                                put("parts", org.json.JSONArray().apply {
-                                    put(org.json.JSONObject().apply {
-                                        put("text", prompt)
-                                    })
-                                })
-                            })
-                        })
-                    }.toString()
-                    
-                    conn.outputStream.use { it.write(jsonBody.toByteArray(Charsets.UTF_8)) }
-                    
-                    if (conn.responseCode == 200) {
-                        val response = conn.inputStream.bufferedReader().use { it.readText() }
-                        try {
-                            val jsonResponse = org.json.JSONObject(response)
-                            val text = jsonResponse.getJSONArray("candidates")
-                                .getJSONObject(0)
-                                .getJSONObject("content")
-                                .getJSONArray("parts")
-                                .getJSONObject(0)
-                                .getString("text")
-                            
-                            runOnUiThread { 
-                                pbLoading.visibility = View.GONE
-                                tvResponse.append("\n\nالمساعد (جُمني): $text") 
-                                view.findViewById<ScrollView>(R.id.svAssistant)?.let { sv -> sv.post { sv.fullScroll(View.FOCUS_DOWN) } }
-                            }
-                        } catch (e: Exception) {
-                            runOnUiThread { 
-                                pbLoading.visibility = View.GONE
-                                tvResponse.append("\n\nتعذر استخراج النص من الاستجابة.") 
-                            }
-                        }
-                    } else {
-                        val error = conn.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-                        runOnUiThread { 
-                            pbLoading.visibility = View.GONE
-                            tvResponse.append("\n\nخطأ في الاتصال: ${conn.responseCode}\n$error") 
-                        }
-                    }
-                } catch (e: Exception) {
-                    runOnUiThread { 
-                        pbLoading.visibility = View.GONE
-                        tvResponse.append("\n\nحدث خطأ: ${e.message}") 
-                    }
-                }
-            }.start()
-        }
-        
-        dialog.show()
+        GeminiHelper.showAssistantDialog(this)
     }
 
     private fun openUnifiedIndex(tab: Int) {

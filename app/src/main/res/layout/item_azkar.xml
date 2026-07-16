@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="❤️"
-                android:textSize="20sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#3D2B1F"
                 android:visibility="gone" />

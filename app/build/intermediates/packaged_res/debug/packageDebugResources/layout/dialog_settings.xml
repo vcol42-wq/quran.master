@@ -351,30 +351,18 @@
                 app:strokeWidth="1.5dp"
                 app:strokeColor="#00A86B">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/btnAboutApp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="حول التطبيق"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:textColor="#00A86B"
-                        android:gravity="center"
-                        android:layout_marginBottom="16dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="1- (¼ ح) وما يشابهها تدل على الأحزاب حيث يُقسم القرآن إلى 60 حزباً.\n\n2- (ع) هو اختصار لكلمة ركوع حيث يستطيع المصلي التوقف عندها لاكتمال المعنى وهي محببة.\n\n3- المنزل هي طريقة لتقسيم القرآن لقراءته في 7 أيام أي مشابه للأجزاء.\n\n4- الألوان وضعت لتمييز أحكام التجويد وفق معايير معتمدة.\n\n5- يمكنك الاستفادة من البحث في شريط البحث في تطبيق سبح بخشوع والأذكار لتجد كل ما تبحث عنه من أذكار وتفسير مختصر لأن التطبيق مزود بقاعدة بيانات محلية.\n\n6- يمكن الاستزادة من البحث في جُمني بعد وضع مفتاحك الخاص لكي يأخذك إلى عالم أوسع لكن محدد بالصحيح منه.\n\n7- نرجو أن تستفيد من التطبيق فينالك الأجر العظيم من ذكر الله.\n\n8- التزام الملكية: نؤكد أن النص القرآني المستخدم والخطوط المدمجة مأخوذة من مصادر عامة ومفتوحة (Public Domain) مثل مجمع الملك فهد، ولا تنتهك أي حقوق نشر.\n\n9- يمكنك الآن الاستماع إلى تلاوة الآيات أو السور كاملة بثاً مباشراً عبر الإنترنت، مع إمكانية تحميل السورة للاستماع إليها لاحقاً بدون إنترنت، وذلك عبر النقر على خيار الصوت في قائمة خيارات الآية."
-                        android:textSize="14sp"
-                        android:textColor="#3D2B1F"
-                        android:lineSpacingExtra="4dp" />
-                </LinearLayout>
+                    android:layout_height="56dp"
+                    android:text="حول التطبيق"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#00A86B"
+                    android:gravity="center"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"/>
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
 

@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 
     <application
@@ -19,14 +23,21 @@
         android:theme="@style/Theme.QuranMaster">
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".SplashActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".HomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <!-- Android App Links for GitHub Pages and Firebase -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -41,26 +52,38 @@
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".AzkarActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".TasbeehActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <activity
             android:name=".AthanActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
 
+        <receiver android:name=".PrayerNotificationReceiver" android:exported="false" />
+        <receiver android:name=".AzkarAlarmReceiver" android:exported="false" />
+        <receiver android:name=".BootReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name=".PrayerWidgetProvider"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.sabah.bikhushue.ACTION_WIDGET_INCREMENT" />
@@ -71,5 +94,27 @@
                 android:resource="@xml/prayer_widget_info" />
         </receiver>
 
+        <receiver
+            android:name=".PrayerSmallWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/prayer_widget_small_info" />
+        </receiver>
+
+        <receiver
+            android:name=".TasbeehWidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sabah.bikhushue.ACTION_TASBEEH_INCREMENT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/tasbeeh_widget_info" />
+        </receiver>
     </application>
 </manifest>

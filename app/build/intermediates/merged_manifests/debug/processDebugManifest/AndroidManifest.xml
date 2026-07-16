@@ -13,6 +13,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
@@ -38,14 +42,21 @@
         android:theme="@style/Theme.QuranMaster"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.sabah.bikhushue.HomeActivity"
+            android:name="com.sabah.bikhushue.SplashActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="true" >
+            android:exported="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sabah.bikhushue.HomeActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="true"
+            android:screenOrientation="portrait" >
 
             <!-- Android App Links for GitHub Pages and Firebase -->
             <intent-filter android:autoVerify="true" >
@@ -71,22 +82,39 @@
         <activity
             android:name="com.sabah.bikhushue.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sabah.bikhushue.AzkarActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sabah.bikhushue.TasbeehActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.sabah.bikhushue.AthanActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <receiver
+            android:name="com.sabah.bikhushue.PrayerNotificationReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.sabah.bikhushue.AzkarAlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.sabah.bikhushue.BootReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
             android:name="com.sabah.bikhushue.PrayerWidgetProvider"
-            android:exported="false" >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.sabah.bikhushue.ACTION_WIDGET_INCREMENT" />
@@ -96,6 +124,29 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/prayer_widget_info" />
+        </receiver>
+        <receiver
+            android:name="com.sabah.bikhushue.PrayerSmallWidgetProvider"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/prayer_widget_small_info" />
+        </receiver>
+        <receiver
+            android:name="com.sabah.bikhushue.TasbeehWidgetProvider"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sabah.bikhushue.ACTION_TASBEEH_INCREMENT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/tasbeeh_widget_info" />
         </receiver>
 
         <provider

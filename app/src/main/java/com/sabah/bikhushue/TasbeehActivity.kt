@@ -94,8 +94,8 @@ class TasbeehActivity : AppCompatActivity() {
             getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         }
 
-        applyTheme()
         setupZikrWheel()
+        applyTheme()
         setupListeners()
         updateUI(animate = false)
 
@@ -120,37 +120,59 @@ class TasbeehActivity : AppCompatActivity() {
     }
 
     private fun applyTheme() {
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-        val bgColor = Color.parseColor(savedBg)
-        tasbeehRoot.setBackgroundColor(bgColor)
+        val theme = ThemeHelper.getThemeColors(this)
+        tasbeehRoot.setBackgroundColor(theme.bg)
+        
+        window.statusBarColor = theme.bar
+        window.navigationBarColor = theme.bar
 
-        val barColorInt = Color.parseColor(prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8")
-        window.statusBarColor = barColorInt
-        window.navigationBarColor = barColorInt
 
-        val isDarkMode = savedBg == "#121212"
-        if (isDarkMode) {
+        if (theme.isDark) {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         } else {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
         
         val tasbeehMainCard = findViewById<com.google.android.material.card.MaterialCardView>(R.id.tasbeehMainCard)
-        tasbeehMainCard?.setCardBackgroundColor(if (isDarkMode) Color.parseColor("#2D2D2D") else Color.WHITE)
+        val cardZikrInner = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardZikrInner)
+        val tasbeehMainShadow = findViewById<com.google.android.material.card.MaterialCardView>(R.id.tasbeehMainShadow)
+        val cardZikrShadow = findViewById<com.google.android.material.card.MaterialCardView>(R.id.cardZikrShadow)
+
+        val cardColor = theme.cardBg
+        val shadowColor = theme.shadow
         
-        val baseTextColor = Color.parseColor(prefs.getString("text_color", "#3D2B1F") ?: "#3D2B1F")
-        val tasbeehTextColor = if (isDarkMode) Color.WHITE else baseTextColor
+        tasbeehMainCard?.setCardBackgroundColor(cardColor)
+        cardZikrInner?.setCardBackgroundColor(cardColor)
+        tasbeehMainShadow?.setCardBackgroundColor(shadowColor)
+        cardZikrShadow?.setCardBackgroundColor(shadowColor)
+        tasbeehMainCard?.strokeColor = shadowColor
+        
+        val tasbeehTextColor = theme.txt
         
         tvMainCounter.setTextColor(tasbeehTextColor)
         tvGoal10.setTextColor(tasbeehTextColor)
         tvGoal33.setTextColor(tasbeehTextColor)
         tvGoal100.setTextColor(tasbeehTextColor)
         tvGoal1000.setTextColor(tasbeehTextColor)
-        tvPrevZikr.setColorFilter(baseTextColor)
-        tvNextZikr.setColorFilter(baseTextColor)
+        
+        val circleCenterColor = theme.cardBg
+        beadsCircle.setCenterColor(circleCenterColor)
+
+
+        updateTextColors(tasbeehRoot as android.view.ViewGroup, tasbeehTextColor)
         tvResetCounter.setColorFilter(tasbeehTextColor)
         tvAddZikr.setColorFilter(tasbeehTextColor)
+    }
+
+    private fun updateTextColors(viewGroup: android.view.ViewGroup, txtColor: Int) {
+        for (i in 0 until viewGroup.childCount) {
+            val child = viewGroup.getChildAt(i)
+            if (child is android.widget.TextView) {
+                child.setTextColor(txtColor)
+            } else if (child is android.view.ViewGroup) {
+                updateTextColors(child, txtColor)
+            }
+        }
     }
 
     private fun setupZikrWheel() {
@@ -164,9 +186,9 @@ class TasbeehActivity : AppCompatActivity() {
             TextViewCompat.setAutoSizeTextTypeWithDefaults(t, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
             TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(t, 12, 40, 1, android.util.TypedValue.COMPLEX_UNIT_SP)
             t.maxLines = 1
-            // Force text color to dark brown so it's visible in both modes (since pill is always cream)
-            t.setTextColor(Color.parseColor("#3D2B1F"))
-            t.setShadowLayer(2f, 1f, 1f, Color.parseColor("#40D2B48C")) // Subtle gold shadow
+            val theme = ThemeHelper.getThemeColors(this@TasbeehActivity)
+            t.setTextColor(theme.txt)
+            t.setShadowLayer(2f, 1f, 1f, if (theme.isDark) Color.TRANSPARENT else Color.parseColor("#40D2B48C"))
             val customFont = androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran)
             t.setTypeface(customFont, android.graphics.Typeface.BOLD_ITALIC)
             t.translationY = -8f * resources.displayMetrics.density // Shift up by 8dp
@@ -335,11 +357,8 @@ class TasbeehActivity : AppCompatActivity() {
     }
     
     private fun refreshGoalButtonsUI() {
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-        val isDarkMode = savedBg == "#121212"
-        val baseTextColor = Color.parseColor(prefs.getString("text_color", "#3D2B1F") ?: "#3D2B1F")
-        val tasbeehTextColor = if (isDarkMode) Color.WHITE else baseTextColor
+        val theme = ThemeHelper.getThemeColors(this)
+        val tasbeehTextColor = theme.txt
         
         val currentGoal = zikrs[currentZikrIndex].goal
         val goals = listOf(tvGoal10 to 10, tvGoal33 to 33, tvGoal100 to 100, tvGoal1000 to 1000)
@@ -417,7 +436,7 @@ class TasbeehActivity : AppCompatActivity() {
 
     private fun updateUI(animate: Boolean) {
         val currentZikr = zikrs[currentZikrIndex]
-        tvMainCounter.text = currentZikr.count.toString()
+        tvMainCounter.text = (currentZikr.goal - currentZikr.count).toString()
         beadsCircle.setGoalAndCount(currentZikr.goal, currentZikr.count, animate)
     }
 

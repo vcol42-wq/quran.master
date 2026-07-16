@@ -66,6 +66,12 @@ class AzkarActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+        
+        val initialQuery = intent.getStringExtra("search_query")
+        if (!initialQuery.isNullOrEmpty()) {
+            etSearchAzkar.setText(initialQuery)
+            searchAzkar(initialQuery)
+        }
     }
 
     private fun searchAzkar(query: String) {
@@ -87,28 +93,29 @@ class AzkarActivity : AppCompatActivity() {
     }
 
     private fun applyTheme() {
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-        val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
-        val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
+        val theme = ThemeHelper.getThemeColors(this)
+        val bgColor = theme.bg
+        txtColorInt = theme.txt
+        barColorInt = theme.bar
+        cardBgColorInt = theme.cardBg
 
-        val bgColor = Color.parseColor(savedBg)
-        txtColorInt = Color.parseColor(savedTxt)
-        barColorInt = Color.parseColor(savedBar)
-        cardBgColorInt = if (savedBg == "#121212") Color.parseColor("#2D2D2D") else Color.WHITE
-
-        val root: View = findViewById(android.R.id.content)
+        val root: View = findViewById(R.id.azkarRoot)
         root.setBackgroundColor(bgColor)
 
         window.statusBarColor = barColorInt
         window.navigationBarColor = barColorInt
-        if (savedBg == "#121212") {
+        if (theme.isDark) {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         } else {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
         findViewById<MaterialCardView>(R.id.azkarTopBar).setCardBackgroundColor(barColorInt)
+        findViewById<MaterialCardView>(R.id.cardSearch)?.setCardBackgroundColor(cardBgColorInt)
+        findViewById<EditText>(R.id.etSearchAzkar)?.let {
+            it.setTextColor(if (theme.isDark) Color.WHITE else txtColorInt)
+            it.setHintTextColor(if (theme.isDark) Color.parseColor("#A0FFFFFF") else Color.argb(160, Color.red(theme.txt), Color.green(theme.txt), Color.blue(theme.txt)))
+        }
     }
 
     private fun loadCategories() {
@@ -116,37 +123,19 @@ class AzkarActivity : AppCompatActivity() {
         val categories = dbHelper.getCategories()
         
         for (category in categories) {
-            val view = if (category == "أذكار الصباح والمساء") {
-                android.widget.ImageView(this).apply {
-                    setImageResource(R.drawable.azaz)
-                    val heightPx = (48 * resources.displayMetrics.density).toInt()
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        heightPx
-                    ).apply {
-                        setMargins(24, 8, 24, 8)
-                    }
-                    adjustViewBounds = true
-                    alpha = if (category == currentCategory) 1.0f else 0.5f
-                    setOnClickListener {
-                        currentCategory = category
-                        loadCategories() // Refresh selection color
-                        loadAzkar(category)
-                    }
-                }
-            } else {
-                TextView(this).apply {
-                    text = category
-                    textSize = 18f
-                    setTextColor(if (category == currentCategory) txtColorInt else Color.GRAY)
-                    setPadding(24, 8, 24, 8)
-                    setOnClickListener {
-                        currentCategory = category
-                        loadCategories() // Refresh selection color
-                        loadAzkar(category)
-                    }
+            val view = TextView(this).apply {
+                text = category
+                textSize = 22f
+                typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT_BOLD
+                setTextColor(if (category == currentCategory) txtColorInt else android.graphics.Color.GRAY)
+                setPadding(24, 8, 24, 8)
+                setOnClickListener {
+                    currentCategory = category
+                    loadCategories() // Refresh selection color
+                    loadAzkar(category)
                 }
             }
+
             llCategories.addView(view)
         }
     }

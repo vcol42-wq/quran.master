@@ -12,9 +12,20 @@ import com.google.android.material.card.MaterialCardView
 
 class HomeActivity : AppCompatActivity() {
 
+    private var isBottomBarVisible = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        BottomBarHelper.setupBottomBar(this, onThemeChanged = { applyTheme() })
+
+        val scrollView = findViewById<android.widget.ScrollView>(R.id.homeScrollView)
+        scrollView?.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            val dy = scrollY - oldScrollY
+            if (dy > 30 && isBottomBarVisible) toggleBottomBar()
+            else if (dy < -30 && !isBottomBarVisible) toggleBottomBar()
+        }
 
         val cardSettings: MaterialCardView = findViewById(R.id.cardSettings)
         val cardQuran: MaterialCardView = findViewById(R.id.cardQuran)
@@ -66,6 +77,8 @@ class HomeActivity : AppCompatActivity() {
                 .show()
             prefs.edit().putBoolean("is_first_time_app", false).apply()
         }
+
+        setupDailyCard()
     }
     
     private fun startDatabaseDownload() {
@@ -80,22 +93,18 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun applyTheme() {
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
-        val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
-        val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
+        val theme = ThemeHelper.getThemeColors(this)
+        val bgColor = theme.bg
+        val txtColor = theme.txt
+        val barColor = theme.bar
+        val cardBgColor = theme.cardBg
 
-        val bgColor = Color.parseColor(savedBg)
-        val txtColor = Color.parseColor(savedTxt)
-        val barColor = Color.parseColor(savedBar)
-        val cardBgColor = if (savedBg == "#121212") Color.parseColor("#2D2D2D") else Color.WHITE
-
-        val root: View = findViewById(android.R.id.content)
+        val root: View = findViewById(R.id.homeRoot)
         root.setBackgroundColor(bgColor)
 
         window.statusBarColor = barColor
         window.navigationBarColor = barColor
-        if (savedBg == "#121212") {
+        if (theme.isDark) {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         } else {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -105,13 +114,9 @@ class HomeActivity : AppCompatActivity() {
             setCardBackgroundColor(barColor)
             strokeColor = barColor
         }
-        
-        findViewById<MaterialCardView>(R.id.cardAbout)?.apply {
-            setCardBackgroundColor(barColor)
-            strokeColor = barColor
-        }
 
-        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer)
+
+        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer, R.id.cardDaily)
         gridCards.forEach { id ->
             findViewById<MaterialCardView>(id)?.apply {
                 setCardBackgroundColor(cardBgColor)
@@ -119,18 +124,53 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        fun updateTextViews(view: View) {
+        fun updateViews(view: View) {
             if (view is TextView) {
                 val text = view.text.toString()
                 if (text.any { it.isLetter() }) {
                     view.setTextColor(txtColor)
                 }
-            } else if (view is ViewGroup) {
+            } else if (view is MaterialCardView) {
+                if (view.childCount == 0 && view.id == View.NO_ID) {
+                    view.setCardBackgroundColor(theme.shadow)
+                }
+            }
+            if (view is ViewGroup) {
                 for (i in 0 until view.childCount) {
-                    updateTextViews(view.getChildAt(i))
+                    updateViews(view.getChildAt(i))
                 }
             }
         }
-        updateTextViews(root)
+        updateViews(root)
+    }
+
+    private fun toggleBottomBar() {
+        val bottomBarLayout = findViewById<View>(R.id.bottomBarLayout) ?: return
+        isBottomBarVisible = !isBottomBarVisible
+        bottomBarLayout.animate()
+            .translationY(if (isBottomBarVisible) 0f else bottomBarLayout.height.toFloat() + 100f)
+            .setDuration(300).start()
+    }
+
+    private fun setupDailyCard() {
+        val messages = listOf(
+            "اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً.",
+            "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
+            "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت.",
+            "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
+            "سبحان الله وبحمده، عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته.",
+            "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
+            "اللهم أعني على ذكرك وشكرك وحسن عبادتك.",
+            "وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ",
+            "لا حول ولا قوة إلا بالله، كنز من كنوز الجنة.",
+            "فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ",
+            "اللهم صل وسلم وبارك على نبينا محمد."
+        )
+        
+        val calendar = java.util.Calendar.getInstance()
+        val dayOfYear = calendar.get(java.util.Calendar.DAY_OF_YEAR)
+        
+        val tvDailyContent = findViewById<TextView>(R.id.tvDailyContent)
+        tvDailyContent?.text = messages[dayOfYear % messages.size]
     }
 }

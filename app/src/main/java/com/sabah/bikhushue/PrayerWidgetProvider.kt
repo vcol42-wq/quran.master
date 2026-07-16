@@ -262,11 +262,6 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.tv_asr_time, getAdjusted(prayerTimes.asr, Prayer.ASR))
             views.setTextViewText(R.id.tv_maghrib_time, getAdjusted(prayerTimes.maghrib, Prayer.MAGHRIB))
             views.setTextViewText(R.id.tv_isha_time, getAdjusted(prayerTimes.isha, Prayer.ISHA))
-            
-            views.setTextViewText(
-                R.id.tv_sunrise_label,
-                "الشروق: ${getAdjusted(prayerTimes.sunrise, Prayer.SUNRISE)}"
-            )
 
             val currentPrayer = prayerTimes.currentPrayer()
             val activeCurrent = if (currentPrayer == Prayer.NONE) {
@@ -306,7 +301,6 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 else -> {}
             }
 
-            val nextPrayer = prayerTimes.nextPrayer()
 
             val cityName = prefsApp.getString("athan_city_name", null) 
                 ?: prefsCore.getString("user_city_name", "الرياض")
@@ -318,6 +312,13 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             val is24 = android.text.format.DateFormat.is24HourFormat(context)
             val timeFormat = SimpleDateFormat(if (is24) "HH:mm" else "h:mm", Locale.ENGLISH)
             views.setTextViewText(R.id.widget_clock, timeFormat.format(Date()))
+
+            var nextPrayer = prayerTimes.nextPrayer()
+            
+            // Skip Sunrise and point to Dhuhr instead
+            if (nextPrayer == Prayer.SUNRISE) {
+                nextPrayer = Prayer.DHUHR
+            }
 
             if (nextPrayer != Prayer.NONE) {
                 val nextTime = prayerTimes.timeForPrayer(nextPrayer)
@@ -333,12 +334,11 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                     Prayer.ASR -> "العصر"
                     Prayer.MAGHRIB -> "المغرب"
                     Prayer.ISHA -> "العشاء"
-                    Prayer.SUNRISE -> "الشروق"
                     else -> "الصلاة"
                 }
                 views.setTextViewText(
                     R.id.tv_next_prayer_name,
-                    if (nextPrayer == Prayer.SUNRISE) "المتبقي للشروق" else "باقي لصلاة $nameAr"
+                    "باقي لصلاة $nameAr"
                 )
                 views.setTextViewText(
                     R.id.tv_remaining_time,
@@ -355,9 +355,6 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 clickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
-            views.setOnClickPendingIntent(R.id.btn_widget_salawat_clicker, clickPendingIntent)
-            views.setOnClickPendingIntent(R.id.btn_widget_side_left, clickPendingIntent)
-            views.setOnClickPendingIntent(R.id.btn_widget_side_right, clickPendingIntent)
             views.setOnClickPendingIntent(R.id.widget_root, clickPendingIntent)
 
             val appIntent = Intent(context, PrayerWidgetProvider::class.java).apply { 
@@ -382,10 +379,18 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
             views.setOnClickPendingIntent(R.id.iv_widget_reset, resetPendingIntent)
-            views.setOnClickPendingIntent(R.id.tv_motivational_msg, resetPendingIntent)
-
-            views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.rfrf)
-            views.setTextViewText(R.id.tv_motivational_msg, "سَبِّحْ بِخُشُوع")
+            
+            // Dynamic background based on theme
+            val bgHex = prefsApp.getString("bg_color", "#455A64") ?: "#455A64"
+            val isNightOrLunar = when (bgHex) {
+                "#121212", "#455A64", "#37474F", "#263238", "#D4CEC4" -> true
+                else -> false
+            }
+            if (isNightOrLunar) {
+                views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.osc)
+            } else {
+                views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.pop)
+            }
 
         } catch (e: Exception) {
             Log.e(TAG, "Update error", e)

@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sabah.bikhushue" />
+                  <option name="mobileSdkAppId" value="1:100367684110:android:aa065a860472247276225f" />
+                  <option name="projectId" value="sabah-bikhushue" />
+                  <option name="projectNumber" value="100367684110" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

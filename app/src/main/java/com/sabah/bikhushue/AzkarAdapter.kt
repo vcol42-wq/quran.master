@@ -58,6 +58,8 @@ class AzkarAdapter(
         
         holder.tvAzkarTitle.setTextColor(txtColor)
         holder.tvAzkarText.setTextColor(txtColor)
+        holder.tvAzkarCount.setTextColor(txtColor)
+        holder.tvAzkarDone.setTextColor(txtColor)
         
         // Populate text
         holder.tvAzkarTitle.text = item.title
