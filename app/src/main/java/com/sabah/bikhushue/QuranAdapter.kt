@@ -137,7 +137,8 @@ class QuranAdapter(
         val plainText = ssb.toString()
         for (range in verseRanges) {
             if (range.third.sura == highlightedSura && range.third.aya == highlightedAya) {
-                val highlightColor = if (currentBgColor == "#121212") Color.parseColor("#4D3D1F") else Color.parseColor("#FFF8E1")
+                val isDarkMode = currentBgColor.lowercase() == "#121212" || currentBgColor.lowercase() == "#2d2d2d"
+                val highlightColor = if (isDarkMode) Color.parseColor("#4D3D1F") else Color.parseColor("#FFF8E1")
                 val vText = range.third.textTajweed.trim().replace(Regex("<[^>]*>"), "")
                 val s = plainText.indexOf(vText, range.first)
                 if (s != -1) {

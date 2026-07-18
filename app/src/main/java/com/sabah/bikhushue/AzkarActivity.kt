@@ -13,13 +13,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.card.MaterialCardView
 
 class AzkarActivity : AppCompatActivity() {
 
     private lateinit var dbHelper: AzkarDatabaseHelper
     private lateinit var rvAzkar: RecyclerView
-    private lateinit var llCategories: LinearLayout
     private lateinit var azkarList: MutableList<AzkarItem>
     private lateinit var adapter: AzkarAdapter
 
@@ -31,16 +34,30 @@ class AzkarActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_azkar)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.azkarRoot)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         dbHelper = AzkarDatabaseHelper(this)
         rvAzkar = findViewById(R.id.rvAzkar)
         rvAzkar.layoutManager = LinearLayoutManager(this)
-        llCategories = findViewById(R.id.llCategories)
-
+        
         applyTheme()
         BottomBarHelper.setupBottomBar(this)
-        loadCategories()
+        
+        val initialCategory = intent.getStringExtra("category")
+        if (!initialCategory.isNullOrEmpty()) {
+            currentCategory = initialCategory
+        } else {
+            currentCategory = "أذكار الصباح والمساء"
+        }
+
+        setupCategoryCards()
         loadAzkar(currentCategory)
 
         rvAzkar.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -104,11 +121,9 @@ class AzkarActivity : AppCompatActivity() {
 
         window.statusBarColor = barColorInt
         window.navigationBarColor = barColorInt
-        if (theme.isDark) {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        } else {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
+        windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
         findViewById<MaterialCardView>(R.id.azkarTopBar).setCardBackgroundColor(barColorInt)
         findViewById<MaterialCardView>(R.id.cardSearch)?.setCardBackgroundColor(cardBgColorInt)
@@ -116,27 +131,63 @@ class AzkarActivity : AppCompatActivity() {
             it.setTextColor(if (theme.isDark) Color.WHITE else txtColorInt)
             it.setHintTextColor(if (theme.isDark) Color.parseColor("#A0FFFFFF") else Color.argb(160, Color.red(theme.txt), Color.green(theme.txt), Color.blue(theme.txt)))
         }
+
+        // Theme the newly styled category cards
+        val shadowColor = if (theme.isDark) Color.parseColor("#121212") else Color.parseColor("#D2B48C")
+        findViewById<MaterialCardView>(R.id.cardMorningEvening)?.setCardBackgroundColor(cardBgColorInt)
+        findViewById<MaterialCardView>(R.id.cardSadAzkar)?.setCardBackgroundColor(cardBgColorInt)
+        
+        // Find their shadow cards (the first child of their FrameLayout parents)
+        val parentMorning = findViewById<MaterialCardView>(R.id.cardMorningEvening)?.parent as? android.widget.FrameLayout
+        val shadowMorning = parentMorning?.getChildAt(0) as? MaterialCardView
+        shadowMorning?.setCardBackgroundColor(shadowColor)
+
+        val parentSad = findViewById<MaterialCardView>(R.id.cardSadAzkar)?.parent as? android.widget.FrameLayout
+        val shadowSad = parentSad?.getChildAt(0) as? MaterialCardView
+        shadowSad?.setCardBackgroundColor(shadowColor)
     }
 
-    private fun loadCategories() {
-        llCategories.removeAllViews()
-        val categories = dbHelper.getCategories()
+    private fun setupCategoryCards() {
+        val cardMorning = findViewById<MaterialCardView>(R.id.cardMorningEvening)
+        val cardSad = findViewById<MaterialCardView>(R.id.cardSadAzkar)
         
-        for (category in categories) {
-            val view = TextView(this).apply {
-                text = category
-                textSize = 22f
-                typeface = androidx.core.content.res.ResourcesCompat.getFont(context, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT_BOLD
-                setTextColor(if (category == currentCategory) txtColorInt else android.graphics.Color.GRAY)
-                setPadding(24, 8, 24, 8)
-                setOnClickListener {
-                    currentCategory = category
-                    loadCategories() // Refresh selection color
-                    loadAzkar(category)
-                }
-            }
-
-            llCategories.addView(view)
+        cardMorning?.setOnClickListener {
+            currentCategory = "أذكار الصباح والمساء"
+            updateCategorySelection()
+            loadAzkar(currentCategory)
+        }
+        
+        cardSad?.setOnClickListener {
+            currentCategory = "دعاء المحزون"
+            updateCategorySelection()
+            loadAzkar(currentCategory)
+        }
+        
+        updateCategorySelection()
+    }
+    
+    private fun updateCategorySelection() {
+        val tvMorning = findViewById<TextView>(R.id.tvMorningEvening)
+        val tvSad = findViewById<TextView>(R.id.tvSadAzkar)
+        
+        tvMorning?.setTextColor(txtColorInt)
+        tvSad?.setTextColor(txtColorInt)
+        
+        if (currentCategory == "أذكار الصباح والمساء") {
+            tvMorning?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT_BOLD, android.graphics.Typeface.BOLD)
+            tvMorning?.alpha = 1f
+            tvSad?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT, android.graphics.Typeface.NORMAL)
+            tvSad?.alpha = 0.5f
+        } else if (currentCategory == "دعاء المحزون") {
+            tvSad?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT_BOLD, android.graphics.Typeface.BOLD)
+            tvSad?.alpha = 1f
+            tvMorning?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT, android.graphics.Typeface.NORMAL)
+            tvMorning?.alpha = 0.5f
+        } else {
+            tvMorning?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT, android.graphics.Typeface.NORMAL)
+            tvMorning?.alpha = 0.5f
+            tvSad?.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.amiri_quran) ?: android.graphics.Typeface.DEFAULT, android.graphics.Typeface.NORMAL)
+            tvSad?.alpha = 0.5f
         }
     }
 
@@ -220,7 +271,7 @@ class AzkarActivity : AppCompatActivity() {
                 
                 if (currentCategory != "أذكاري الخاصة") {
                     currentCategory = "أذكاري الخاصة"
-                    loadCategories()
+                    updateCategorySelection()
                 }
                 loadAzkar(currentCategory)
             } else {

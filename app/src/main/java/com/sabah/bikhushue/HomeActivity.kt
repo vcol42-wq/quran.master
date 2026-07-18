@@ -8,6 +8,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.card.MaterialCardView
 
 class HomeActivity : AppCompatActivity() {
@@ -16,7 +20,14 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.homeRoot)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         BottomBarHelper.setupBottomBar(this, onThemeChanged = { applyTheme() })
 
@@ -104,11 +115,9 @@ class HomeActivity : AppCompatActivity() {
 
         window.statusBarColor = barColor
         window.navigationBarColor = barColor
-        if (theme.isDark) {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        } else {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
+        windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
         findViewById<MaterialCardView>(R.id.cardSettings)?.apply {
             setCardBackgroundColor(barColor)
@@ -116,7 +125,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer, R.id.cardDaily)
+        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer, R.id.cardDaily, R.id.cardSalawat)
         gridCards.forEach { id ->
             findViewById<MaterialCardView>(id)?.apply {
                 setCardBackgroundColor(cardBgColor)
@@ -153,24 +162,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupDailyCard() {
-        val messages = listOf(
-            "اللهم إني أسألك علماً نافعاً، ورزقاً طيباً، وعملاً متقبلاً.",
-            "وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ",
-            "اللهم أنت ربي لا إله إلا أنت، خلقتني وأنا عبدك، وأنا على عهدك ووعدك ما استطعت.",
-            "رَبِّ اشْرَحْ لِي صَدْرِي * وَيَسِّرْ لِي أَمْرِي",
-            "سبحان الله وبحمده، عدد خلقه، ورضا نفسه، وزنة عرشه، ومداد كلماته.",
-            "إِنَّ مَعَ الْعُسْرِ يُسْرًا",
-            "اللهم أعني على ذكرك وشكرك وحسن عبادتك.",
-            "وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ",
-            "لا حول ولا قوة إلا بالله، كنز من كنوز الجنة.",
-            "فَإِنِّي قَرِيبٌ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ",
-            "اللهم صل وسلم وبارك على نبينا محمد."
-        )
-        
-        val calendar = java.util.Calendar.getInstance()
-        val dayOfYear = calendar.get(java.util.Calendar.DAY_OF_YEAR)
-        
-        val tvDailyContent = findViewById<TextView>(R.id.tvDailyContent)
-        tvDailyContent?.text = messages[dayOfYear % messages.size]
+        val cardDaily = findViewById<MaterialCardView>(R.id.cardDaily)
+        cardDaily?.setOnClickListener {
+            val intent = Intent(this, AzkarActivity::class.java)
+            intent.putExtra("category", "دعاء المحزون")
+            startActivity(intent)
+        }
+
+        val cardSalawat = findViewById<MaterialCardView>(R.id.cardSalawat)
+        cardSalawat?.setOnClickListener {
+            val intent = Intent(this, SpiralTasbeehActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

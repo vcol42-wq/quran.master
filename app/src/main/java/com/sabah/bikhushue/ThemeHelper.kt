@@ -16,7 +16,7 @@ data class ThemeColors(
 object ThemeHelper {
     fun getThemeColors(context: Context): ThemeColors {
         val prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE)
-        val bgHex = prefs.getString("bg_color", "#455A64") ?: "#455A64"
+        val bgHex = prefs.getString("bg_color", "#121212") ?: "#121212"
         val txtHex = prefs.getString("txt_color", "#212121") ?: "#212121"
         val barHex = prefs.getString("bar_color", "#F9F6F0") ?: "#F9F6F0"
         

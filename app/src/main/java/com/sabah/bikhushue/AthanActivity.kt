@@ -40,8 +40,18 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class AthanActivity : AppCompatActivity() {
+
+    private fun adjustTime(date: Date?, offsetMins: Int): Date? {
+        if (date == null) return null
+        return Date(date.time + (offsetMins * 60 * 1000))
+    }
+
 
     private var latitude: Double = 24.7136
     private var longitude: Double = 46.6753
@@ -65,8 +75,25 @@ class AthanActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        try {
+            doOnCreate(savedInstanceState)
+        } catch (e: Throwable) {
+            android.widget.Toast.makeText(this, "Athan Crash: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+            android.util.Log.e("AthanActivity", "Crash in onCreate", e)
+            finish()
+        }
+    }
+
+    private fun doOnCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_athan)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.scrollView)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         BottomBarHelper.setupBottomBar(this)
 
@@ -88,9 +115,9 @@ class AthanActivity : AppCompatActivity() {
         selectedRingtoneUri = prefs.getString("athan_sound_uri", "default")
 
         // Setup views
-        findViewById<TextView>(R.id.tvCityName).text = cityName
-        findViewById<TextView>(R.id.tvRegion).text = regionName
-        findViewById<TextView>(R.id.tvCoordinates).text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
+        findViewById<TextView>(R.id.tvCityName)?.text = cityName
+        findViewById<TextView>(R.id.tvRegion)?.text = regionName
+        findViewById<TextView>(R.id.tvCoordinates)?.text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
 
         updateDates()
 
@@ -142,7 +169,21 @@ class AthanActivity : AppCompatActivity() {
             "تركيا (رئاسة الشؤون الدينية)",
             "معهد الجيوفيزياء بجامعة طهران"
         )
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, methods)
+        val themeColors = ThemeHelper.getThemeColors(this)
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, methods) {
+            override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as android.widget.TextView
+                view.setTextColor(themeColors.txt)
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
+                view.setBackgroundColor(themeColors.cardBg)
+                view.setTextColor(themeColors.txt)
+                return view
+            }
+        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerCalcMethod.adapter = adapter
         spinnerCalcMethod.setSelection(selectedCalcMethodIndex)
@@ -182,6 +223,46 @@ class AthanActivity : AppCompatActivity() {
 
         updateSoundPathText()
         applyTheme()
+
+        // Setup offset controls
+        val prefsCore = getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
+        val prayers = listOf("FAJR", "SUNRISE", "DHUHR", "ASR", "MAGHRIB", "ISHA")
+        
+        fun updateOffsetUI(p: String, tv: TextView) {
+            val o = prefsCore.getInt("offset_$p", 0)
+            tv.text = if (o > 0) "+$o" else o.toString()
+        }
+        
+        prayers.forEach { p ->
+            val tvOffsetId = resources.getIdentifier("tvOffset$p", "id", packageName)
+            val btnIncId = resources.getIdentifier("btnInc$p", "id", packageName)
+            val btnDecId = resources.getIdentifier("btnDec$p", "id", packageName)
+            
+            val tvOffset = findViewById<TextView>(tvOffsetId)
+            val btnInc = findViewById<View>(btnIncId)
+            val btnDec = findViewById<View>(btnDecId)
+            
+            if (tvOffset != null && btnInc != null && btnDec != null) {
+                updateOffsetUI(p, tvOffset)
+                btnInc.setOnClickListener {
+                    val o = prefsCore.getInt("offset_$p", 0)
+                    prefsCore.edit().putInt("offset_$p", o + 1).apply()
+                    updateOffsetUI(p, tvOffset)
+                    updatePrayerTimes()
+                    updateCountdown()
+                    AlarmScheduler.scheduleAlarms(this)
+                }
+                btnDec.setOnClickListener {
+                    val o = prefsCore.getInt("offset_$p", 0)
+                    prefsCore.edit().putInt("offset_$p", o - 1).apply()
+                    updateOffsetUI(p, tvOffset)
+                    updatePrayerTimes()
+                    updateCountdown()
+                    AlarmScheduler.scheduleAlarms(this)
+                }
+            }
+        }
+
         updatePrayerTimes()
     }
 
@@ -196,6 +277,16 @@ class AthanActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        try {
+            doOnResume()
+        } catch (e: Throwable) {
+            android.widget.Toast.makeText(this, "Athan Resume Crash: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
+            android.util.Log.e("AthanActivity", "Crash in onResume", e)
+            finish()
+        }
+    }
+
+    private fun doOnResume() {
         super.onResume()
         applyTheme()
         updatePrayerTimes()
@@ -213,13 +304,9 @@ class AthanActivity : AppCompatActivity() {
 
         window.statusBarColor = barColor
         window.navigationBarColor = barColor
-        if (theme.isDark) {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
+        windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
         // Apply color to cards
         findViewById<MaterialCardView>(R.id.cardTimesTable).apply {
@@ -240,6 +327,12 @@ class AthanActivity : AppCompatActivity() {
             cardNextPrayer.strokeColor = theme.shadow
             cardNextPrayer.strokeWidth = 3
         }
+
+        // Apply theme to shadow cards
+        findViewById<MaterialCardView>(R.id.shadowNextPrayer)?.setCardBackgroundColor(theme.shadow)
+        findViewById<MaterialCardView>(R.id.shadowAudioToggle)?.setCardBackgroundColor(theme.shadow)
+        findViewById<MaterialCardView>(R.id.shadowGeneralSettings)?.setCardBackgroundColor(theme.shadow)
+        findViewById<MaterialCardView>(R.id.shadowCalcMethod)?.setCardBackgroundColor(theme.shadow)
 
         // Apply theme to buttons
         findViewById<MaterialButton>(R.id.btnAutoLocation)?.apply {
@@ -310,19 +403,29 @@ class AthanActivity : AppCompatActivity() {
         val timeFormat = SimpleDateFormat("hh:mm a", Locale("ar"))
         timeFormat.timeZone = TimeZone.getDefault()
 
-        findViewById<TextView>(R.id.tvTimeFajr).text = timeFormat.format(todayPrayers.fajr)
-        findViewById<TextView>(R.id.tvTimeSunrise).text = timeFormat.format(todayPrayers.sunrise)
-        findViewById<TextView>(R.id.tvTimeDhuhr).text = timeFormat.format(todayPrayers.dhuhr)
-        findViewById<TextView>(R.id.tvTimeAsr).text = timeFormat.format(todayPrayers.asr)
-        findViewById<TextView>(R.id.tvTimeMaghrib).text = timeFormat.format(todayPrayers.maghrib)
-        findViewById<TextView>(R.id.tvTimeIsha).text = timeFormat.format(todayPrayers.isha)
+        val prefsCore = getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
+        val oFajr = prefsCore.getInt("offset_FAJR", 0)
+        val oSunrise = prefsCore.getInt("offset_SUNRISE", 0)
+        val oDhuhr = prefsCore.getInt("offset_DHUHR", 0)
+        val oAsr = prefsCore.getInt("offset_ASR", 0)
+        val oMaghrib = prefsCore.getInt("offset_MAGHRIB", 0)
+        val oIsha = prefsCore.getInt("offset_ISHA", 0)
 
-        highlightNextPrayerRow(todayPrayers)
+        fun formatSafe(date: Date?): String {
+            return date?.let { timeFormat.format(it) } ?: "--:--"
+        }
+
+        findViewById<TextView>(R.id.tvTimeFajr).text = formatSafe(adjustTime(todayPrayers.fajr, oFajr))
+        findViewById<TextView>(R.id.tvTimeSunrise).text = formatSafe(adjustTime(todayPrayers.sunrise, oSunrise))
+        findViewById<TextView>(R.id.tvTimeDhuhr).text = formatSafe(adjustTime(todayPrayers.dhuhr, oDhuhr))
+        findViewById<TextView>(R.id.tvTimeAsr).text = formatSafe(adjustTime(todayPrayers.asr, oAsr))
+        findViewById<TextView>(R.id.tvTimeMaghrib).text = formatSafe(adjustTime(todayPrayers.maghrib, oMaghrib))
+        findViewById<TextView>(R.id.tvTimeIsha).text = formatSafe(adjustTime(todayPrayers.isha, oIsha))
+
+        highlightCurrentPrayerRow(todayPrayers)
     }
 
-    private fun highlightNextPrayerRow(todayPrayers: PrayerTimes) {
-        val now = Date()
-
+    private fun highlightCurrentPrayerRow(todayPrayers: PrayerTimes) {
         val layoutFajr: View = findViewById(R.id.layoutFajr)
         val layoutSunrise: View = findViewById(R.id.layoutSunrise)
         val layoutDhuhr: View = findViewById(R.id.layoutDhuhr)
@@ -337,27 +440,24 @@ class AthanActivity : AppCompatActivity() {
         layoutMaghrib.setBackgroundColor(Color.TRANSPARENT)
         layoutIsha.setBackgroundColor(Color.TRANSPARENT)
 
-        val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val barColorStr = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
-        val highlightColor = Color.parseColor(barColorStr)
+        val theme = ThemeHelper.getThemeColors(this)
+        // Use the shadow color or bar color with alpha for a distinct highlight
+        val highlightColor = theme.shadow
 
-        val nextPrayerName = when {
-            now.before(todayPrayers.fajr) -> "الفجر"
-            now.before(todayPrayers.sunrise) -> "الشروق"
-            now.before(todayPrayers.dhuhr) -> "الظهر"
-            now.before(todayPrayers.asr) -> "العصر"
-            now.before(todayPrayers.maghrib) -> "المغرب"
-            now.before(todayPrayers.isha) -> "العشاء"
-            else -> "الفجر"
-        }
+        val currentPrayer = todayPrayers.currentPrayer()
+        val now = Date()
 
-        when (nextPrayerName) {
-            "الفجر" -> layoutFajr.setBackgroundColor(highlightColor)
-            "الشروق" -> layoutSunrise.setBackgroundColor(highlightColor)
-            "الظهر" -> layoutDhuhr.setBackgroundColor(highlightColor)
-            "العصر" -> layoutAsr.setBackgroundColor(highlightColor)
-            "المغرب" -> layoutMaghrib.setBackgroundColor(highlightColor)
-            "العشاء" -> layoutIsha.setBackgroundColor(highlightColor)
+        when (currentPrayer) {
+            com.batoulapps.adhan.Prayer.FAJR -> layoutFajr.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.SUNRISE -> layoutSunrise.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.DHUHR -> layoutDhuhr.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.ASR -> layoutAsr.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.MAGHRIB -> layoutMaghrib.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.ISHA -> layoutIsha.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.NONE -> {
+                // If it's before Fajr, the current active prayer is Isha from the previous night
+                layoutIsha.setBackgroundColor(highlightColor)
+            }
         }
     }
 
@@ -374,32 +474,47 @@ class AthanActivity : AppCompatActivity() {
 
         val now = Date()
         var nextPrayerName = ""
-        var nextPrayerTime = Date()
+        var nextPrayerTime: Date? = null
+
+        val prefsCore = getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
+        val oFajr = prefsCore.getInt("offset_FAJR", 0)
+        val oSunrise = prefsCore.getInt("offset_SUNRISE", 0)
+        val oDhuhr = prefsCore.getInt("offset_DHUHR", 0)
+        val oAsr = prefsCore.getInt("offset_ASR", 0)
+        val oMaghrib = prefsCore.getInt("offset_MAGHRIB", 0)
+        val oIsha = prefsCore.getInt("offset_ISHA", 0)
+
+        val cFajr = adjustTime(todayPrayers.fajr, oFajr)
+        val cSunrise = adjustTime(todayPrayers.sunrise, oSunrise)
+        val cDhuhr = adjustTime(todayPrayers.dhuhr, oDhuhr)
+        val cAsr = adjustTime(todayPrayers.asr, oAsr)
+        val cMaghrib = adjustTime(todayPrayers.maghrib, oMaghrib)
+        val cIsha = adjustTime(todayPrayers.isha, oIsha)
 
         when {
-            now.before(todayPrayers.fajr) -> {
+            cFajr != null && now.before(cFajr) -> {
                 nextPrayerName = "الفجر"
-                nextPrayerTime = todayPrayers.fajr
+                nextPrayerTime = cFajr
             }
-            now.before(todayPrayers.sunrise) -> {
+            cSunrise != null && now.before(cSunrise) -> {
                 nextPrayerName = "الشروق"
-                nextPrayerTime = todayPrayers.sunrise
+                nextPrayerTime = cSunrise
             }
-            now.before(todayPrayers.dhuhr) -> {
+            cDhuhr != null && now.before(cDhuhr) -> {
                 nextPrayerName = "الظهر"
-                nextPrayerTime = todayPrayers.dhuhr
+                nextPrayerTime = cDhuhr
             }
-            now.before(todayPrayers.asr) -> {
+            cAsr != null && now.before(cAsr) -> {
                 nextPrayerName = "العصر"
-                nextPrayerTime = todayPrayers.asr
+                nextPrayerTime = cAsr
             }
-            now.before(todayPrayers.maghrib) -> {
+            cMaghrib != null && now.before(cMaghrib) -> {
                 nextPrayerName = "المغرب"
-                nextPrayerTime = todayPrayers.maghrib
+                nextPrayerTime = cMaghrib
             }
-            now.before(todayPrayers.isha) -> {
+            cIsha != null && now.before(cIsha) -> {
                 nextPrayerName = "العشاء"
-                nextPrayerTime = todayPrayers.isha
+                nextPrayerTime = cIsha
             }
             else -> {
                 val calendar = Calendar.getInstance()
@@ -410,25 +525,30 @@ class AthanActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     null
                 }
-                if (tomorrowPrayers != null) {
+                if (tomorrowPrayers != null && tomorrowPrayers.fajr != null) {
                     nextPrayerName = "الفجر"
-                    nextPrayerTime = tomorrowPrayers.fajr
+                    nextPrayerTime = adjustTime(tomorrowPrayers.fajr, oFajr)
                 }
             }
         }
 
-        val diffMs = nextPrayerTime.time - now.time
-        if (diffMs > 0) {
-            val totalSecs = diffMs / 1000
-            val hours = totalSecs / 3600
-            val mins = (totalSecs % 3600) / 60
-            val secs = totalSecs % 60
+        if (nextPrayerTime != null) {
+            val diffMs = nextPrayerTime.time - now.time
+            if (diffMs > 0) {
+                val totalSecs = diffMs / 1000
+                val hours = totalSecs / 3600
+                val mins = (totalSecs % 3600) / 60
+                val secs = totalSecs % 60
 
-            findViewById<TextView>(R.id.tvNextPrayerTitle).text = "متبقي لصلاة $nextPrayerName"
-            findViewById<TextView>(R.id.tvCountdown).text = String.format(Locale.US, "%02d:%02d:%02d", hours, mins, secs)
+                findViewById<TextView>(R.id.tvNextPrayerTitle).text = "متبقي لصلاة $nextPrayerName"
+                findViewById<TextView>(R.id.tvCountdown).text = String.format(Locale.US, "%02d:%02d:%02d", hours, mins, secs)
+            } else {
+                findViewById<TextView>(R.id.tvNextPrayerTitle).text = "حان الآن وقت صلاة $nextPrayerName"
+                findViewById<TextView>(R.id.tvCountdown).text = "00:00:00"
+            }
         } else {
-            findViewById<TextView>(R.id.tvNextPrayerTitle).text = "حان الآن وقت صلاة $nextPrayerName"
-            findViewById<TextView>(R.id.tvCountdown).text = "00:00:00"
+            findViewById<TextView>(R.id.tvNextPrayerTitle).text = "غير متاح"
+            findViewById<TextView>(R.id.tvCountdown).text = "--:--:--"
         }
     }
 
@@ -469,6 +589,12 @@ class AthanActivity : AppCompatActivity() {
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
 
+        if (!isGpsEnabled && !isNetworkEnabled) {
+            Toast.makeText(this, "الرجاء تفعيل خدمة تحديد الموقع (GPS)", Toast.LENGTH_LONG).show()
+            startActivity(Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            return
+        }
+
         var loc: Location? = null
         if (isNetworkEnabled) {
             loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
@@ -504,9 +630,9 @@ class AthanActivity : AppCompatActivity() {
         cityName = "جاري البحث..."
         regionName = "جاري البحث..."
 
-        findViewById<TextView>(R.id.tvCityName).text = cityName
-        findViewById<TextView>(R.id.tvRegion).text = regionName
-        findViewById<TextView>(R.id.tvCoordinates).text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
+        findViewById<TextView>(R.id.tvCityName)?.text = cityName
+        findViewById<TextView>(R.id.tvRegion)?.text = regionName
+        findViewById<TextView>(R.id.tvCoordinates)?.text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
 
         val prefs = getSharedPreferences("app", MODE_PRIVATE)
         prefs.edit().apply {
@@ -595,9 +721,9 @@ class AthanActivity : AppCompatActivity() {
                         cityName = "موقع مخصص"
                         regionName = "موقع مخصص"
 
-                        findViewById<TextView>(R.id.tvCityName).text = cityName
-                        findViewById<TextView>(R.id.tvRegion).text = regionName
-                        findViewById<TextView>(R.id.tvCoordinates).text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
+                        findViewById<TextView>(R.id.tvCityName)?.text = cityName
+                        findViewById<TextView>(R.id.tvRegion)?.text = regionName
+                        findViewById<TextView>(R.id.tvCoordinates)?.text = String.format(Locale.US, "الإحداثيات: %.4f, %.4f", latitude, longitude)
 
                         val prefs = getSharedPreferences("app", MODE_PRIVATE)
                         prefs.edit().apply {
@@ -670,19 +796,24 @@ class AthanActivity : AppCompatActivity() {
         val gregorianStr = "$d ${gregMonths[m]} $y"
         findViewById<android.widget.TextView>(R.id.tvGregorianDate)?.text = gregorianStr
 
-        val hijriCalendar = android.icu.util.IslamicCalendar()
-        hijriCalendar.add(android.icu.util.Calendar.DAY_OF_MONTH, 2) // Fix Hijri date offset
-        val hd = hijriCalendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
-        val hm = hijriCalendar.get(android.icu.util.Calendar.MONTH)
-        val hy = hijriCalendar.get(android.icu.util.Calendar.YEAR)
-        
-        val hijriMonths = arrayOf(
-            "محرم", "صفر", "ربيع الأول", "ربيع الآخر", 
-            "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", 
-            "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
-        )
-        val hijriMonthName = if (hm in 0..11) hijriMonths[hm] else ""
-        val hijriStr = "$hd $hijriMonthName $hy"
+        var hijriStr = ""
+        try {
+            val hijriCalendar = android.icu.util.IslamicCalendar()
+            hijriCalendar.add(android.icu.util.Calendar.DAY_OF_MONTH, 2) // Fix Hijri date offset
+            val hd = hijriCalendar.get(android.icu.util.Calendar.DAY_OF_MONTH)
+            val hm = hijriCalendar.get(android.icu.util.Calendar.MONTH)
+            val hy = hijriCalendar.get(android.icu.util.Calendar.YEAR)
+            
+            val hijriMonths = arrayOf(
+                "محرم", "صفر", "ربيع الأول", "ربيع الآخر", 
+                "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", 
+                "رمضان", "شوال", "ذو القعدة", "ذو الحجة"
+            )
+            val hijriMonthName = if (hm in 0..11) hijriMonths[hm] else ""
+            hijriStr = "$hd $hijriMonthName $hy"
+        } catch (e: Throwable) {
+            hijriStr = "التاريخ الهجري غير مدعوم"
+        }
         findViewById<android.widget.TextView>(R.id.tvHijriDate)?.text = hijriStr
     }
 }

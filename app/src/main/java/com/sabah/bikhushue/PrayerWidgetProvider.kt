@@ -9,9 +9,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import com.batoulapps.adhan.CalculationMethod
 import com.batoulapps.adhan.Coordinates
@@ -22,7 +24,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 class PrayerWidgetProvider : AppWidgetProvider() {
@@ -116,7 +117,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 val now = System.currentTimeMillis()
                 if (now - lastClickTime < 800) {
                     try {
-                        val openIntent = Intent(context, HomeActivity::class.java).apply {
+                        val openIntent = Intent(context, SplashActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         }
                         context.startActivity(openIntent)
@@ -129,6 +130,16 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 }
             }
         }
+    }
+
+    override fun onAppWidgetOptionsChanged(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetId: Int,
+        newOptions: Bundle?
+    ) {
+        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions)
+        updateAppWidget(context, appWidgetManager, appWidgetId)
     }
 
     override fun onUpdate(
@@ -201,6 +212,28 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         val views = RemoteViews(context.packageName, R.layout.prayer_widget)
 
         try {
+            val options = appWidgetManager.getAppWidgetOptions(appWidgetId)
+            val minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT, 100)
+
+            // Responsive Layout Logic
+            if (minHeight < 90) {
+                // Level 1: Only prayers
+                views.setViewVisibility(R.id.layout_widget_salawat, View.GONE)
+                views.setViewVisibility(R.id.layout_widget_info, View.GONE)
+            } else if (minHeight < 150) {
+                // Level 2: Prayers + Salawat
+                views.setViewVisibility(R.id.layout_widget_salawat, View.VISIBLE)
+                views.setViewVisibility(R.id.layout_widget_info, View.GONE)
+            } else if (minHeight < 220) {
+                // Level 3: Prayers + Salawat + Info
+                views.setViewVisibility(R.id.layout_widget_salawat, View.VISIBLE)
+                views.setViewVisibility(R.id.layout_widget_info, View.VISIBLE)
+            } else {
+                // Level 4: Full (Header added)
+                views.setViewVisibility(R.id.layout_widget_salawat, View.VISIBLE)
+                views.setViewVisibility(R.id.layout_widget_info, View.VISIBLE)
+            }
+
             val prefsApp = context.getSharedPreferences("app", Context.MODE_PRIVATE)
             val prefsCore = context.getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
 
@@ -235,15 +268,23 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             val prayerTimes = PrayerTimes(coordinates, dateComponents, params)
 
             val formatter = SimpleDateFormat("hh:mm", Locale.US)
-            fun getAdjusted(time: Date, prayer: Prayer): String {
-                val offset = prefsCore.getInt("offset_${prayer.name}", 0)
+            fun getAdjusted(time: Date?, prayerName: String): String {
+                if (time == null) return "--:--"
+                val offset = prefsCore.getInt("offset_${prayerName}", 0)
                 val cal = Calendar.getInstance()
                     .apply { timeInMillis = time.time; add(Calendar.MINUTE, offset) }
                 return formatter.format(cal.time)
             }
 
-            val colorWhite = Color.WHITE
-            val colorGold = Color.parseColor("#FEF3C7")
+            // Dynamic background based on theme
+            val bgHex = prefsApp.getString("bg_color", "#121212") ?: "#121212"
+            val isNightOrLunar = when (bgHex) {
+                "#121212", "#455A64", "#37474F", "#263238" -> true
+                else -> false
+            }
+
+            val colorWhite = if (isNightOrLunar) Color.WHITE else Color.parseColor("#39FF14") // Phosphorescent green for Day
+            val colorGold = if (isNightOrLunar) Color.parseColor("#FEF3C7") else Color.parseColor("#39FF14") // Phosphorescent green for Day
 
             // Reset and Set Times
             views.setTextColor(R.id.tv_fajr_label, colorGold)
@@ -256,12 +297,19 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             views.setTextColor(R.id.tv_maghrib_time, colorWhite)
             views.setTextColor(R.id.tv_isha_label, colorGold)
             views.setTextColor(R.id.tv_isha_time, colorWhite)
+            
+            // Add missing Sunrise colors
+            views.setTextColor(R.id.tv_sunrise_time, colorWhite)
+            
+            // Missing label for next prayer
+            views.setTextColor(R.id.tv_next_prayer_title_label, colorGold)
 
-            views.setTextViewText(R.id.tv_fajr_time, getAdjusted(prayerTimes.fajr, Prayer.FAJR))
-            views.setTextViewText(R.id.tv_dhuhr_time, getAdjusted(prayerTimes.dhuhr, Prayer.DHUHR))
-            views.setTextViewText(R.id.tv_asr_time, getAdjusted(prayerTimes.asr, Prayer.ASR))
-            views.setTextViewText(R.id.tv_maghrib_time, getAdjusted(prayerTimes.maghrib, Prayer.MAGHRIB))
-            views.setTextViewText(R.id.tv_isha_time, getAdjusted(prayerTimes.isha, Prayer.ISHA))
+            views.setTextViewText(R.id.tv_fajr_time, getAdjusted(prayerTimes.fajr, "FAJR"))
+            views.setTextViewText(R.id.tv_sunrise_time, getAdjusted(prayerTimes.sunrise, "SUNRISE"))
+            views.setTextViewText(R.id.tv_dhuhr_time, getAdjusted(prayerTimes.dhuhr, "DHUHR"))
+            views.setTextViewText(R.id.tv_asr_time, getAdjusted(prayerTimes.asr, "ASR"))
+            views.setTextViewText(R.id.tv_maghrib_time, getAdjusted(prayerTimes.maghrib, "MAGHRIB"))
+            views.setTextViewText(R.id.tv_isha_time, getAdjusted(prayerTimes.isha, "ISHA"))
 
             val currentPrayer = prayerTimes.currentPrayer()
             val activeCurrent = if (currentPrayer == Prayer.NONE) {
@@ -276,7 +324,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 currentPrayer
             }
 
-            val colorCurrentHighlight = Color.parseColor("#00FFCC")
+            val colorCurrentHighlight = if (isNightOrLunar) Color.parseColor("#00FFCC") else Color.parseColor("#ADFF2F") // GreenYellow for Day
             when (activeCurrent) {
                 Prayer.FAJR -> {
                     views.setTextColor(R.id.tv_fajr_label, colorCurrentHighlight)
@@ -301,17 +349,21 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 else -> {}
             }
 
-
             val cityName = prefsApp.getString("athan_city_name", null) 
                 ?: prefsCore.getString("user_city_name", "الرياض")
             views.setTextViewText(R.id.tv_widget_city, cityName)
+            views.setTextColor(R.id.tv_widget_city, colorWhite)
 
             val currentSalawatCount = prefsCore.getInt(KEY_SALAWAT_COUNT, 0)
             views.setTextViewText(R.id.tv_widget_salawat_counter, currentSalawatCount.toString())
+            views.setTextColor(R.id.tv_widget_salawat_counter, colorGold)
 
             val is24 = android.text.format.DateFormat.is24HourFormat(context)
             val timeFormat = SimpleDateFormat(if (is24) "HH:mm" else "h:mm", Locale.ENGLISH)
             views.setTextViewText(R.id.widget_clock, timeFormat.format(Date()))
+            views.setTextColor(R.id.widget_clock, colorWhite)
+
+            views.setTextColor(R.id.tv_motivational_msg, colorWhite)
 
             var nextPrayer = prayerTimes.nextPrayer()
             
@@ -337,15 +389,18 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                     else -> "الصلاة"
                 }
                 views.setTextViewText(
-                    R.id.tv_next_prayer_name,
-                    "باقي لصلاة $nameAr"
+                    R.id.tv_next_prayer_name_info,
+                    nameAr
                 )
+                views.setTextColor(R.id.tv_next_prayer_name_info, colorWhite)
                 views.setTextViewText(
                     R.id.tv_remaining_time,
                     String.format(Locale.US, "%02d:%02d", h, m)
                 )
+                views.setTextColor(R.id.tv_remaining_time, colorGold)
             }
 
+            // Click Intents
             val clickIntent = Intent(context, PrayerWidgetProvider::class.java).apply {
                 action = ACTION_COUNT_SALAWAT
             }
@@ -355,6 +410,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 clickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
             )
+            // Making the entire root clickable for counting!
             views.setOnClickPendingIntent(R.id.widget_root, clickPendingIntent)
 
             val appIntent = Intent(context, PrayerWidgetProvider::class.java).apply { 
@@ -366,8 +422,8 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 appIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-            views.setOnClickPendingIntent(R.id.widget_clock, appPendingIntent)
-            views.setOnClickPendingIntent(R.id.tv_widget_city, appPendingIntent)
+            // Element that opens the app instead of counting
+            views.setOnClickPendingIntent(R.id.view_center_open_app, appPendingIntent)
 
             val resetIntent = Intent(context, PrayerWidgetProvider::class.java).apply {
                 action = ACTION_RESET_SALAWAT
@@ -380,14 +436,8 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             )
             views.setOnClickPendingIntent(R.id.iv_widget_reset, resetPendingIntent)
             
-            // Dynamic background based on theme
-            val bgHex = prefsApp.getString("bg_color", "#455A64") ?: "#455A64"
-            val isNightOrLunar = when (bgHex) {
-                "#121212", "#455A64", "#37474F", "#263238", "#D4CEC4" -> true
-                else -> false
-            }
             if (isNightOrLunar) {
-                views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.osc)
+                views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.rfrf)
             } else {
                 views.setImageViewResource(R.id.iv_widget_bg_mosque, R.drawable.pop)
             }

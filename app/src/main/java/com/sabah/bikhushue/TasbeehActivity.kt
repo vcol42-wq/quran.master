@@ -54,9 +54,7 @@ class TasbeehActivity : AppCompatActivity() {
         ZikrState("الحمد لله", 0, 33),
         ZikrState("الله أكبر", 0, 33),
         ZikrState("لا إله إلا الله", 0, 33),
-        ZikrState("لا حول ولا قوة إلا بالله", 0, 33),
-        ZikrState("أستغفر الله", 0, 100),
-        ZikrState("صل على النبي", 0, 10)
+        ZikrState("أستغفر الله", 0, 100)
     )
     private var currentZikrIndex = 0
 
@@ -184,8 +182,8 @@ class TasbeehActivity : AppCompatActivity() {
                 android.widget.FrameLayout.LayoutParams.MATCH_PARENT
             )
             TextViewCompat.setAutoSizeTextTypeWithDefaults(t, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
-            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(t, 12, 40, 1, android.util.TypedValue.COMPLEX_UNIT_SP)
-            t.maxLines = 1
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(t, 16, 50, 1, android.util.TypedValue.COMPLEX_UNIT_SP)
+            t.maxLines = 2
             val theme = ThemeHelper.getThemeColors(this@TasbeehActivity)
             t.setTextColor(theme.txt)
             t.setShadowLayer(2f, 1f, 1f, if (theme.isDark) Color.TRANSPARENT else Color.parseColor("#40D2B48C"))

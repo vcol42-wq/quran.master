@@ -19,12 +19,12 @@ class SplashActivity : AppCompatActivity() {
         applyTheme()
 
         val splashLogo: ImageView = findViewById(R.id.splashLogo)
-        val splashTitle: TextView = findViewById(R.id.splashTitle)
+        val splashTitle: ImageView = findViewById(R.id.splashTitle)
 
         // Initial state
         splashLogo.alpha = 0f
-        splashLogo.scaleX = 0.5f
-        splashLogo.scaleY = 0.5f
+        splashLogo.scaleX = 0.8f
+        splashLogo.scaleY = 0.8f
 
         splashTitle.alpha = 0f
         splashTitle.translationY = 50f
@@ -34,7 +34,8 @@ class SplashActivity : AppCompatActivity() {
             .alpha(1f)
             .scaleX(1f)
             .scaleY(1f)
-            .setDuration(1000)
+            .setDuration(1200)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
             .start()
 
         splashTitle.animate()
@@ -42,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
             .translationY(0f)
             .setStartDelay(500)
             .setDuration(800)
+            .setInterpolator(android.view.animation.DecelerateInterpolator())
             .start()
 
         // Transition to HomeActivity after 2.5 seconds
@@ -54,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
         val root: View = findViewById(R.id.splashRoot)
-        root.setBackgroundColor(theme.bg)
+        // Kept transparent so rfrf background shows through
 
         window.statusBarColor = theme.bg
         window.navigationBarColor = theme.bg
@@ -63,8 +65,5 @@ class SplashActivity : AppCompatActivity() {
         } else {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-
-        val splashTitle: TextView = findViewById(R.id.splashTitle)
-        splashTitle.setTextColor(theme.txt)
     }
 }

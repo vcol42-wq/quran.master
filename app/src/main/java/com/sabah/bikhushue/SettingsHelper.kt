@@ -34,16 +34,32 @@ object SettingsHelper {
         val prefs = activity.getSharedPreferences("app", Context.MODE_PRIVATE)
         
         // Theme Setup
-        val themes = arrayOf("قمري", "كريمي", "زمردي", "سماوي", "ليلي", "زهري", "قرمزي")
-        spinnerTheme.adapter = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, themes)
+        val themes = arrayOf("ليلي", "قمري", "كريمي", "زمردي", "سماوي", "زهري", "قرمزي")
+        val themeColors = ThemeHelper.getThemeColors(activity)
+        val spinnerAdapter = object : ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, themes) {
+            override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as android.widget.TextView
+                view.setTextColor(themeColors.txt)
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
+                view.setBackgroundColor(themeColors.cardBg)
+                view.setTextColor(themeColors.txt)
+                return view
+            }
+        }
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerTheme.adapter = spinnerAdapter
         
-        val currentBg = prefs.getString("bg_color", "#455A64")
+        val currentBg = prefs.getString("bg_color", "#121212")
         spinnerTheme.setSelection(when (currentBg) {
-            "#455A64", "#37474F", "#263238", "#D4CEC4" -> 0
-            "#FDFBF7" -> 1
-            "#E0F2F1" -> 2
-            "#E3F2FD" -> 3
-            "#121212" -> 4
+            "#121212" -> 0
+            "#455A64", "#37474F", "#263238", "#D4CEC4" -> 1
+            "#FDFBF7" -> 2
+            "#E0F2F1" -> 3
+            "#E3F2FD" -> 4
             "#FFF0F5" -> 5
             "#FBF3F4" -> 6
             else -> 0
@@ -52,22 +68,22 @@ object SettingsHelper {
         spinnerTheme.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
                 val newBg = when (position) {
-                    0 -> "#455A64"
-                    1 -> "#FDFBF7"
-                    2 -> "#E0F2F1"
-                    3 -> "#E3F2FD"
-                    4 -> "#121212"
+                    0 -> "#121212"
+                    1 -> "#455A64"
+                    2 -> "#FDFBF7"
+                    3 -> "#E0F2F1"
+                    4 -> "#E3F2FD"
                     5 -> "#FFF0F5"
                     6 -> "#FBF3F4"
-                    else -> "#455A64"
+                    else -> "#121212"
                 }
-                if (newBg != prefs.getString("bg_color", "#455A64")) {
+                if (newBg != prefs.getString("bg_color", "#121212")) {
                     when (position) {
-                        0 -> applyThemeToPrefs(prefs, "#455A64", "#FDF5E6", "#37474F")
-                        1 -> applyThemeToPrefs(prefs, "#FDFBF7", "#212121", "#F9F6F0")
-                        2 -> applyThemeToPrefs(prefs, "#E0F2F1", "#004D40", "#B2DFDB")
-                        3 -> applyThemeToPrefs(prefs, "#E3F2FD", "#0D47A1", "#BBDEFB")
-                        4 -> applyThemeToPrefs(prefs, "#121212", "#E0E0E0", "#1E1E1E")
+                        0 -> applyThemeToPrefs(prefs, "#121212", "#E0E0E0", "#1E1E1E")
+                        1 -> applyThemeToPrefs(prefs, "#455A64", "#FDF5E6", "#37474F")
+                        2 -> applyThemeToPrefs(prefs, "#FDFBF7", "#212121", "#F9F6F0")
+                        3 -> applyThemeToPrefs(prefs, "#E0F2F1", "#004D40", "#B2DFDB")
+                        4 -> applyThemeToPrefs(prefs, "#E3F2FD", "#0D47A1", "#BBDEFB")
                         5 -> applyThemeToPrefs(prefs, "#FFF0F5", "#C2185B", "#F8BBD0")
                         6 -> applyThemeToPrefs(prefs, "#FBF3F4", "#9C143A", "#F0D5DA")
                     }
@@ -102,7 +118,27 @@ object SettingsHelper {
         // API Key
         etApiKey.setText(prefs.getString("api", ""))
 
+        val tvGetApiKey = view.findViewById<android.widget.TextView>(R.id.tvGetApiKey)
+        tvGetApiKey?.setOnClickListener {
+            val instructions = "للحصول على مفتاح جُمني (Gemini API Key) مجاناً، اتبع الخطوات البسيطة التالية:\n\n" +
+                    "1- تأكد من تسجيل الدخول بحساب جوجل (Google) الخاص بك.\n" +
+                    "2- اضغط على زر 'الانتقال للموقع' بالأسفل.\n" +
+                    "3- في الموقع، اضغط على الزر الأزرق 'Create API key'.\n" +
+                    "4- قم بنسخ المفتاح الذي يظهر لك.\n" +
+                    "5- ارجع إلى هذا التطبيق والصق المفتاح في الحقل المخصص.\n\n" +
+                    "هل تود الانتقال إلى الموقع الآن؟"
 
+            androidx.appcompat.app.AlertDialog.Builder(activity)
+                .setTitle("خطوات الحصول على المفتاح")
+                .setMessage(instructions)
+                .setPositiveButton("الانتقال للموقع") { _, _ ->
+                    val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+                    intent.data = android.net.Uri.parse("https://aistudio.google.com/app/apikey")
+                    activity.startActivity(intent)
+                }
+                .setNegativeButton("تراجع", null)
+                .show()
+        }
 
         // Save Button
         btnSave.setOnClickListener {
@@ -124,7 +160,17 @@ object SettingsHelper {
 
         val btnAboutApp = view.findViewById<android.widget.TextView>(R.id.btnAboutApp)
         btnAboutApp?.setOnClickListener {
-            val aboutText = "1- (¼ ح) وما يشابهها تدل على الأحزاب حيث يُقسم القرآن إلى 60 حزباً.\n\n2- (ع) هو اختصار لكلمة ركوع حيث يستطيع المصلي التوقف عندها لاكتمال المعنى وهي محببة.\n\n3- المنزل هي طريقة لتقسيم القرآن لقراءته في 7 أيام أي مشابه للأجزاء.\n\n4- الألوان وضعت لتمييز أحكام التجويد وفق معايير معتمدة.\n\n5- يمكنك الاستفادة من البحث في شريط البحث في تطبيق سبح بخشوع والأذكار لتجد كل ما تبحث عنه من أذكار وتفسير مختصر لأن التطبيق مزود بقاعدة بيانات محلية.\n\n6- يمكن الاستزادة من البحث في جُمني بعد وضع مفتاحك الخاص لكي يأخذك إلى عالم أوسع لكن محدد بالصحيح منه.\n\n7- نرجو أن تستفيد من التطبيق فينالك الأجر العظيم من ذكر الله.\n\n8- التزام الملكية: نؤكد أن النص القرآني المستخدم والخطوط المدمجة مأخوذة من مصادر عامة ومفتوحة (Public Domain) مثل مجمع الملك فهد، ولا تنتهك أي حقوق نشر.\n\n9- يمكنك الآن الاستماع إلى تلاوة الآيات أو السور كاملة بثاً مباشراً عبر الإنترنت، مع إمكانية تحميل السورة للاستماع إليها لاحقاً بدون إنترنت، وذلك عبر النقر على خيار الصوت في قائمة خيارات الآية.\n\n10- للتواصل والمقترحات:\nvcol42@gmail.com"
+            val aboutText = "1- (¼ ح) وما يشابهها تدل على الأحزاب حيث يُقسم القرآن إلى 60 حزباً.\n\n" +
+                    "2- (ع) هو اختصار لكلمة ركوع حيث يستطيع المصلي التوقف عندها لاكتمال المعنى وهي محببة.\n\n" +
+                    "3- المنزل هي طريقة لتقسيم القرآن لقراءته في 7 أيام أي مشابه للأجزاء.\n\n" +
+                    "4- الألوان وضعت لتمييز أحكام التجويد وفق معايير معتمدة.\n\n" +
+                    "5- يمكنك الاستفادة من البحث في شريط البحث لتجد كل ما تبحث عنه من أذكار وتفسير لأن التطبيق مزود بقاعدة بيانات محلية.\n\n" +
+                    "6- يمكن الاستزادة والبحث الذكي باستخدام مساعد جُمني (Gemini) بعد إحضار وإضافة مفتاحك الخاص (API Key) في الإعدادات. التطبيق لا يشارك هذا المفتاح مع أي جهة خارجية ويتم حفظه محلياً على جهازك فقط لضمان خصوصيتك.\n\n" +
+                    "7- نرجو أن تستفيد من التطبيق فينالك الأجر العظيم من ذكر الله.\n\n" +
+                    "8- التزام الملكية: النص القرآني المستخدم والخطوط مأخوذة من مصادر عامة ومفتوحة مثل مجمع الملك فهد، ولا تنتهك أي حقوق نشر.\n\n" +
+                    "9- يمكنك الاستماع لتلاوة الآيات أو السور عبر الإنترنت، مع إمكانية التحميل للاستماع لاحقاً بدون إنترنت.\n\n" +
+                    "10- للتواصل والمقترحات:\n" +
+                    "vcol42@gmail.com"
             val tv = android.widget.TextView(activity).apply {
                 text = aboutText
                 textSize = 14f

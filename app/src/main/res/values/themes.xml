@@ -14,4 +14,12 @@
         <item name="fontFamily">@font/amiri_quran</item>
         <item name="android:fontFamily">@font/amiri_quran</item>
     </style>
+
+    <!-- Splash Theme to avoid white flash and use animated background -->
+    <style name="Theme.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">#050510</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>

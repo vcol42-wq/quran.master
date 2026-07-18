@@ -14,6 +14,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import java.util.*
@@ -40,15 +44,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainRootLayout)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         initViews()
         
         // تطبيق الثيم الأولي المحفوظ
         val prefs = getSharedPreferences("app", MODE_PRIVATE)
-        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+        val savedBg = prefs.getString("bg_color", "#121212") ?: "#121212"
         val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
         val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
         applyTheme(savedBg, savedTxt, savedBar)
@@ -112,10 +121,18 @@ class MainActivity : AppCompatActivity() {
 
         val onThemeChangedAction = {
             val prefs = getSharedPreferences("app", MODE_PRIVATE)
-            val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+            val savedBg = prefs.getString("bg_color", "#121212") ?: "#121212"
             val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
             val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
             applyTheme(savedBg, savedTxt, savedBar)
+            
+            // تحديث الودجت فورا عند تغيير الثيم
+            val intent = android.content.Intent(this, PrayerWidgetProvider::class.java).apply {
+                action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                val ids = android.appwidget.AppWidgetManager.getInstance(application).getAppWidgetIds(android.content.ComponentName(application, PrayerWidgetProvider::class.java))
+                putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            }
+            sendBroadcast(intent)
         }
         val onTajweedChangedAction = { isChecked: Boolean ->
             if (::quranAdapter.isInitialized) {
@@ -178,7 +195,7 @@ class MainActivity : AppCompatActivity() {
                         quranAdapter = QuranAdapter(blockList, { toggleBarsVisibility() }, { showVerseOptions(it) })
                         
                         val prefs = getSharedPreferences("app", MODE_PRIVATE)
-                        val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+                        val savedBg = prefs.getString("bg_color", "#121212") ?: "#121212"
                         val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
                         val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
                         quranAdapter.showTajweedColors = prefs.getBoolean("tajweed_on", true)
@@ -289,13 +306,9 @@ class MainActivity : AppCompatActivity() {
         quranRecyclerView.setBackgroundColor(Color.TRANSPARENT)
         
         window.statusBarColor = barColor
-        window.navigationBarColor = barColor
-
-        if (bg == "#121212") {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-        } else {
-            window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        windowInsetsController.isAppearanceLightStatusBars = !isDarkMode
+        windowInsetsController.isAppearanceLightNavigationBars = !isDarkMode
 
         topBarContainer.setCardBackgroundColor(barColor)
         bottomBarLayout.setCardBackgroundColor(barColor)
@@ -335,10 +348,17 @@ class MainActivity : AppCompatActivity() {
 
         val onThemeChangedAction = {
             val prefs = getSharedPreferences("app", MODE_PRIVATE)
-            val savedBg = prefs.getString("bg_color", "#F4ECD8") ?: "#F4ECD8"
+            val savedBg = prefs.getString("bg_color", "#121212") ?: "#121212"
             val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
             val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
             applyTheme(savedBg, savedTxt, savedBar)
+            
+            val intent = android.content.Intent(this, PrayerWidgetProvider::class.java).apply {
+                action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE
+                val ids = android.appwidget.AppWidgetManager.getInstance(application).getAppWidgetIds(android.content.ComponentName(application, PrayerWidgetProvider::class.java))
+                putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+            }
+            sendBroadcast(intent)
         }
         val onTajweedChangedAction = { isChecked: Boolean ->
             if (::quranAdapter.isInitialized) {
