@@ -21,6 +21,10 @@ object SettingsHelper {
     ) {
         val dialog = BottomSheetDialog(activity)
         val view = activity.layoutInflater.inflate(R.layout.dialog_settings, null)
+        val themeColors = ThemeHelper.getThemeColors(activity)
+        
+        // Apply theme background to the root
+        view.setBackgroundColor(themeColors.bg)
         dialog.setContentView(view)
 
         val spinnerTheme = view.findViewById<Spinner>(R.id.spinnerTheme)
@@ -32,14 +36,22 @@ object SettingsHelper {
         val btnSave = view.findViewById<android.widget.TextView>(R.id.btnSaveSettings)
 
         val prefs = activity.getSharedPreferences("app", Context.MODE_PRIVATE)
+
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainShadow)?.setCardBackgroundColor(themeColors.shadow)
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainCard)?.setCardBackgroundColor(themeColors.cardBg)
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainCard)?.strokeColor = themeColors.stroke
+        
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerShadow)?.setCardBackgroundColor(themeColors.shadow)
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerCard)?.setCardBackgroundColor(themeColors.cardBg)
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerCard)?.strokeColor = themeColors.stroke
         
         // Theme Setup
         val themes = arrayOf("ليلي", "قمري", "كريمي", "زمردي", "سماوي", "زهري", "قرمزي")
-        val themeColors = ThemeHelper.getThemeColors(activity)
-        val spinnerAdapter = object : ArrayAdapter<String>(activity, android.R.layout.simple_spinner_item, themes) {
+        val spinnerAdapter = object : ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, themes) {
             override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
                 val view = super.getView(position, convertView, parent) as android.widget.TextView
                 view.setTextColor(themeColors.txt)
+                view.gravity = android.view.Gravity.CENTER
                 return view
             }
 
@@ -47,11 +59,14 @@ object SettingsHelper {
                 val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
                 view.setBackgroundColor(themeColors.cardBg)
                 view.setTextColor(themeColors.txt)
+                view.gravity = android.view.Gravity.CENTER
+                view.setPadding(16, 24, 16, 24)
                 return view
             }
         }
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerTheme.adapter = spinnerAdapter
+        spinnerTheme.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.cardBg))
+
         
         val currentBg = prefs.getString("bg_color", "#121212")
         spinnerTheme.setSelection(when (currentBg) {
@@ -117,6 +132,13 @@ object SettingsHelper {
 
         // API Key
         etApiKey.setText(prefs.getString("api", ""))
+        
+        val tilApiKey = view.findViewById<com.google.android.material.textfield.TextInputLayout>(R.id.tilApiKey)
+        tilApiKey?.setEndIconOnClickListener {
+            val key = etApiKey.text.toString().trim()
+            prefs.edit().putString("api", key).apply()
+            android.widget.Toast.makeText(activity, "تم حفظ مفتاح جُمني بنجاح!", android.widget.Toast.LENGTH_SHORT).show()
+        }
 
         val tvGetApiKey = view.findViewById<android.widget.TextView>(R.id.tvGetApiKey)
         tvGetApiKey?.setOnClickListener {

@@ -41,6 +41,7 @@
 
             <!-- Shadow Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvMainShadow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="6dp"
@@ -52,6 +53,7 @@
 
             <!-- Main Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvMainCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
@@ -85,6 +87,7 @@
                         android:layout_marginBottom="20dp">
 
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvSpinnerShadow"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="4dp"
@@ -95,6 +98,7 @@
                             app:strokeWidth="0dp" />
 
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cvSpinnerCard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
@@ -195,9 +199,13 @@
                             app:strokeColor="#00A86B">
 
                             <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tilApiKey"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                app:endIconMode="custom"
+                                app:endIconDrawable="@android:drawable/ic_menu_save"
+                                app:endIconTint="#00A86B"
                                 app:boxStrokeWidth="0dp"
                                 app:boxStrokeWidthFocused="0dp">
                                 

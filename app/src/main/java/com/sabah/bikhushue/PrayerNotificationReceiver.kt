@@ -17,12 +17,22 @@ class PrayerNotificationReceiver : BroadcastReceiver() {
             else -> "الصلاة"
         }
 
-        NotificationHelper.createChannels(context)
-        NotificationHelper.showPrayerNotification(
-            context,
-            "تنبيه دخول وقت الصلاة",
-            "حان الآن موعد صلاة $nameAr"
-        )
+        val prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE)
+        val isSoundEnabled = prefs.getBoolean("athan_sound_enabled", true)
+
+        if (isSoundEnabled) {
+            val serviceIntent = Intent(context, AthanService::class.java).apply {
+                putExtra("prayer_name", prayerName)
+            }
+            androidx.core.content.ContextCompat.startForegroundService(context, serviceIntent)
+        } else {
+            NotificationHelper.createChannels(context)
+            NotificationHelper.showPrayerNotification(
+                context,
+                "تنبيه دخول وقت الصلاة",
+                "حان الآن موعد صلاة $nameAr"
+            )
+        }
 
         // Schedule next prayer alarm
         AlarmScheduler.scheduleAlarms(context)

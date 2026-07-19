@@ -42,13 +42,13 @@
             android:paddingVertical="4dp">
 
             <TextView
-                android:id="@+id/topBarJuzText"
+                android:id="@+id/topBarSuraText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#3D2B1F"
                 android:textSize="14sp"
-                android:text="الجزء"
+                android:text="السورة"
                 android:textStyle="bold"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -80,14 +80,14 @@
                 android:layout_marginHorizontal="12dp"/>
 
             <TextView
-                android:id="@+id/topBarSuraText"
+                android:id="@+id/topBarJuzText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
                 android:textColor="#3D2B1F"
                 android:textSize="14sp"
-                android:text="السورة"
+                android:text="الجزء"
                 android:textStyle="bold"/>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

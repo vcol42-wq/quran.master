@@ -47,12 +47,13 @@ object ThemeHelper {
         }
 
         val shadowHex = when (bgHex) {
+            "#121212" -> "#000000" // Night shadow
             "#455A64", "#37474F", "#263238", "#D4CEC4" -> "#A4B2C6" // Lunar shadow (creamy with a touch of dark blue)
             "#E0F2F1" -> "#B2DFDB" // Emerald shadow
             "#E3F2FD" -> "#BBDEFB" // Sky Blue shadow
             "#FFF0F5" -> "#F8BBD0" // Pink shadow
             "#FBF3F4" -> "#E8B8C1" // Crimson shadow
-            else -> "#D2B48C"      // Creamy shadow for Night and Creamy
+            else -> "#D2B48C"      // Creamy shadow
         }
 
         return ThemeColors(

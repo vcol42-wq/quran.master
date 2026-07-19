@@ -4,6 +4,7 @@
     android:id="@+id/homeRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="#F4ECD8">
 
     <ScrollView

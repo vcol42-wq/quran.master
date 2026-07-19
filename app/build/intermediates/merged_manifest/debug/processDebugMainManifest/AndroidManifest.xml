@@ -15,6 +15,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
@@ -106,6 +109,12 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sabah.bikhushue.AssistantActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
         <receiver
             android:name="com.sabah.bikhushue.PrayerNotificationReceiver"
@@ -122,7 +131,8 @@
         </receiver>
         <receiver
             android:name="com.sabah.bikhushue.PrayerWidgetProvider"
-            android:exported="true" >
+            android:exported="true"
+            android:label="ودجت الصلاة (ليلي)" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.sabah.bikhushue.ACTION_WIDGET_INCREMENT" />
@@ -133,6 +143,26 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/prayer_widget_info" />
         </receiver>
+        <receiver
+            android:name="com.sabah.bikhushue.PrayerWidgetDayProvider"
+            android:exported="true"
+            android:label="ودجت الصلاة (نهاري)" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.sabah.bikhushue.ACTION_WIDGET_INCREMENT" />
+                <action android:name="com.sabah.bikhushue.ACTION_WIDGET_RESET" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/prayer_widget_day_info" />
+        </receiver>
+
+        <service
+            android:name="com.sabah.bikhushue.AthanService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
             android:enabled="true"

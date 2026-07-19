@@ -87,6 +87,13 @@ class AthanActivity : AppCompatActivity() {
     private fun doOnCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 101)
+            }
+        }
+
         setContentView(R.layout.activity_athan)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.scrollView)) { v, insets ->
@@ -154,8 +161,11 @@ class AthanActivity : AppCompatActivity() {
             }
         }
 
+        val themeColors = ThemeHelper.getThemeColors(this)
+        
         // Spinner Setup for Calculation Method
         val spinnerCalcMethod: Spinner = findViewById(R.id.spinnerCalcMethod)
+        spinnerCalcMethod.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.cardBg))
         val methods = arrayOf(
             "جامعة أم القرى (مكة المكرمة)",
             "رابطة العالم الإسلامي",
@@ -169,7 +179,7 @@ class AthanActivity : AppCompatActivity() {
             "تركيا (رئاسة الشؤون الدينية)",
             "معهد الجيوفيزياء بجامعة طهران"
         )
-        val themeColors = ThemeHelper.getThemeColors(this)
+        // themeColors already loaded above
         val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, methods) {
             override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
                 val view = super.getView(position, convertView, parent) as android.widget.TextView
@@ -400,7 +410,7 @@ class AthanActivity : AppCompatActivity() {
             return
         }
 
-        val timeFormat = SimpleDateFormat("hh:mm a", Locale("ar"))
+        val timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
         timeFormat.timeZone = TimeZone.getDefault()
 
         val prefsCore = getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
@@ -412,7 +422,12 @@ class AthanActivity : AppCompatActivity() {
         val oIsha = prefsCore.getInt("offset_ISHA", 0)
 
         fun formatSafe(date: Date?): String {
-            return date?.let { timeFormat.format(it) } ?: "--:--"
+            var formatted = date?.let { timeFormat.format(it).replace(" AM", "ص").replace(" PM", "م").replace(" am", "ص").replace(" pm", "م").replace("AM", "ص").replace("PM", "م").replace("am", "ص").replace("pm", "م") } ?: "--:--"
+            val arabicToEnglish = mapOf('٠' to '0', '١' to '1', '٢' to '2', '٣' to '3', '٤' to '4', '٥' to '5', '٦' to '6', '٧' to '7', '٨' to '8', '٩' to '9')
+            for ((ar, en) in arabicToEnglish) {
+                formatted = formatted.replace(ar, en)
+            }
+            return formatted
         }
 
         findViewById<TextView>(R.id.tvTimeFajr).text = formatSafe(adjustTime(todayPrayers.fajr, oFajr))
@@ -441,22 +456,35 @@ class AthanActivity : AppCompatActivity() {
         layoutIsha.setBackgroundColor(Color.TRANSPARENT)
 
         val theme = ThemeHelper.getThemeColors(this)
-        // Use the shadow color or bar color with alpha for a distinct highlight
-        val highlightColor = theme.shadow
+        // Use a very soft alpha for highlight
+        val r = android.graphics.Color.red(theme.txt)
+        val g = android.graphics.Color.green(theme.txt)
+        val b = android.graphics.Color.blue(theme.txt)
+        val highlightColor = if (theme.isDark) {
+            android.graphics.Color.argb(12, 255, 255, 255)
+        } else {
+            android.graphics.Color.argb(20, r, g, b)
+        }
+
+        val highlightDrawable = android.graphics.drawable.GradientDrawable().apply {
+            shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+            cornerRadius = 24f * resources.displayMetrics.density
+            setColor(highlightColor)
+            setStroke((1.5f * resources.displayMetrics.density).toInt(), theme.stroke)
+        }
 
         val currentPrayer = todayPrayers.currentPrayer()
         val now = Date()
 
         when (currentPrayer) {
-            com.batoulapps.adhan.Prayer.FAJR -> layoutFajr.setBackgroundColor(highlightColor)
-            com.batoulapps.adhan.Prayer.SUNRISE -> layoutSunrise.setBackgroundColor(highlightColor)
-            com.batoulapps.adhan.Prayer.DHUHR -> layoutDhuhr.setBackgroundColor(highlightColor)
-            com.batoulapps.adhan.Prayer.ASR -> layoutAsr.setBackgroundColor(highlightColor)
-            com.batoulapps.adhan.Prayer.MAGHRIB -> layoutMaghrib.setBackgroundColor(highlightColor)
-            com.batoulapps.adhan.Prayer.ISHA -> layoutIsha.setBackgroundColor(highlightColor)
+            com.batoulapps.adhan.Prayer.FAJR -> layoutFajr.background = highlightDrawable
+            com.batoulapps.adhan.Prayer.SUNRISE -> layoutSunrise.background = highlightDrawable
+            com.batoulapps.adhan.Prayer.DHUHR -> layoutDhuhr.background = highlightDrawable
+            com.batoulapps.adhan.Prayer.ASR -> layoutAsr.background = highlightDrawable
+            com.batoulapps.adhan.Prayer.MAGHRIB -> layoutMaghrib.background = highlightDrawable
+            com.batoulapps.adhan.Prayer.ISHA -> layoutIsha.background = highlightDrawable
             com.batoulapps.adhan.Prayer.NONE -> {
-                // If it's before Fajr, the current active prayer is Isha from the previous night
-                layoutIsha.setBackgroundColor(highlightColor)
+                layoutIsha.background = highlightDrawable
             }
         }
     }

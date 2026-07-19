@@ -26,13 +26,17 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-class PrayerWidgetProvider : AppWidgetProvider() {
+open class PrayerWidgetProvider : AppWidgetProvider() {
+
+    open fun isNightWidget(): Boolean = true
 
     companion object {
         const val ACTION_COUNT_SALAWAT = "com.sabah.bikhushue.ACTION_COUNT_SALAWAT"
         const val ACTION_RESET_SALAWAT = "com.sabah.bikhushue.ACTION_RESET_SALAWAT"
         const val ACTION_MINUTE_UPDATE = "com.sabah.bikhushue.ACTION_MINUTE_UPDATE"
         const val ACTION_OPEN_APP = "com.sabah.bikhushue.ACTION_OPEN_APP"
+        const val ACTION_THEME_DAY = "com.sabah.bikhushue.ACTION_THEME_DAY"
+        const val ACTION_THEME_NIGHT = "com.sabah.bikhushue.ACTION_THEME_NIGHT"
         const val KEY_SALAWAT_COUNT = "widget_salawat_free_count"
         private const val TAG = "PrayerWidget"
     }
@@ -40,6 +44,18 @@ class PrayerWidgetProvider : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         Log.d(TAG, "onReceive action: ${intent.action}")
+
+        fun updateAllWidgets() {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val idsNight = appWidgetManager.getAppWidgetIds(ComponentName(context, PrayerWidgetProvider::class.java))
+            val idsDay = appWidgetManager.getAppWidgetIds(ComponentName(context, PrayerWidgetDayProvider::class.java))
+            
+            val nightProvider = PrayerWidgetProvider()
+            val dayProvider = PrayerWidgetDayProvider()
+            
+            for (id in idsNight) nightProvider.updateAppWidget(context, appWidgetManager, id)
+            for (id in idsDay) dayProvider.updateAppWidget(context, appWidgetManager, id)
+        }
 
         when (intent.action) {
             ACTION_COUNT_SALAWAT -> {
@@ -62,14 +78,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                     Log.e(TAG, "Vibration error", e)
                 }
 
-                val appWidgetManager = AppWidgetManager.getInstance(context)
-                val ids = appWidgetManager.getAppWidgetIds(
-                    ComponentName(
-                        context,
-                        PrayerWidgetProvider::class.java
-                    )
-                )
-                for (id in ids) updateAppWidget(context, appWidgetManager, id)
+                updateAllWidgets()
             }
 
             ACTION_RESET_SALAWAT -> {
@@ -90,25 +99,11 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                     Log.e(TAG, "Vibration error", e)
                 }
 
-                val appWidgetManager = AppWidgetManager.getInstance(context)
-                val ids = appWidgetManager.getAppWidgetIds(
-                    ComponentName(
-                        context,
-                        PrayerWidgetProvider::class.java
-                    )
-                )
-                for (id in ids) updateAppWidget(context, appWidgetManager, id)
+                updateAllWidgets()
             }
 
             ACTION_MINUTE_UPDATE -> {
-                val appWidgetManager = AppWidgetManager.getInstance(context)
-                val ids = appWidgetManager.getAppWidgetIds(
-                    ComponentName(
-                        context,
-                        PrayerWidgetProvider::class.java
-                    )
-                )
-                onUpdate(context, appWidgetManager, ids)
+                updateAllWidgets()
             }
 
             ACTION_OPEN_APP -> {
@@ -163,7 +158,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
     private fun scheduleNextUpdate(context: Context) {
         try {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(context, PrayerWidgetProvider::class.java).apply {
+            val intent = Intent(context, javaClass).apply {
                 action = ACTION_MINUTE_UPDATE
             }
             val pendingIntent = PendingIntent.getBroadcast(
@@ -204,7 +199,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    private fun updateAppWidget(
+    fun updateAppWidget(
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetId: Int
@@ -277,14 +272,9 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             }
 
             // Dynamic background based on theme
-            val bgHex = prefsApp.getString("bg_color", "#121212") ?: "#121212"
-            val isNightOrLunar = when (bgHex) {
-                "#121212", "#455A64", "#37474F", "#263238" -> true
-                else -> false
-            }
-
-            val colorWhite = if (isNightOrLunar) Color.WHITE else Color.parseColor("#39FF14") // Phosphorescent green for Day
-            val colorGold = if (isNightOrLunar) Color.parseColor("#FEF3C7") else Color.parseColor("#39FF14") // Phosphorescent green for Day
+            val isNightOrLunar = isNightWidget()
+            val colorWhite = if (isNightOrLunar) Color.WHITE else Color.parseColor("#212121") // Dark text for Day
+            val colorGold = if (isNightOrLunar) Color.parseColor("#FEF3C7") else Color.parseColor("#5D4037") // Brown text for Day
 
             // Reset and Set Times
             views.setTextColor(R.id.tv_fajr_label, colorGold)
@@ -323,8 +313,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             } else {
                 currentPrayer
             }
-
-            val colorCurrentHighlight = if (isNightOrLunar) Color.parseColor("#00FFCC") else Color.parseColor("#ADFF2F") // GreenYellow for Day
+            val colorCurrentHighlight = if (isNightOrLunar) Color.parseColor("#00FFCC") else Color.parseColor("#1B5E20") // Dark green for Day
             when (activeCurrent) {
                 Prayer.FAJR -> {
                     views.setTextColor(R.id.tv_fajr_label, colorCurrentHighlight)
@@ -401,7 +390,9 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             }
 
             // Click Intents
-            val clickIntent = Intent(context, PrayerWidgetProvider::class.java).apply {
+            val providerClass = if (isNightWidget()) PrayerWidgetProvider::class.java else PrayerWidgetDayProvider::class.java
+            
+            val clickIntent = Intent(context, providerClass).apply {
                 action = ACTION_COUNT_SALAWAT
             }
             val clickPendingIntent = PendingIntent.getBroadcast(
@@ -413,7 +404,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             // Making the entire root clickable for counting!
             views.setOnClickPendingIntent(R.id.widget_root, clickPendingIntent)
 
-            val appIntent = Intent(context, PrayerWidgetProvider::class.java).apply { 
+            val appIntent = Intent(context, providerClass).apply { 
                 action = ACTION_OPEN_APP 
             }
             val appPendingIntent = PendingIntent.getBroadcast(
@@ -425,7 +416,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
             // Element that opens the app instead of counting
             views.setOnClickPendingIntent(R.id.view_center_open_app, appPendingIntent)
 
-            val resetIntent = Intent(context, PrayerWidgetProvider::class.java).apply {
+            val resetIntent = Intent(context, providerClass).apply {
                 action = ACTION_RESET_SALAWAT
             }
             val resetPendingIntent = PendingIntent.getBroadcast(

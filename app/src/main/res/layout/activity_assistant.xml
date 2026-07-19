@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llAssistantRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- Title Area (Enlarged and Centered) -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarAssistant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        app:elevation="0dp"
+        android:layout_alignParentTop="true">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvTitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1.5dp">
+            
+            <TextView
+                android:id="@+id/tvAssistantTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="المساعد الذكي"
+                android:gravity="center"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1A000000" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Bottom Bar (at the very bottom) -->
+    <include 
+        android:id="@+id/incBottomBar"
+        layout="@layout/layout_bottom_bar" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+    <!-- Input Area (Above Bottom Bar) -->
+    <LinearLayout
+        android:id="@+id/llInputArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/incBottomBar"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="#00000000"
+        android:gravity="center_vertical">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp">
+            
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvInputShadow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="3dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvInputInner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="3dp"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1.5dp">
+
+                <EditText
+                    android:id="@+id/etAssistantInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:maxLines="4"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    android:hint="اكتب سؤالك الشرعي هنا..."
+                    android:background="@null"
+                    android:textSize="16sp" />
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/btnSend"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_filled_circle"
+            android:src="@drawable/ic_send"
+            android:padding="12dp"
+            app:tint="#FFFFFF" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vInputDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/llInputArea"
+        android:background="#1A000000" />
+
+    <!-- Chat History (Between Title and Input Area) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvChat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/appBarAssistant"
+        android:layout_above="@id/vInputDivider"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>

@@ -96,7 +96,9 @@ class QuranAdapter(
                 val isDarkMode = currentBgColor.lowercase() == "#121212" || currentBgColor.lowercase() == "#2d2d2d"
                 AutoTajweedParser.parse(cleanText, isDarkMode)
             } else {
-                SpannableStringBuilder(cleanText)
+                val ssbPlain = SpannableStringBuilder(cleanText)
+                ssbPlain.setSpan(ForegroundColorSpan(Color.parseColor(currentTextColor)), 0, cleanText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ssbPlain
             }
             
             ssb.append(verseSpannable)

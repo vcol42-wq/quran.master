@@ -20,14 +20,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.homeRoot)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
         BottomBarHelper.setupBottomBar(this, onThemeChanged = { applyTheme() })
 
@@ -151,6 +144,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         updateViews(root)
+
+        BottomBarHelper.setupBottomBar(this, onThemeChanged = { applyTheme() })
     }
 
     private fun toggleBottomBar() {

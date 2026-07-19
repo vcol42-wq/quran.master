@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        stopService(android.content.Intent(this, AthanService::class.java))
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
@@ -76,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         if (intent.getBooleanExtra("OPEN_SEARCH", false)) {
             openSearchDialog()
         }
+        
+        handleSearchIntents(intent)
     }
     
     override fun onNewIntent(intent: android.content.Intent) {
@@ -83,6 +86,36 @@ class MainActivity : AppCompatActivity() {
         setIntent(intent)
         if (intent.getBooleanExtra("OPEN_SEARCH", false)) {
             openSearchDialog()
+        }
+        handleSearchIntents(intent)
+    }
+
+    private fun handleSearchIntents(intent: android.content.Intent) {
+        if (intent.hasExtra("SCROLL_TO_SURA")) {
+            val sura = intent.getIntExtra("SCROLL_TO_SURA", 1)
+            val aya = intent.getIntExtra("SCROLL_TO_AYA", 1)
+            
+            Thread {
+                while(blockList.isEmpty()) Thread.sleep(100)
+                val blockIndex = blockList.indexOfFirst { b -> b.verses.any { it.sura == sura && it.aya == aya } }
+                val verse = blockList.flatMap { it.verses }.find { it.sura == sura && it.aya == aya }
+                if (blockIndex != -1 && verse != null) {
+                    runOnUiThread {
+                        val lm = quranRecyclerView.layoutManager as LinearLayoutManager
+                        lm.scrollToPositionWithOffset(blockIndex, 0)
+                        quranAdapter.highlightedSura = sura
+                        quranAdapter.highlightedAya = aya
+                        quranAdapter.notifyDataSetChanged()
+                        updateTopBar(blockList[blockIndex])
+                        
+                        if (intent.getBooleanExtra("ACTION_AUDIO", false)) {
+                            playInternalAudio(verse)
+                        } else if (intent.getBooleanExtra("ACTION_GEMINI", false)) {
+                            searchGemini(verse)
+                        }
+                    }
+                }
+            }.start()
         }
     }
 
@@ -306,6 +339,7 @@ class MainActivity : AppCompatActivity() {
         quranRecyclerView.setBackgroundColor(Color.TRANSPARENT)
         
         window.statusBarColor = barColor
+        window.navigationBarColor = barColor
         val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !isDarkMode
         windowInsetsController.isAppearanceLightNavigationBars = !isDarkMode
@@ -345,6 +379,12 @@ class MainActivity : AppCompatActivity() {
         topBarSuraText.setTextColor(txtColor)
         topBarPageText.setTextColor(txtColor)
         topBarTimerText.setTextColor(txtColor)
+
+        // تطبيق لون الخلفية الداخلية للشريط العلوي ليتناسق مع البطاقات
+        val topBarInnerLayout = findViewById<View>(R.id.topBarInnerLayout)
+        val innerBg = if (isDarkMode) Color.parseColor("#1A1A1A") else Color.parseColor("#F4ECD8")
+        topBarInnerLayout?.setBackgroundColor(Color.TRANSPARENT)
+
 
         val onThemeChangedAction = {
             val prefs = getSharedPreferences("app", MODE_PRIVATE)
@@ -572,6 +612,10 @@ class MainActivity : AppCompatActivity() {
             dialog.dismiss()
             openGoogle(v)
         }
+        view.findViewById<View>(R.id.btnOptionAssistant).setOnClickListener {
+            dialog.dismiss()
+            searchGemini(v)
+        }
 
         dialog.show()
     }
@@ -583,6 +627,11 @@ class MainActivity : AppCompatActivity() {
     private fun searchGemini(v: VerseModel) {
         val apiKey = getSharedPreferences("app", MODE_PRIVATE).getString("api", "") ?: ""
         
+        if (apiKey.isEmpty()) {
+            showTafsirDialog(v)
+            return
+        }
+        
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.dialog_gemini_response, null)
         dialog.setContentView(view)
@@ -590,60 +639,17 @@ class MainActivity : AppCompatActivity() {
         val tvResponse = view.findViewById<TextView>(R.id.tvGeminiResponse)
         view.findViewById<Button>(R.id.btnCloseGemini).setOnClickListener { dialog.dismiss() }
         dialog.show()
-
-        if (apiKey.isEmpty()) {
-            tvResponse.text = "التفسير المعتمد (الجلالين):\n\n${v.tafsirJalalayn}\n\n\n(ملاحظة: يمكنك إدخال مفتاح جُمني في الإعدادات لاحقاً للحصول على استزادة موسعة وفوائد إضافية)."
-            return
-        }
         
         val prompt = "أريد تفسيراً وفوائد واستزادة لهذه الآية: سورة ${v.suraName} الآية ${v.aya} '${v.textTajweed}'. التفسير مقيد بالصحيح من تفسير أهل السنة والجماعة والمصادر الموثوقة وبأسلوب ميسر."
         tvResponse.text = "جاري الاتصال بالمساعد..."
         
         Thread {
             try {
-                val url = java.net.URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey")
-                val conn = url.openConnection() as java.net.HttpURLConnection
-                conn.requestMethod = "POST"
-                conn.setRequestProperty("Content-Type", "application/json")
-                conn.doOutput = true
-                
-                val jsonBody = org.json.JSONObject().apply {
-                    put("contents", org.json.JSONArray().apply {
-                        put(org.json.JSONObject().apply {
-                            put("parts", org.json.JSONArray().apply {
-                                put(org.json.JSONObject().apply {
-                                    put("text", prompt)
-                                })
-                            })
-                        })
-                    })
-                }.toString()
-                
-                conn.outputStream.use { it.write(jsonBody.toByteArray(Charsets.UTF_8)) }
-                
-                if (conn.responseCode == 200) {
-                    val response = conn.inputStream.bufferedReader().use { it.readText() }
-                    try {
-                        val jsonResponse = org.json.JSONObject(response)
-                        val text = jsonResponse.getJSONArray("candidates")
-                            .getJSONObject(0)
-                            .getJSONObject("content")
-                            .getJSONArray("parts")
-                            .getJSONObject(0)
-                            .getString("text")
-                        runOnUiThread { tvResponse.text = text }
-                    } catch (e: Exception) {
-                        runOnUiThread { tvResponse.text = "تعذر استخراج النص من الاستجابة." }
-                    }
-                } else {
-                    val error = conn.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-                    runOnUiThread { 
-                        tvResponse.text = "لم يتمكن جُمني من الرد (تأكد من صحة المفتاح).\n\nالتفسير المحلي:\n${v.tafsirJalalayn}"
-                    }
-                }
+                val text = GeminiHelper.queryGemini(apiKey, prompt)
+                runOnUiThread { tvResponse.text = text }
             } catch (e: Exception) {
                 runOnUiThread { 
-                    tvResponse.text = "حدث خطأ في الاتصال.\n\nالتفسير المحلي:\n${v.tafsirJalalayn}"
+                    tvResponse.text = "تعذر الحصول على الاستزادة (${e.message}).\n\nالتفسير المحلي:\n${v.tafsirJalalayn}"
                 }
             }
         }.start()
@@ -655,7 +661,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openAssistantDialog() {
-        GeminiHelper.showAssistantDialog(this)
+        startActivity(android.content.Intent(this, AssistantActivity::class.java))
     }
 
     private fun openUnifiedIndex(tab: Int) {
@@ -688,11 +694,12 @@ class MainActivity : AppCompatActivity() {
             rv.adapter = IndexAdapter(items) { 
                 val target = it.targetPosition
                 dialog.dismiss()
-                quranRecyclerView.post {
+                // تأخير بسيط لضمان انتهاء حركة إغلاق النافذة وتحديث الشاشة
+                quranRecyclerView.postDelayed({
                     val lm = quranRecyclerView.layoutManager as LinearLayoutManager
                     lm.scrollToPositionWithOffset(target, 0)
                     updateTopBar(blockList[target])
-                }
+                }, 150)
             }
         }
 

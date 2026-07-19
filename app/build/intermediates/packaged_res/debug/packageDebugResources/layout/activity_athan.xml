@@ -76,7 +76,7 @@
                     android:fontFamily="sans-serif-thin"
                     android:textStyle="bold"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="6dp" />
 
                 <!-- Date Container -->
                 <LinearLayout
@@ -167,23 +167,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="الفجر"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncFAJR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeFajr"
@@ -191,14 +192,10 @@
                         android:layout_height="wrap_content"
                         android:text="04:30 ص"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F2F2F2" />
 
                 <!-- Sunrise -->
                 <LinearLayout
@@ -207,23 +204,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="الشروق"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncSUNRISE" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeSunrise"
@@ -231,14 +229,10 @@
                         android:layout_height="wrap_content"
                         android:text="05:50 ص"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F2F2F2" />
 
                 <!-- Dhuhr -->
                 <LinearLayout
@@ -247,23 +241,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="الظهر"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncDHUHR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeDhuhr"
@@ -271,14 +266,10 @@
                         android:layout_height="wrap_content"
                         android:text="12:05 م"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F2F2F2" />
 
                 <!-- Asr -->
                 <LinearLayout
@@ -287,23 +278,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="العصر"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncASR" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeAsr"
@@ -311,14 +303,10 @@
                         android:layout_height="wrap_content"
                         android:text="03:30 م"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F2F2F2" />
 
                 <!-- Maghrib -->
                 <LinearLayout
@@ -327,23 +315,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="المغرب"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncMAGHRIB" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeMaghrib"
@@ -351,14 +340,10 @@
                         android:layout_height="wrap_content"
                         android:text="06:20 م"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#F2F2F2" />
 
                 <!-- Isha -->
                 <LinearLayout
@@ -367,23 +352,24 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     android:paddingHorizontal="8dp"
-                    android:background="?attr/selectableItemBackground">
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/bg_pill">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="العشاء"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#3D2B1F"
                         android:fontFamily="@font/amiri_quran" />
-                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="12dp">
-                        <TextView android:id="@+id/btnDecISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
-                        <TextView android:id="@+id/tvOffsetISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="14sp" android:textColor="#8B7355" android:minWidth="24dp" android:gravity="center" />
-                        <TextView android:id="@+id/btnIncISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="22sp" android:padding="8dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                    <Space android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginEnd="4dp" android:paddingHorizontal="2dp" android:paddingVertical="2dp" >
+                        <TextView android:id="@+id/btnDecISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="-" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
+                        <TextView android:id="@+id/tvOffsetISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="12sp" android:textColor="#8B7355" android:minWidth="16dp" android:gravity="center" android:textStyle="bold" />
+                        <TextView android:id="@+id/btnIncISHA" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+" android:textSize="16sp" android:padding="4dp" android:textStyle="bold" android:textColor="#8B7355" android:background="?attr/selectableItemBackgroundBorderless" />
                     </LinearLayout>
                     <TextView
                         android:id="@+id/tvTimeIsha"
@@ -391,7 +377,8 @@
                         android:layout_height="wrap_content"
                         android:text="07:50 م"
                         android:textSize="16sp"
-                        android:fontFamily="sans-serif-medium"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-black"
                         android:textColor="#1B4332" />
                 </LinearLayout>
             </LinearLayout>
@@ -519,9 +506,9 @@
                         android:layout_marginEnd="12dp" />
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
                         android:text="الضبط العام للمواقيت والموقع"
                         android:textSize="16sp"
                         android:textColor="#3D2B1F"

@@ -14,6 +14,7 @@ drawable bg_pill
 drawable bg_reset
 drawable bg_screw_active
 drawable bg_screw_normal
+drawable bg_stepper
 drawable bg_tasbeeh_frame
 drawable bg_widget
 drawable bg_widget_counter_btn
@@ -28,6 +29,7 @@ drawable ic_back
 drawable ic_refresh_widget
 drawable ic_remove
 drawable ic_search
+drawable ic_send
 drawable ic_settings
 drawable ic_sunrise
 drawable k
@@ -44,6 +46,7 @@ drawable ss
 drawable top_bar_dome
 drawable widget_bg_rounded
 font amiri_quran
+id appBarAssistant
 id azkarRoot
 id azkarTopBar
 id basmalahCard
@@ -82,6 +85,7 @@ id btnMiniForward
 id btnMiniPlayPause
 id btnMiniRewind
 id btnMiniStop
+id btnOptionAssistant
 id btnOptionAudioAyah
 id btnOptionAudioSurah
 id btnOptionGoogle
@@ -95,6 +99,7 @@ id btnSearchGemini
 id btnSearchPlayAudio
 id btnSearchQuran
 id btnSearchTafseer
+id btnSend
 id btnSettings
 id btnStartSearch
 id cardAudioToggle
@@ -114,6 +119,15 @@ id cardTasbeeh
 id cardTimesTable
 id cardZikrInner
 id cardZikrShadow
+id cvInputInner
+id cvInputShadow
+id cvMainCard
+id cvMainShadow
+id cvMessageInner
+id cvMessageShadow
+id cvSpinnerCard
+id cvSpinnerShadow
+id cvTitleContainer
 id etApiKey
 id etAssistantInput
 id etModernSearch
@@ -124,6 +138,7 @@ id flMainCardWrapper
 id flZikrWrapper
 id homeRoot
 id homeScrollView
+id incBottomBar
 id indexRecyclerView
 id indexTabLayout
 id itemName
@@ -146,8 +161,12 @@ id layout_fajr
 id layout_isha
 id layout_maghrib
 id layout_prayers_row
+id layout_sunrise
 id layout_widget_info
 id layout_widget_salawat
+id llAssistantRoot
+id llInputArea
+id llMessageContainer
 id llSearchEmptyState
 id llZikrContainer
 id mainRootLayout
@@ -161,6 +180,7 @@ id rbAbdulBasit
 id rbAlafasy
 id rgReciters
 id rvAzkar
+id rvChat
 id rvSearchResults
 id scrollView
 id sectionTitleText
@@ -185,6 +205,7 @@ id tasbeehFrame
 id tasbeehMainCard
 id tasbeehMainShadow
 id tasbeehRoot
+id tilApiKey
 id topBarContainer
 id topBarInnerLayout
 id topBarJuzText
@@ -195,6 +216,7 @@ id topBarTimerText
 id tsZikrWheel
 id tvAddZikr
 id tvAssistantResponse
+id tvAssistantTitle
 id tvAudioSurahTitle
 id tvAzkarCount
 id tvAzkarDone
@@ -221,6 +243,7 @@ id tvHijriDate
 id tvHundredsCounter
 id tvIndexTitle
 id tvMainCounter
+id tvMessage
 id tvMiniPlayerTitle
 id tvMorningEvening
 id tvNextPrayerTitle
@@ -276,11 +299,13 @@ id tv_tasbeeh_count
 id tv_test
 id tv_widget_city
 id tv_widget_salawat_counter
+id vInputDivider
 id view_center_open_app
 id widget_clock
 id widget_root
 id widget_small_root
 id widget_tasbeeh_root
+layout activity_assistant
 layout activity_athan
 layout activity_azkar
 layout activity_home
@@ -298,6 +323,7 @@ layout dialog_settings
 layout dialog_unified_index
 layout dialog_verse_options
 layout item_azkar
+layout item_chat_message
 layout item_index
 layout item_quran_verse
 layout item_search_result
@@ -317,6 +343,7 @@ string google_storage_bucket
 string project_id
 style Theme.QuranMaster
 style Theme.Splash
+xml prayer_widget_day_info
 xml prayer_widget_info
 xml prayer_widget_small_info
 xml tasbeeh_widget_info

@@ -241,5 +241,10 @@ class SalawatActivity : AppCompatActivity() {
             .putInt("salawat_count", currentCount)
             .putInt("salawat_goal", currentGoal)
             .apply()
+
+        val intent = android.content.Intent(this, TasbeehWidgetProvider::class.java).apply { action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE }
+        val ids = android.appwidget.AppWidgetManager.getInstance(this).getAppWidgetIds(android.content.ComponentName(this, TasbeehWidgetProvider::class.java))
+        intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        sendBroadcast(intent)
     }
 }

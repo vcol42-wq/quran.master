@@ -16,12 +16,12 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\item_quran_verse.xml"
     },
     {
-        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_hizb_badge.xml.flat",
-        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\hizb_badge.xml"
-    },
-    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_qq.png.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\qq.png"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_hizb_badge.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\hizb_badge.xml"
     },
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_bg_tasbeeh_frame.xml.flat",
@@ -42,6 +42,14 @@
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_nnbb.png.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\nnbb.png"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_item_chat_message.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\item_chat_message.xml"
+    },
+    {
+        "merged": "com.sabah.bikhushue.app-debug-42:/layout_activity_athan.xml.flat",
+        "source": "com.sabah.bikhushue.app-main-44:/layout/activity_athan.xml"
     },
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_layout_bottom_bar.xml.flat",
@@ -84,12 +92,12 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\dialog_gemini_response.xml"
     },
     {
-        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_item_index.xml.flat",
-        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\item_index.xml"
-    },
-    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_activity_azkar.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\activity_azkar.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_item_index.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\item_index.xml"
     },
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_ic_assistant.xml.flat",
@@ -104,6 +112,10 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\bg_bottom_sheet.xml"
     },
     {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\xml_prayer_widget_day_info.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\xml\\prayer_widget_day_info.xml"
+    },
+    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_ic_sunrise.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\ic_sunrise.xml"
     },
@@ -116,6 +128,10 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\bg_date_chip.xml"
     },
     {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_activity_assistant.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\activity_assistant.xml"
+    },
+    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_layout_mini_player.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\layout_mini_player.xml"
     },
@@ -124,12 +140,12 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\dialog_verse_options.xml"
     },
     {
-        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_bg_decorative_frame.xml.flat",
-        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\bg_decorative_frame.xml"
-    },
-    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_bg_decorative_frame.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\bg_decorative_frame.xml"
     },
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_ic_search.xml.flat",
@@ -196,10 +212,6 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\dialog_unified_index.xml"
     },
     {
-        "merged": "com.sabah.bikhushue.app-debug-42:/layout_activity_spiral_tasbeeh.xml.flat",
-        "source": "com.sabah.bikhushue.app-main-44:/layout/activity_spiral_tasbeeh.xml"
-    },
-    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_activity_athan.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\activity_athan.xml"
     },
@@ -224,6 +236,10 @@
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\ic_arrow_left.xml"
     },
     {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_bg_stepper.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\bg_stepper.xml"
+    },
+    {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout-land_activity_tasbeeh.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout-land\\activity_tasbeeh.xml"
     },
@@ -238,6 +254,10 @@
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\layout_item_search_result.xml.flat",
         "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\layout\\item_search_result.xml"
+    },
+    {
+        "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_ic_send.xml.flat",
+        "source": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-main-44:\\drawable\\ic_send.xml"
     },
     {
         "merged": "C:\\Users\\vcol4\\.gradle\\daemon\\9.5.0\\com.sabah.bikhushue.app-debug-42:\\drawable_bg_reset.xml.flat",

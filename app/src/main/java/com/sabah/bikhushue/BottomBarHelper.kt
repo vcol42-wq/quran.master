@@ -40,18 +40,19 @@ object BottomBarHelper {
         btnSettings?.setColorFilter(txtColorInt)
 
         btnHome?.setOnClickListener { 
-            activity.finish() 
+            if (activity !is HomeActivity) {
+                activity.finish() 
+            } else {
+                val scrollView = activity.findViewById<android.widget.ScrollView>(R.id.homeScrollView)
+                scrollView?.smoothScrollTo(0, 0)
+            }
         }
         
         btnSearch?.setOnClickListener {
             if (searchAction != null) {
                 searchAction.invoke()
             } else {
-                val intent = Intent(activity, MainActivity::class.java).apply {
-                    putExtra("OPEN_SEARCH", true)
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                }
-                activity.startActivity(intent)
+                GlobalSearchHelper.show(activity)
             }
         }
         
@@ -59,7 +60,7 @@ object BottomBarHelper {
             if (assistantAction != null) {
                 assistantAction.invoke()
             } else {
-                GeminiHelper.showAssistantDialog(activity)
+                activity.startActivity(Intent(activity, AssistantActivity::class.java))
             }
         }
         

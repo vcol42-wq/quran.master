@@ -26,10 +26,16 @@ class TasbeehWidgetProvider : AppWidgetProvider() {
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         if (intent.action == ACTION_TASBEEH_INCREMENT) {
-            val prefs = context.getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
-            var currentCount = prefs.getInt("mainCount", 0)
-            currentCount++
-            prefs.edit().putInt("mainCount", currentCount).apply()
+            val prefs = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+            var currentCount = prefs.getInt("salawat_count", 0)
+            val currentGoal = prefs.getInt("salawat_goal", 1000)
+            
+            if (currentCount < currentGoal) {
+                currentCount++
+            } else {
+                currentCount = 1
+            }
+            prefs.edit().putInt("salawat_count", currentCount).apply()
 
             // Update all widgets
             val appWidgetManager = AppWidgetManager.getInstance(context)
@@ -47,8 +53,8 @@ class TasbeehWidgetProvider : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetId: Int
     ) {
-        val prefs = context.getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
-        val currentCount = prefs.getInt("mainCount", 0)
+        val prefs = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+        val currentCount = prefs.getInt("salawat_count", 0)
 
         val views = RemoteViews(context.packageName, R.layout.tasbeeh_widget)
         views.setTextViewText(R.id.tv_tasbeeh_count, currentCount.toString())

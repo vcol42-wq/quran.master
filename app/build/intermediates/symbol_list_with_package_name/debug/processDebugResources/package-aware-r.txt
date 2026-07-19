@@ -2982,6 +2982,7 @@ drawable bg_pill
 drawable bg_reset
 drawable bg_screw_active
 drawable bg_screw_normal
+drawable bg_stepper
 drawable bg_tasbeeh_frame
 drawable bg_widget
 drawable bg_widget_counter_btn
@@ -3027,6 +3028,7 @@ drawable ic_refresh_widget
 drawable ic_remove
 drawable ic_search
 drawable ic_search_black_24
+drawable ic_send
 drawable ic_settings
 drawable ic_sunrise
 drawable k
@@ -3198,6 +3200,7 @@ id animateToEnd
 id animateToStart
 id antiClockwise
 id anticipate
+id appBarAssistant
 id arc
 id asConfigured
 id async
@@ -3254,6 +3257,7 @@ id btnMiniForward
 id btnMiniPlayPause
 id btnMiniRewind
 id btnMiniStop
+id btnOptionAssistant
 id btnOptionAudioAyah
 id btnOptionAudioSurah
 id btnOptionGoogle
@@ -3267,6 +3271,7 @@ id btnSearchGemini
 id btnSearchPlayAudio
 id btnSearchQuran
 id btnSearchTafseer
+id btnSend
 id btnSettings
 id btnStartSearch
 id buttonPanel
@@ -3325,6 +3330,15 @@ id currentState
 id custom
 id customPanel
 id cut
+id cvInputInner
+id cvInputShadow
+id cvMainCard
+id cvMainShadow
+id cvMessageInner
+id cvMessageShadow
+id cvSpinnerCard
+id cvSpinnerShadow
+id cvTitleContainer
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3419,6 +3433,7 @@ id ignore
 id ignoreRequest
 id image
 id immediateStop
+id incBottomBar
 id included
 id indeterminate
 id indexRecyclerView
@@ -3453,6 +3468,7 @@ id layout_fajr
 id layout_isha
 id layout_maghrib
 id layout_prayers_row
+id layout_sunrise
 id layout_widget_info
 id layout_widget_salawat
 id left
@@ -3463,6 +3479,9 @@ id line3
 id linear
 id listMode
 id list_item
+id llAssistantRoot
+id llInputArea
+id llMessageContainer
 id llSearchEmptyState
 id llZikrContainer
 id m3_side_sheet
@@ -3603,6 +3622,7 @@ id right_side
 id rounded
 id row_index_key
 id rvAzkar
+id rvChat
 id rvSearchResults
 id save_non_transition_alpha
 id save_overlay_view
@@ -3717,6 +3737,7 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id tilApiKey
 id time
 id title
 id titleDividerNoCustom
@@ -3743,6 +3764,7 @@ id triangle
 id tsZikrWheel
 id tvAddZikr
 id tvAssistantResponse
+id tvAssistantTitle
 id tvAudioSurahTitle
 id tvAzkarCount
 id tvAzkarDone
@@ -3769,6 +3791,7 @@ id tvHijriDate
 id tvHundredsCounter
 id tvIndexTitle
 id tvMainCounter
+id tvMessage
 id tvMiniPlayerTitle
 id tvMorningEvening
 id tvNextPrayerTitle
@@ -3829,6 +3852,7 @@ id uniform
 id unlabeled
 id up
 id useLogo
+id vInputDivider
 id vertical_only
 id view_center_open_app
 id view_offset_helper
@@ -3967,6 +3991,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_assistant
 layout activity_athan
 layout activity_azkar
 layout activity_home
@@ -4002,6 +4027,7 @@ layout dialog_verse_options
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_azkar
+layout item_chat_message
 layout item_index
 layout item_quran_verse
 layout item_search_result
@@ -5521,6 +5547,7 @@ styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
 styleable include constraintSet
 xml ga_ad_services_config
+xml prayer_widget_day_info
 xml prayer_widget_info
 xml prayer_widget_small_info
 xml tasbeeh_widget_info
