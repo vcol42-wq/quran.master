@@ -28,9 +28,8 @@ class AssistantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_assistant)
 
         val theme = ThemeHelper.getThemeColors(this)
-        window.statusBarColor = theme.bar
-        window.navigationBarColor = theme.bar
-        findViewById<View>(R.id.llAssistantRoot)?.setBackgroundColor(theme.bg)
+        ThemeHelper.applySystemWindowsColors(this)
+                        findViewById<View>(R.id.llAssistantRoot)?.setBackgroundColor(theme.bg)
 
         var flags = window.decorView.systemUiVisibility
         if (!theme.isDark) {

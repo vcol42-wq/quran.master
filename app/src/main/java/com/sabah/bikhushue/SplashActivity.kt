@@ -56,12 +56,11 @@ class SplashActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val root: View = findViewById(R.id.splashRoot)
         // Kept transparent so rfrf background shows through
 
-        window.statusBarColor = theme.bg
-        window.navigationBarColor = theme.bg
-        if (theme.isDark) {
+                        if (theme.isDark) {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
         } else {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR

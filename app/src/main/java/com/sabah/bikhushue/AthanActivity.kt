@@ -304,6 +304,7 @@ class AthanActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val bgColor = theme.bg
         val txtColor = theme.txt
         val barColor = theme.bar
@@ -312,9 +313,7 @@ class AthanActivity : AppCompatActivity() {
         val root: View = findViewById(R.id.scrollView)
         root.setBackgroundColor(bgColor)
 
-        window.statusBarColor = barColor
-        window.navigationBarColor = barColor
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
         windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
@@ -456,6 +455,7 @@ class AthanActivity : AppCompatActivity() {
         layoutIsha.setBackgroundColor(Color.TRANSPARENT)
 
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         // Use a very soft alpha for highlight
         val r = android.graphics.Color.red(theme.txt)
         val g = android.graphics.Color.green(theme.txt)

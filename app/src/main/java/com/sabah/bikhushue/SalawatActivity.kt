@@ -84,6 +84,7 @@ class SalawatActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         
         // We override theme slightly for a distinct Salawat look
         val isDark = theme.isDark
@@ -94,9 +95,7 @@ class SalawatActivity : AppCompatActivity() {
         
         tasbeehRoot.setBackgroundColor(bgColor)
         
-        window.statusBarColor = shadowColor
-        window.navigationBarColor = shadowColor
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !isDark
         windowInsetsController.isAppearanceLightNavigationBars = !isDark
         
@@ -155,6 +154,7 @@ class SalawatActivity : AppCompatActivity() {
 
     private fun refreshGoalButtonsUI() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val txtColor = if (theme.isDark) Color.parseColor("#E8F5E9") else Color.parseColor("#1B5E20")
         
         val goals = listOf(tvGoal100 to 100, tvGoal500 to 500, tvGoal1000 to 1000, tvGoal5000 to 5000)

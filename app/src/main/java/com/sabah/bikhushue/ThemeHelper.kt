@@ -1,7 +1,9 @@
 package com.sabah.bikhushue
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import androidx.core.view.WindowInsetsControllerCompat
 
 data class ThemeColors(
     val bg: Int,
@@ -48,7 +50,7 @@ object ThemeHelper {
 
         val shadowHex = when (bgHex) {
             "#121212" -> "#000000" // Night shadow
-            "#455A64", "#37474F", "#263238", "#D4CEC4" -> "#A4B2C6" // Lunar shadow (creamy with a touch of dark blue)
+            "#455A64", "#37474F", "#263238", "#D4CEC4" -> "#A4B2C6" // Lunar shadow
             "#E0F2F1" -> "#B2DFDB" // Emerald shadow
             "#E3F2FD" -> "#BBDEFB" // Sky Blue shadow
             "#FFF0F5" -> "#F8BBD0" // Pink shadow
@@ -65,5 +67,15 @@ object ThemeHelper {
             shadow = Color.parseColor(shadowHex),
             isDark = isDark
         )
+    }
+
+    fun applySystemWindowsColors(activity: Activity) {
+        val theme = getThemeColors(activity)
+        activity.window.statusBarColor = theme.bg
+        activity.window.navigationBarColor = theme.bar
+        
+        val controller = WindowInsetsControllerCompat(activity.window, activity.window.decorView)
+        controller.isAppearanceLightStatusBars = !theme.isDark
+        controller.isAppearanceLightNavigationBars = !theme.isDark
     }
 }

@@ -91,11 +91,10 @@ class SpiralTasbeehActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         
         findViewById<View>(R.id.tasbeehRoot).setBackgroundColor(theme.bg)
-        window.statusBarColor = theme.bar
-        window.navigationBarColor = theme.bar
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
         windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 

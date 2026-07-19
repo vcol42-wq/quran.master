@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         stopService(android.content.Intent(this, AthanService::class.java))
         enableEdgeToEdge()
+        ThemeHelper.applySystemWindowsColors(this)
         setContentView(R.layout.activity_main)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainRootLayout)) { v, insets ->
@@ -338,9 +339,7 @@ class MainActivity : AppCompatActivity() {
         mainRootLayout.setBackgroundColor(bgColor)
         quranRecyclerView.setBackgroundColor(Color.TRANSPARENT)
         
-        window.statusBarColor = barColor
-        window.navigationBarColor = barColor
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !isDarkMode
         windowInsetsController.isAppearanceLightNavigationBars = !isDarkMode
 

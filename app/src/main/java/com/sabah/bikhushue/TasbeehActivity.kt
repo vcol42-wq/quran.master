@@ -119,11 +119,10 @@ class TasbeehActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         tasbeehRoot.setBackgroundColor(theme.bg)
         
-        window.statusBarColor = theme.bar
-        window.navigationBarColor = theme.bar
-
+                
 
         if (theme.isDark) {
             window.decorView.systemUiVisibility = window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
@@ -356,6 +355,7 @@ class TasbeehActivity : AppCompatActivity() {
     
     private fun refreshGoalButtonsUI() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val tasbeehTextColor = theme.txt
         
         val currentGoal = zikrs[currentZikrIndex].goal

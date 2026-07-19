@@ -98,6 +98,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val bgColor = theme.bg
         val txtColor = theme.txt
         val barColor = theme.bar
@@ -106,9 +107,7 @@ class HomeActivity : AppCompatActivity() {
         val root: View = findViewById(R.id.homeRoot)
         root.setBackgroundColor(bgColor)
 
-        window.statusBarColor = barColor
-        window.navigationBarColor = barColor
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
         windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 

@@ -111,6 +111,7 @@ class AzkarActivity : AppCompatActivity() {
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
+        ThemeHelper.applySystemWindowsColors(this)
         val bgColor = theme.bg
         txtColorInt = theme.txt
         barColorInt = theme.bar
@@ -119,9 +120,7 @@ class AzkarActivity : AppCompatActivity() {
         val root: View = findViewById(R.id.azkarRoot)
         root.setBackgroundColor(bgColor)
 
-        window.statusBarColor = barColorInt
-        window.navigationBarColor = barColorInt
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
         windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
