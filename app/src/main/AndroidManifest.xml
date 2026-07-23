@@ -17,6 +17,7 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
+        android:resizeableActivity="true"
         android:icon="@drawable/nnbb"
         android:roundIcon="@drawable/nnbb"
         android:label="سبح بخشوع"
@@ -27,8 +28,7 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Splash"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,8 +38,7 @@
         <activity
             android:name=".HomeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden">
             <!-- Android App Links for GitHub Pages and Firebase -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -54,41 +53,37 @@
 
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".AzkarActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".SpiralTasbeehActivity"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".TasbeehActivity"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".SalawatActivity"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".AthanActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
 
         <activity
             android:name=".AssistantActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

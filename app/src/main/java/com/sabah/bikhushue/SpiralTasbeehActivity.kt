@@ -32,10 +32,26 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     private var hundredsCounter = 0
     private val GOAL = 100
 
+    private val syncReceiver = object : android.content.BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: android.content.Intent?) {
+            if (intent?.action == "com.sabah.bikhushue.SYNC_SALAWAT") {
+                loadCounter()
+                updateUI(true)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_spiral_tasbeeh)
+
+        val filter = android.content.IntentFilter("com.sabah.bikhushue.SYNC_SALAWAT")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(syncReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
+        } else {
+            registerReceiver(syncReceiver, filter)
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tasbeehRoot)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -65,13 +81,19 @@ class SpiralTasbeehActivity : AppCompatActivity() {
 
         tasbeehFrame.setOnClickListener {
             counter++
-            if (counter < GOAL) {
-                playClickHaptic()
-            } else {
-                counter = 0
+            
+            // Fixed Goal 100 as per user request (number does not exceed 100)
+            if (counter > 100) {
+                counter = 0 // "Zeroes out" (يصفر)
                 hundredsCounter++
                 playGoalHaptic()
+            } else if (counter == 100) {
+                // Keep showing 100
+                playGoalHaptic()
+            } else {
+                playClickHaptic()
             }
+
             saveCounter()
             updateUI(true)
         }
@@ -87,11 +109,22 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         applyTheme()
+        loadCounter()
+        updateUI(false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            unregisterReceiver(syncReceiver)
+        } catch (e: Exception) {}
     }
 
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
         ThemeHelper.applySystemWindowsColors(this)
+        
+        beadsCircle.setNightOrLunar(theme.isDark)
         
         findViewById<View>(R.id.tasbeehRoot).setBackgroundColor(theme.bg)
                         val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
@@ -126,17 +159,46 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     }
 
     private fun loadCounter() {
-        val prefs = getSharedPreferences("spiral_tasbeeh", Context.MODE_PRIVATE)
-        counter = prefs.getInt("counter", 0)
-        hundredsCounter = prefs.getInt("hundreds", 0)
+        val prefs = getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+        counter = prefs.getInt("salawat_count", 0)
+        hundredsCounter = prefs.getInt("salawat_rounds", 0)
     }
 
     private fun saveCounter() {
-        val prefs = getSharedPreferences("spiral_tasbeeh", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
         prefs.edit()
-            .putInt("counter", counter)
-            .putInt("hundreds", hundredsCounter)
+            .putInt("salawat_count", counter)
+            .putInt("salawat_rounds", hundredsCounter)
             .apply()
+
+        // Update all widgets
+        updateAllWidgets()
+        
+        // Notify other parts of the app (if open)
+        sendBroadcast(android.content.Intent("com.sabah.bikhushue.SYNC_SALAWAT").apply {
+            setPackage(packageName)
+        })
+    }
+
+    private fun updateAllWidgets() {
+        val appWidgetManager = android.appwidget.AppWidgetManager.getInstance(this)
+        
+        // Update Tasbeeh Widgets
+        val tasbeehIntent = android.content.Intent(this, TasbeehWidgetProvider::class.java).apply { 
+            action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE 
+        }
+        val tasbeehIds = appWidgetManager.getAppWidgetIds(android.content.ComponentName(this, TasbeehWidgetProvider::class.java))
+        tasbeehIntent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, tasbeehIds)
+        sendBroadcast(tasbeehIntent)
+
+        // Update Prayer Widgets (Night and Day)
+        val prayerIntent = android.content.Intent(this, PrayerWidgetProvider::class.java).apply { action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE }
+        val idsNight = appWidgetManager.getAppWidgetIds(android.content.ComponentName(this, PrayerWidgetProvider::class.java))
+        val idsDay = appWidgetManager.getAppWidgetIds(android.content.ComponentName(this, PrayerWidgetDayProvider::class.java))
+        
+        val allPrayerIds = idsNight + idsDay
+        prayerIntent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, allPrayerIds)
+        sendBroadcast(prayerIntent)
     }
 
     private fun playClickHaptic() {

@@ -38,9 +38,7 @@ class HomeActivity : AppCompatActivity() {
         val cardPrayer: MaterialCardView = findViewById(R.id.cardPrayer)
 
         cardSettings.setOnClickListener {
-            SettingsHelper.showSettingsDialog(this, onThemeChanged = {
-                applyTheme()
-            })
+            showWhyKhushueDialog()
         }
 
         cardQuran.setOnClickListener {
@@ -168,5 +166,38 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, SpiralTasbeehActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun showWhyKhushueDialog() {
+        val whyText = "التسبيح ليس مجرد كلمات باردة يُرددها اللسان، بل هو حركة الروح وسرعتها الفائقة في الهروب نحو الله، والانعتاق من قيود الأرض والجسد. فكما يشتق التسبيح لغوياً من \"السَّبْح\" وهو الجري السريع والسباحة، فهو في حقيقته سباق وجداني تتسارع فيه نبضات القلب وأفعال الجوارح لتقديس الخالق ونفي النقص عنه.\n\n" +
+                "هذا التدفق الروحي المتسارع يتجسد في أسمى العبادات:\n\n" +
+                "۞ تلاوة القرآن:\nجريان الآيات الشريفة على اللسان، وتغلغلها السريع في الوجدان كالسيل المُنهمر الذي يغسل قلب المؤمن ويقذفه في أنوار التنزيه.\n\n" +
+                "۞ إقامة الصلاة:\nحركة البدن السريعة بالخضوع، وهبوط الجسد مستسلماً في ركوع وسجود يبث في الروح طاقة حركية تقربها من عرش الرحمن وتنزّهه بفعل الجوارح.\n\n" +
+                "۞ ترديد الأذكار:\nانطلاق اللسان بلهفة وسرعة بكلمات التعظيم (سبحان الله) التي تطير بها الروح شوقاً وحباً كالسهم المصوّب نحو رضا الله جل وعلا."
+
+        val theme = ThemeHelper.getThemeColors(this)
+        val isDark = theme.isDark
+
+        val tv = TextView(this).apply {
+            text = whyText
+            textSize = 15f
+            setPadding(48, 36, 48, 36)
+            setLineSpacing(0f, 1.3f)
+            setTextColor(if (isDark) Color.parseColor("#E0E0E0") else Color.parseColor("#3D2B1F"))
+            setTextIsSelectable(true)
+            try {
+                typeface = androidx.core.content.res.ResourcesCompat.getFont(this@HomeActivity, R.font.amiri_quran)
+            } catch (e: Exception) {}
+        }
+
+        val scrollView = android.widget.ScrollView(this).apply {
+            addView(tv)
+        }
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("لماذا سبح بخشوع؟")
+            .setView(scrollView)
+            .setPositiveButton("حسناً", null)
+            .show()
     }
 }

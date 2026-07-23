@@ -165,7 +165,7 @@ class AthanActivity : AppCompatActivity() {
         
         // Spinner Setup for Calculation Method
         val spinnerCalcMethod: Spinner = findViewById(R.id.spinnerCalcMethod)
-        spinnerCalcMethod.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.cardBg))
+        spinnerCalcMethod.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.dropdownBg))
         val methods = arrayOf(
             "جامعة أم القرى (مكة المكرمة)",
             "رابطة العالم الإسلامي",
@@ -189,7 +189,7 @@ class AthanActivity : AppCompatActivity() {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
                 val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
-                view.setBackgroundColor(themeColors.cardBg)
+                view.setBackgroundColor(themeColors.dropdownBg)
                 view.setTextColor(themeColors.txt)
                 return view
             }
@@ -218,17 +218,28 @@ class AthanActivity : AppCompatActivity() {
         }
 
         // Choose Sound Button
-        findViewById<MaterialButton>(R.id.btnChooseSound).setOnClickListener {
-            val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
-                putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION or RingtoneManager.TYPE_RINGTONE)
-                putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "اختر صوت الأذان")
-                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
-                putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
-                if (selectedRingtoneUri != null && selectedRingtoneUri != "default") {
-                    putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(selectedRingtoneUri))
+        findViewById<com.google.android.material.button.MaterialButton>(R.id.btnChooseSound).setOnClickListener {
+            val options = arrayOf("اختر من الهاتف 🎵", "تحميل أصوات الأذان مجاناً 🌐")
+            androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("صوت الأذان")
+                .setItems(options) { _, which ->
+                    if (which == 0) {
+                        val pickerIntent = Intent(android.media.RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+                            putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_TYPE, android.media.RingtoneManager.TYPE_NOTIFICATION or android.media.RingtoneManager.TYPE_RINGTONE)
+                            putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_TITLE, "اختر صوت الأذان")
+                            putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true)
+                            putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true)
+                            if (selectedRingtoneUri != null && selectedRingtoneUri != "default") {
+                                putExtra(android.media.RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(selectedRingtoneUri))
+                            }
+                        }
+                        startActivityForResult(pickerIntent, REQUEST_CODE_RINGTONE)
+                    } else {
+                        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.islamcan.com/audio/adhans/index.shtml"))
+                        startActivity(browserIntent)
+                    }
                 }
-            }
-            startActivityForResult(intent, REQUEST_CODE_RINGTONE)
+                .show()
         }
 
         updateSoundPathText()
@@ -289,6 +300,9 @@ class AthanActivity : AppCompatActivity() {
     override fun onResume() {
         try {
             doOnResume()
+            updatePrayerTimes()
+            updateDates()
+            updateCountdown()
         } catch (e: Throwable) {
             android.widget.Toast.makeText(this, "Athan Resume Crash: ${e.message}", android.widget.Toast.LENGTH_LONG).show()
             android.util.Log.e("AthanActivity", "Crash in onResume", e)

@@ -86,6 +86,8 @@ class SalawatActivity : AppCompatActivity() {
         val theme = ThemeHelper.getThemeColors(this)
         ThemeHelper.applySystemWindowsColors(this)
         
+        beadsCircle.setNightOrLunar(theme.isDark)
+        
         // We override theme slightly for a distinct Salawat look
         val isDark = theme.isDark
         val bgColor = if (isDark) Color.parseColor("#0B2B1B") else Color.parseColor("#E8F5E9")
@@ -222,6 +224,12 @@ class SalawatActivity : AppCompatActivity() {
     private fun updateUI(animate: Boolean) {
         tvMainCounter.text = (currentGoal - currentCount).toString()
         beadsCircle.setGoalAndCount(currentGoal, currentCount, animate)
+        
+        if (currentCount == 0) {
+            tvMainCounter.setTextColor(android.graphics.Color.parseColor("#4CAF50"))
+        } else {
+            tvMainCounter.setTextColor(android.graphics.Color.parseColor("#B0BEC5"))
+        }
     }
 
     override fun onPause() {
@@ -242,9 +250,19 @@ class SalawatActivity : AppCompatActivity() {
             .putInt("salawat_goal", currentGoal)
             .apply()
 
+        // Update Tasbeeh Widget
         val intent = android.content.Intent(this, TasbeehWidgetProvider::class.java).apply { action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE }
         val ids = android.appwidget.AppWidgetManager.getInstance(this).getAppWidgetIds(android.content.ComponentName(this, TasbeehWidgetProvider::class.java))
         intent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
         sendBroadcast(intent)
+
+        // Update Prayer Widgets (Night and Day)
+        val prayerIntent = android.content.Intent(this, PrayerWidgetProvider::class.java).apply { action = android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE }
+        val idsNight = android.appwidget.AppWidgetManager.getInstance(this).getAppWidgetIds(android.content.ComponentName(this, PrayerWidgetProvider::class.java))
+        val idsDay = android.appwidget.AppWidgetManager.getInstance(this).getAppWidgetIds(android.content.ComponentName(this, PrayerWidgetDayProvider::class.java))
+        
+        val allPrayerIds = idsNight + idsDay
+        prayerIntent.putExtra(android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS, allPrayerIds)
+        sendBroadcast(prayerIntent)
     }
 }

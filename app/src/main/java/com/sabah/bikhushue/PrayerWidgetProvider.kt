@@ -37,7 +37,7 @@ open class PrayerWidgetProvider : AppWidgetProvider() {
         const val ACTION_OPEN_APP = "com.sabah.bikhushue.ACTION_OPEN_APP"
         const val ACTION_THEME_DAY = "com.sabah.bikhushue.ACTION_THEME_DAY"
         const val ACTION_THEME_NIGHT = "com.sabah.bikhushue.ACTION_THEME_NIGHT"
-        const val KEY_SALAWAT_COUNT = "widget_salawat_free_count"
+        const val KEY_SALAWAT_COUNT = "salawat_count"
         private const val TAG = "PrayerWidget"
     }
 
@@ -47,6 +47,8 @@ open class PrayerWidgetProvider : AppWidgetProvider() {
 
         fun updateAllWidgets() {
             val appWidgetManager = AppWidgetManager.getInstance(context)
+            
+            // Update Prayer Widgets
             val idsNight = appWidgetManager.getAppWidgetIds(ComponentName(context, PrayerWidgetProvider::class.java))
             val idsDay = appWidgetManager.getAppWidgetIds(ComponentName(context, PrayerWidgetDayProvider::class.java))
             
@@ -55,14 +57,39 @@ open class PrayerWidgetProvider : AppWidgetProvider() {
             
             for (id in idsNight) nightProvider.updateAppWidget(context, appWidgetManager, id)
             for (id in idsDay) dayProvider.updateAppWidget(context, appWidgetManager, id)
+
+            // Update Tasbeeh Widgets
+            val tasbeehIntent = Intent(context, TasbeehWidgetProvider::class.java).apply { 
+                action = AppWidgetManager.ACTION_APPWIDGET_UPDATE 
+            }
+            val tasbeehIds = appWidgetManager.getAppWidgetIds(ComponentName(context, TasbeehWidgetProvider::class.java))
+            tasbeehIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, tasbeehIds)
+            context.sendBroadcast(tasbeehIntent)
         }
 
         when (intent.action) {
             ACTION_COUNT_SALAWAT -> {
-                val prefs = context.getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
-                val currentCount = prefs.getInt(KEY_SALAWAT_COUNT, 0)
-                val newCount = currentCount + 1
-                prefs.edit().putInt(KEY_SALAWAT_COUNT, newCount).apply()
+                val prefs = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+                var currentCount = prefs.getInt(KEY_SALAWAT_COUNT, 0)
+                var currentRounds = prefs.getInt("salawat_rounds", 0)
+
+                currentCount++
+                
+                // Logic: check total goal 100
+                if (currentCount > 100) {
+                    currentCount = 0
+                    currentRounds++
+                }
+                
+                prefs.edit()
+                    .putInt(KEY_SALAWAT_COUNT, currentCount)
+                    .putInt("salawat_rounds", currentRounds)
+                    .apply()
+
+                // Notify Activity if it's open
+                context.sendBroadcast(Intent("com.sabah.bikhushue.SYNC_SALAWAT").apply {
+                    setPackage(context.packageName)
+                })
 
                 try {
                     @Suppress("DEPRECATION")
@@ -82,8 +109,16 @@ open class PrayerWidgetProvider : AppWidgetProvider() {
             }
 
             ACTION_RESET_SALAWAT -> {
-                val prefs = context.getSharedPreferences("TasbihCore", Context.MODE_PRIVATE)
-                prefs.edit().putInt(KEY_SALAWAT_COUNT, 0).apply()
+                val prefs = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+                prefs.edit()
+                    .putInt(KEY_SALAWAT_COUNT, 0)
+                    .putInt("salawat_rounds", 0)
+                    .apply()
+
+                // Notify Activity if it's open
+                context.sendBroadcast(Intent("com.sabah.bikhushue.SYNC_SALAWAT").apply {
+                    setPackage(context.packageName)
+                })
 
                 try {
                     @Suppress("DEPRECATION")
@@ -343,9 +378,16 @@ open class PrayerWidgetProvider : AppWidgetProvider() {
             views.setTextViewText(R.id.tv_widget_city, cityName)
             views.setTextColor(R.id.tv_widget_city, colorWhite)
 
-            val currentSalawatCount = prefsCore.getInt(KEY_SALAWAT_COUNT, 0)
+            val currentSalawatCount = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+                .getInt(KEY_SALAWAT_COUNT, 0)
+            val currentRounds = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+                .getInt("salawat_rounds", 0)
+
             views.setTextViewText(R.id.tv_widget_salawat_counter, currentSalawatCount.toString())
             views.setTextColor(R.id.tv_widget_salawat_counter, colorGold)
+
+            views.setTextViewText(R.id.tv_widget_rounds, currentRounds.toString())
+            views.setTextColor(R.id.tv_widget_rounds, colorGold)
 
             val is24 = android.text.format.DateFormat.is24HourFormat(context)
             val timeFormat = SimpleDateFormat(if (is24) "HH:mm" else "h:mm", Locale.ENGLISH)

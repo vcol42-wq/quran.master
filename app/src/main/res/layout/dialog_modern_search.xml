@@ -37,6 +37,7 @@
 
         <!-- Shadow Card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSearchShadow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="6dp"
@@ -48,6 +49,7 @@
 
         <!-- Main Card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvSearchCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"

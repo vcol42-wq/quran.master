@@ -28,23 +28,47 @@ class TasbeehWidgetProvider : AppWidgetProvider() {
         if (intent.action == ACTION_TASBEEH_INCREMENT) {
             val prefs = context.getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
             var currentCount = prefs.getInt("salawat_count", 0)
+            var currentRounds = prefs.getInt("salawat_rounds", 0)
             val currentGoal = prefs.getInt("salawat_goal", 1000)
             
-            if (currentCount < currentGoal) {
-                currentCount++
-            } else {
+            currentCount++
+            if (currentCount >= currentGoal) {
                 currentCount = 1
+                currentRounds++
+            } else if (currentCount % 100 == 0) {
+                currentRounds++
             }
-            prefs.edit().putInt("salawat_count", currentCount).apply()
+
+            prefs.edit()
+                .putInt("salawat_count", currentCount)
+                .putInt("salawat_rounds", currentRounds)
+                .apply()
+
+            // Notify Activity if it's open
+            context.sendBroadcast(Intent("com.sabah.bikhushue.SYNC_SALAWAT").apply {
+                setPackage(context.packageName)
+            })
 
             // Update all widgets
             val appWidgetManager = AppWidgetManager.getInstance(context)
+            
+            // Update Tasbeeh Widgets
             val appWidgetIds = appWidgetManager.getAppWidgetIds(
                 android.content.ComponentName(context, TasbeehWidgetProvider::class.java)
             )
             for (appWidgetId in appWidgetIds) {
                 updateAppWidget(context, appWidgetManager, appWidgetId)
             }
+
+            // Update Prayer Widgets (Night and Day)
+            val idsNight = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, PrayerWidgetProvider::class.java))
+            val idsDay = appWidgetManager.getAppWidgetIds(android.content.ComponentName(context, PrayerWidgetDayProvider::class.java))
+            
+            val nightProvider = PrayerWidgetProvider()
+            val dayProvider = PrayerWidgetDayProvider()
+            
+            for (id in idsNight) nightProvider.updateAppWidget(context, appWidgetManager, id)
+            for (id in idsDay) dayProvider.updateAppWidget(context, appWidgetManager, id)
         }
     }
 

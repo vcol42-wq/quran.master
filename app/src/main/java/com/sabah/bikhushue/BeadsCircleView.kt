@@ -36,7 +36,27 @@ class BeadsCircleView @JvmOverloads constructor(
     private val pulseColor = Color.parseColor("#FDF2E9") // Pearl glow
     private var staticCenterColor = Color.parseColor("#FDF5E6") // Creamy (كريمي)
     private val stringColor = Color.parseColor("#8C5C38") // Brown string
-    
+    private var isPressedState = false
+    private var isNightOrLunar = false
+
+    override fun onTouchEvent(event: android.view.MotionEvent): Boolean {
+        when (event.action) {
+            android.view.MotionEvent.ACTION_DOWN -> {
+                isPressedState = true
+                invalidate()
+            }
+            android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                isPressedState = false
+                invalidate()
+            }
+        }
+        return super.onTouchEvent(event)
+    }
+
+    fun setNightOrLunar(isNightOrLunar: Boolean) {
+        this.isNightOrLunar = isNightOrLunar
+    }
+
     fun setCenterColor(color: Int) {
         staticCenterColor = color
         invalidate()
@@ -127,6 +147,14 @@ class BeadsCircleView @JvmOverloads constructor(
         
         val filledBeads = min(currentCount, totalBeads)
         
+        val activeBeadIndex = if (animatingBeadIndex != -1 && animFraction > 0f) {
+            animatingBeadIndex
+        } else if (isPressedState) {
+            if (filledBeads > 0) filledBeads - 1 else 0
+        } else {
+            -1
+        }
+        
         for (i in 0 until totalBeads) {
             var slot: Float
             
@@ -149,22 +177,23 @@ class BeadsCircleView @JvmOverloads constructor(
             val x = cx + radius * cos(angle).toFloat()
             val y = cy + radius * sin(angle).toFloat()
             
+            val isThisBeadActive = (i == activeBeadIndex)
+            val beadColor = if (!isNightOrLunar && isThisBeadActive) {
+                Color.GRAY
+            } else {
+                idleColor
+            }
+
             if (i == animatingBeadIndex && animFraction > 0f) {
-                val p = animFraction
                 beadPaint.style = Paint.Style.FILL
-                beadPaint.color = evaluateColor(p, idleColor, pearlColor)
+                beadPaint.color = beadColor
                 beadPaint.alpha = 255
-                val currentRadius = beadRadius * (1f + p * 0.2f)
+                val currentRadius = beadRadius * (1f + animFraction * 0.2f)
                 canvas.drawCircle(x, y, currentRadius, beadPaint)
-            } else if (i < filledBeads) {
-                beadPaint.style = Paint.Style.FILL
-                beadPaint.color = pearlColor
-                beadPaint.alpha = 255
-                canvas.drawCircle(x, y, beadRadius, beadPaint)
             } else {
                 beadPaint.style = Paint.Style.FILL
-                beadPaint.color = idleColor
-                beadPaint.alpha = 200 
+                beadPaint.color = beadColor
+                beadPaint.alpha = 230 
                 canvas.drawCircle(x, y, beadRadius, beadPaint)
             }
         }

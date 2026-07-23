@@ -32,18 +32,66 @@ object SettingsHelper {
         val switchVibration = view.findViewById<SwitchMaterial>(R.id.switchVibration)
         val switchSound = view.findViewById<SwitchMaterial>(R.id.switchSound)
         val switchAzan = view.findViewById<SwitchMaterial>(R.id.switchAzan)
+        val switchHizb = view.findViewById<SwitchMaterial>(R.id.switchHizb)
+        val switchManzil = view.findViewById<SwitchMaterial>(R.id.switchManzil)
+        val rgSeparatorType = view.findViewById<android.widget.RadioGroup>(R.id.rgSeparatorType)
+        val rbSeparatorPage = view.findViewById<android.widget.RadioButton>(R.id.rbSeparatorPage)
+        val rbSeparatorKhatma29 = view.findViewById<android.widget.RadioButton>(R.id.rbSeparatorKhatma29)
+        val rbSeparatorKhatma30 = view.findViewById<android.widget.RadioButton>(R.id.rbSeparatorKhatma30)
+        val rbSeparatorHizb = view.findViewById<android.widget.RadioButton>(R.id.rbSeparatorHizb)
+        val rbSeparatorNone = view.findViewById<android.widget.RadioButton>(R.id.rbSeparatorNone)
+        val spinnerTranslation = view.findViewById<Spinner>(R.id.spinnerTranslation)
         val etApiKey = view.findViewById<EditText>(R.id.etApiKey)
         val btnSave = view.findViewById<android.widget.TextView>(R.id.btnSaveSettings)
 
         val prefs = activity.getSharedPreferences("app", Context.MODE_PRIVATE)
-
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainShadow)?.setCardBackgroundColor(themeColors.shadow)
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainCard)?.setCardBackgroundColor(themeColors.cardBg)
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvMainCard)?.strokeColor = themeColors.stroke
         
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerShadow)?.setCardBackgroundColor(themeColors.shadow)
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerCard)?.setCardBackgroundColor(themeColors.cardBg)
-        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSpinnerCard)?.strokeColor = themeColors.stroke
+        view.findViewById<android.widget.TextView>(R.id.tvSettingsTitle)?.setTextColor(themeColors.txt)
+        view.findViewById<android.widget.TextView>(R.id.tvThemeLabel)?.setTextColor(themeColors.txt)
+        view.findViewById<android.widget.TextView>(R.id.tvApiKeyLabel)?.setTextColor(themeColors.txt)
+        view.findViewById<android.widget.TextView>(R.id.tvSeparatorTitle)?.setTextColor(themeColors.txt)
+        switchTajweed.setTextColor(themeColors.txt)
+        switchVibration.setTextColor(themeColors.txt)
+        switchSound.setTextColor(themeColors.txt)
+        switchAzan.setTextColor(themeColors.txt)
+        switchHizb.setTextColor(themeColors.txt)
+        switchManzil.setTextColor(themeColors.txt)
+        rbSeparatorPage?.setTextColor(themeColors.txt)
+        rbSeparatorKhatma29?.setTextColor(themeColors.txt)
+        rbSeparatorKhatma30?.setTextColor(themeColors.txt)
+        rbSeparatorNone?.setTextColor(themeColors.txt)
+        view.findViewById<android.widget.TextView>(R.id.tvTranslationLabel)?.setTextColor(themeColors.txt)
+        etApiKey.setTextColor(themeColors.txt)
+        etApiKey.setHintTextColor(themeColors.txt)
+
+        // Theme application for categorized cards
+        val shadowCards = listOf(
+            R.id.cvAppearanceShadow, R.id.cvReadingShadow, R.id.cvAudioShadow, 
+            R.id.cvAiShadow, R.id.cvPrivacyShadow, R.id.cvAboutShadow,
+            R.id.cvSpinnerShadow, R.id.cvTranslationShadow, R.id.cvApiKeyShadow
+        )
+        val mainCards = listOf(
+            R.id.cvAppearanceCard, R.id.cvReadingCard, R.id.cvAudioCard, 
+            R.id.cvAiCard, R.id.cvPrivacyCard, R.id.cvAboutCard,
+            R.id.cvSpinnerCard, R.id.cvTranslationCard, R.id.cvApiKeyCard
+        )
+        
+        shadowCards.forEach { id ->
+            view.findViewById<com.google.android.material.card.MaterialCardView>(id)?.setCardBackgroundColor(themeColors.shadow)
+        }
+        mainCards.forEach { id ->
+            view.findViewById<com.google.android.material.card.MaterialCardView>(id)?.apply {
+                setCardBackgroundColor(themeColors.cardBg)
+                strokeColor = themeColors.stroke
+            }
+        }
+        
+        val titles = listOf(
+            R.id.tvAppearanceTitle, R.id.tvReadingTitle, R.id.tvAudioTitle, R.id.tvAiTitle
+        )
+        titles.forEach { id ->
+            view.findViewById<android.widget.TextView>(id)?.setTextColor(themeColors.stroke)
+        }
         
         // Theme Setup
         val themes = arrayOf("ليلي", "قمري", "كريمي", "زمردي", "سماوي", "زهري", "قرمزي")
@@ -57,7 +105,7 @@ object SettingsHelper {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
                 val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
-                view.setBackgroundColor(themeColors.cardBg)
+                view.setBackgroundColor(themeColors.dropdownBg)
                 view.setTextColor(themeColors.txt)
                 view.gravity = android.view.Gravity.CENTER
                 view.setPadding(16, 24, 16, 24)
@@ -65,7 +113,7 @@ object SettingsHelper {
             }
         }
         spinnerTheme.adapter = spinnerAdapter
-        spinnerTheme.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.cardBg))
+        spinnerTheme.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.dropdownBg))
 
         
         val currentBg = prefs.getString("bg_color", "#121212")
@@ -128,6 +176,84 @@ object SettingsHelper {
         switchAzan.isChecked = prefs.getBoolean("azan_on", true)
         switchAzan.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("azan_on", isChecked).apply()
+        }
+
+        switchHizb.isChecked = prefs.getBoolean("show_hizb", false)
+        switchHizb.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("show_hizb", isChecked).apply()
+            onTajweedChanged?.invoke(isChecked)
+        }
+
+        // Separator Type RadioGroup (Mutually Exclusive Logic)
+        val savedSepStr = prefs.getString("separator_type", "PAGE")
+        val currentSep = SeparatorType.fromString(savedSepStr)
+        when (currentSep) {
+            SeparatorType.PAGE -> rbSeparatorPage?.isChecked = true
+            SeparatorType.RUKOO_KHATMA_29 -> rbSeparatorKhatma29?.isChecked = true
+            SeparatorType.RUKOO_KHATMA_30 -> rbSeparatorKhatma30?.isChecked = true
+            SeparatorType.HIZB -> rbSeparatorHizb?.isChecked = true
+            SeparatorType.NONE -> rbSeparatorNone?.isChecked = true
+        }
+
+        rgSeparatorType?.setOnCheckedChangeListener { _, checkedId ->
+            val selectedType = when (checkedId) {
+                R.id.rbSeparatorPage -> SeparatorType.PAGE
+                R.id.rbSeparatorKhatma29 -> SeparatorType.RUKOO_KHATMA_29
+                R.id.rbSeparatorKhatma30 -> SeparatorType.RUKOO_KHATMA_30
+                R.id.rbSeparatorHizb -> SeparatorType.HIZB
+                R.id.rbSeparatorNone -> SeparatorType.NONE
+                else -> SeparatorType.PAGE
+            }
+            prefs.edit().putString("separator_type", selectedType.name).apply()
+            onTajweedChanged?.invoke(true)
+        }
+
+        switchManzil.isChecked = prefs.getBoolean("show_manzil", false)
+        switchManzil.setOnCheckedChangeListener { _, isChecked ->
+            prefs.edit().putBoolean("show_manzil", isChecked).apply()
+            onTajweedChanged?.invoke(isChecked)
+        }
+
+        // Translation Setup
+        val translations = arrayOf("بدون ترجمة", "التفسير الميسر (العربية)", "الإنجليزية (English)", "الإندونيسية (Indonesian)")
+        val transAdapter = object : ArrayAdapter<String>(activity, android.R.layout.simple_spinner_dropdown_item, translations) {
+            override fun getView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getView(position, convertView, parent) as android.widget.TextView
+                view.setTextColor(themeColors.txt)
+                view.gravity = android.view.Gravity.CENTER
+                return view
+            }
+            override fun getDropDownView(position: Int, convertView: View?, parent: android.view.ViewGroup): View {
+                val view = super.getDropDownView(position, convertView, parent) as android.widget.TextView
+                view.setBackgroundColor(themeColors.dropdownBg)
+                view.setTextColor(themeColors.txt)
+                view.gravity = android.view.Gravity.CENTER
+                view.setPadding(16, 24, 16, 24)
+                return view
+            }
+        }
+        spinnerTranslation.adapter = transAdapter
+        spinnerTranslation.setPopupBackgroundDrawable(android.graphics.drawable.ColorDrawable(themeColors.dropdownBg))
+        
+        val currentTranslation = prefs.getString("translation_lang", "none")
+        spinnerTranslation.setSelection(when (currentTranslation) {
+            "ar" -> 1
+            "en" -> 2
+            "id" -> 3
+            else -> 0
+        })
+
+        spinnerTranslation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, v: View?, position: Int, id: Long) {
+                val lang = when(position) {
+                    1 -> "ar"
+                    2 -> "en"
+                    3 -> "id"
+                    else -> "none"
+                }
+                prefs.edit().putString("translation_lang", lang).apply()
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         // API Key

@@ -120,6 +120,9 @@ class TasbeehActivity : AppCompatActivity() {
     private fun applyTheme() {
         val theme = ThemeHelper.getThemeColors(this)
         ThemeHelper.applySystemWindowsColors(this)
+        
+        beadsCircle.setNightOrLunar(theme.isDark)
+
         tasbeehRoot.setBackgroundColor(theme.bg)
         
                 
@@ -436,6 +439,12 @@ class TasbeehActivity : AppCompatActivity() {
         val currentZikr = zikrs[currentZikrIndex]
         tvMainCounter.text = (currentZikr.goal - currentZikr.count).toString()
         beadsCircle.setGoalAndCount(currentZikr.goal, currentZikr.count, animate)
+        
+        if (currentZikr.count == 0) {
+            tvMainCounter.setTextColor(android.graphics.Color.parseColor("#4CAF50"))
+        } else {
+            tvMainCounter.setTextColor(android.graphics.Color.parseColor("#B0BEC5"))
+        }
     }
 
     private fun toggleBottomBar() {

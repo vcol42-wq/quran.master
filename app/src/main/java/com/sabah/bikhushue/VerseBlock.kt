@@ -4,8 +4,12 @@ data class VerseModel(
     val id: Int,
     val sura: Int,
     val aya: Int,
-    val textTajweed: String,
-    val tafsirJalalayn: String,
+    val textTajweed: String, // mapped to ayahText
+    val tajweedMeta: String, // mapped to tajweed_meta
+    val tafsirAr: String,    // mapped to tafsir_ar
+    val translationEn: String,
+    val translationId: String,
+    val audioUrl: String,
     val page: Int,
     val ruku: Int,
     val manzil: Int,
@@ -13,8 +17,14 @@ data class VerseModel(
     val hizbQuarter: Int,
     var suraName: String = "",
     var textClean: String = "",
-    var isEndOfRuku: Boolean = false,
-    var isEndOfHizb: Boolean = false
+    val hizbQuarterDisplay: String = "",
+    val rukooArDisplay: String = "",
+    val rukooShDisplay: String = "",
+    val manzilDisplay: String = "",
+    val rukooArSura: Int = 0,
+    val rukooArTotal: Int = 0,
+    val rukooShSura: Int = 0,
+    val rukooShTotal: Int = 0
 )
 
 data class VerseBlock(

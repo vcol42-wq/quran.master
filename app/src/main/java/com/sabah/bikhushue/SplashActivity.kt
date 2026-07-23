@@ -14,6 +14,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        NotificationHelper.createChannels(this)
         stopService(android.content.Intent(this, AthanService::class.java))
         setContentView(R.layout.activity_splash)
 

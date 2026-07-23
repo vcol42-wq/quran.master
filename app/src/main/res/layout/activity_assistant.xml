@@ -44,7 +44,6 @@
 
     <!-- Bottom Bar (at the very bottom) -->
     <include 
-        android:id="@+id/incBottomBar"
         layout="@layout/layout_bottom_bar" 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +54,7 @@
         android:id="@+id/llInputArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/incBottomBar"
+        android:layout_above="@id/bottomBarLayout"
         android:orientation="horizontal"
         android:padding="12dp"
         android:background="#00000000"

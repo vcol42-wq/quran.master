@@ -62,6 +62,7 @@ object GlobalSearchHelper {
             pb.visibility = View.VISIBLE
             Thread {
                 val dbHelper = DatabaseHelper(activity)
+                dbHelper.checkAndCopyDatabase()
                 allVerses = dbHelper.getAllQuranVerses()
                 activity.runOnUiThread {
                     pb.visibility = View.GONE
@@ -131,7 +132,7 @@ object GlobalSearchHelper {
                 val match = if (type == 0) {
                     v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean)
                 } else {
-                    v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirJalalayn.contains(q)
+                    v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirAr.contains(q)
                 }
                 if (match) {
                     res.add(Triple(v, v.textTajweed, -1))

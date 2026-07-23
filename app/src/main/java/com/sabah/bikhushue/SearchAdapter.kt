@@ -35,7 +35,7 @@ class SearchAdapter(
         val cleanText = verse.textTajweed.replace(Regex("color=['\"]?#[0-9a-fA-F]+['\"]?", RegexOption.IGNORE_CASE), "")
         holder.verseText.text = Html.fromHtml(cleanText, Html.FROM_HTML_MODE_LEGACY)
         
-        holder.tafseer.text = verse.tafsirJalalayn
+        holder.tafseer.text = verse.tafsirAr
 
         holder.btnGemini.setOnClickListener { onAction(verse, "gemini") }
         holder.btnAudio.setOnClickListener { onAction(verse, "audio") }

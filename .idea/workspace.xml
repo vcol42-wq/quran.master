@@ -47,56 +47,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e98ce0a-9864-4da6-8b18-06ab1d852fd6" name="Changes" comment="Add and update database files (azkar.db, quran_factory.db)">
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/checksums/md5-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.3.0/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.artifacts/11f6a095-5e14-4eeb-a8b8-0c4f39a11226/implementation_plan.artifact.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/planningMode.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.artifacts/11f6a095-5e14-4eeb-a8b8-0c4f39a11226/task.artifact.md" beforeDir="false" afterPath="$PROJECT_DIR$/.artifacts/11f6a095-5e14-4eeb-a8b8-0c4f39a11226/task.artifact.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.9/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.9/dependencies-accessors/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.9/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.9/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.9/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.5.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.5.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.5.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.5.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.5.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.aab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/quran_factory.db" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/assets/quran_factory.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AlarmScheduler.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AlarmScheduler.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AssistantActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AssistantActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AthanActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AthanActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AzkarActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AzkarActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AzkarDatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AzkarDatabaseHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/HomeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AutoTajweedParser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/AutoTajweedParser.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/BeadsCircleView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/BeadsCircleView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/ChatAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/ChatAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/DatabaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/GlobalSearchHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/GlobalSearchHelper.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/PrayerWidgetProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/PrayerWidgetProvider.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/QuranAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/QuranAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SalawatActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SalawatActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SearchAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SearchAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SettingsHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SettingsHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SpiralBeadsView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SpiralBeadsView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SpiralTasbeehActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SpiralTasbeehActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SplashActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/SplashActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/TasbeehActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/TasbeehActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/TasbeehWidgetProvider.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/TasbeehWidgetProvider.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/ThemeHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/ThemeHelper.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_tasbeeh.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_tasbeeh.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_athan.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_athan.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_azkar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_azkar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tasbeeh.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tasbeeh.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/VerseBlock.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/sabah/bikhushue/VerseBlock.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_assistant.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_assistant.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_modern_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_modern_search.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_verse_options.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_verse_options.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/prayer_widget.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/prayer_widget.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/prayer_widget_info.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/prayer_widget_info.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/problems/problems-report.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/problems/problems-report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mm.mp4" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +106,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[PhysicalDevice::serial=AS7J6R4806006550]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -190,8 +190,8 @@
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/quran.master/app/src/main/res/drawable&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;
+    &quot;last_opened_file_path&quot;: &quot;C:/quran.master/app/src/main/assets&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;templates.modelproviders.configurable&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;ExportApk.BuildVariants&quot;: [
@@ -206,8 +206,8 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\quran.master\app\src\main\res\drawable" />
       <recent name="C:\quran.master\app\src\main\assets" />
+      <recent name="C:\quran.master\app\src\main\res\drawable" />
       <recent name="C:\quran.master\app\build\generated\res\resValues\debug" />
       <recent name="C:\quran.master\app\src\main\res\font" />
     </key>
@@ -442,12 +442,12 @@
       <map>
         <entry key="com.example.quranmaster">
           <value>
-            <CheckInfo lastCheckTimestamp="1784038761287" />
+            <CheckInfo lastCheckTimestamp="1784534544196" />
           </value>
         </entry>
         <entry key="com.example.quranmaster.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1784038761290" />
+            <CheckInfo lastCheckTimestamp="1784534544199" />
           </value>
         </entry>
         <entry key="com.sabah.bikhushue">

@@ -27,6 +27,10 @@ class ChatAdapter(private val messages: MutableList<ChatMessage>) : RecyclerView
         val msg = messages[position]
         holder.tvMessage.text = msg.text
         
+        // Enable clickable links
+        android.text.util.Linkify.addLinks(holder.tvMessage, android.text.util.Linkify.WEB_URLS)
+        holder.tvMessage.setLinkTextColor(android.graphics.Color.parseColor("#007BFF")) // Blue for links
+        
         val themeColors = ThemeHelper.getThemeColors(holder.itemView.context)
         
         // Common colors for the card

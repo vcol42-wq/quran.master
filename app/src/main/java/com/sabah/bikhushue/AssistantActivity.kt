@@ -85,7 +85,9 @@ class AssistantActivity : AppCompatActivity() {
         rvChat.adapter = adapter
 
         // Welcome message
-        adapter.addMessage(ChatMessage("السلام عليكم انا مساعدك الذكي في العلوم الشرعية قران حديث فقه وممكن ان اساعدك في أدوات ضبط التطبيق", false))
+        val welcomeMsg = "السلام عليكم انا مساعدك الذكي في العلوم الشرعية قران حديث فقه وممكن ان اساعدك في أدوات ضبط التطبيق. " +
+                "من هنا تحصل على مفتاح جمني: https://aistudio.google.com/app/apikey"
+        adapter.addMessage(ChatMessage(welcomeMsg, false))
 
         btnSend.setOnClickListener {
             val query = etInput.text.toString().trim()

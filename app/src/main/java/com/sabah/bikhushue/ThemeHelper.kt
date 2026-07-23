@@ -12,6 +12,7 @@ data class ThemeColors(
     val cardBg: Int,
     val stroke: Int,
     val shadow: Int,
+    val dropdownBg: Int,
     val isDark: Boolean
 )
 
@@ -26,11 +27,13 @@ object ThemeHelper {
             "#121212", "#455A64", "#37474F", "#263238" -> true
             else -> false
         }
+
+        val isLunar = bgHex == "#455A64" || bgHex == "#37474F" || bgHex == "#263238"
         
         // Define gradients/shades based on theme
         val cardBgHex = when (bgHex) {
             "#121212" -> "#2D2D2D" // Night
-            "#455A64", "#37474F", "#263238", "#D4CEC4" -> "#37474F" // Lunar light tint (card)
+            "#455A64", "#37474F", "#263238", "#D4CEC4" -> if (isLunar) "#263238" else "#37474F"
             "#E0F2F1" -> "#F1F8F8" // Emerald light tint
             "#E3F2FD" -> "#F0F8FF" // Sky Blue light tint
             "#FFF0F5" -> "#FFF5F8" // Pink light tint
@@ -58,13 +61,25 @@ object ThemeHelper {
             else -> "#D2B48C"      // Creamy shadow
         }
 
+        val dropdownBgHex = when {
+            bgHex == "#121212" -> "#1E1E1E" // Night dark dropdown
+            isLunar -> "#1C262B" // Lunar even darker dropdown
+            else -> "#FFFFFF" // Force white for light themes to avoid creamy clash
+        }
+
+        val textColorHex = when {
+            isDark -> "#E0E0E0"
+            else -> txtHex
+        }
+
         return ThemeColors(
             bg = Color.parseColor(bgHex),
-            txt = if (isDark) Color.parseColor("#E0E0E0") else Color.parseColor(txtHex),
+            txt = Color.parseColor(textColorHex),
             bar = if (isDark) Color.parseColor("#2D2D2D") else Color.parseColor(barHex),
             cardBg = Color.parseColor(cardBgHex),
             stroke = Color.parseColor(strokeHex),
             shadow = Color.parseColor(shadowHex),
+            dropdownBg = Color.parseColor(dropdownBgHex),
             isDark = isDark
         )
     }

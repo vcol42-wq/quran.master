@@ -41,6 +41,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var scaleGestureDetector: ScaleGestureDetector
     
     private var mediaPlayer: MediaPlayer? = null
+    
+    // Prayer Mode Variables
+    private var isPrayerModeActive = false
+    private var isPrayerModePaused = false
+    private var prayerMsElapsed = 0L
+    private var prayerRukuCount = 0
+    private var countedRukus = mutableSetOf<Int>()
+    private var prayerTimerRunnable: Runnable? = null
+    private var autoScrollRunnable: Runnable? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
+    private var scrollSpeedDelay = 40L
+    private lateinit var prayerTimerWidget: View
+    private lateinit var prayerTimeText: TextView
+    private lateinit var prayerTotalRukuText: TextView
+    private lateinit var btnSpeedUp: TextView
+    private lateinit var btnSpeedDown: TextView
+    private lateinit var btnStopPrayer: TextView
+
+    // Open Timer Variables
+    private var isOpenTimerActive = false
+    private var isOpenTimerPaused = false
+    private var openTimerSeconds = 0
+    private var openTimerRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,6 +175,15 @@ class MainActivity : AppCompatActivity() {
         topBarSuraText = findViewById(R.id.topBarSuraText)
         topBarPageText = findViewById(R.id.topBarPageText)
         topBarTimerText = findViewById(R.id.topBarTimerText)
+        
+        prayerTimerWidget = findViewById(R.id.prayerTimerWidget)
+        prayerTimeText = findViewById(R.id.prayerTimeText)
+        prayerTotalRukuText = findViewById(R.id.prayerTotalRukuText)
+        btnSpeedUp = findViewById(R.id.btnSpeedUp)
+        btnSpeedDown = findViewById(R.id.btnSpeedDown)
+        btnStopPrayer = findViewById(R.id.btnStopPrayer)
+        
+        setupPrayerTimerWidget()
 
         val onThemeChangedAction = {
             val prefs = getSharedPreferences("app", MODE_PRIVATE)
@@ -170,7 +202,12 @@ class MainActivity : AppCompatActivity() {
         }
         val onTajweedChangedAction = { isChecked: Boolean ->
             if (::quranAdapter.isInitialized) {
-                quranAdapter.showTajweedColors = isChecked
+                val prefs = getSharedPreferences("app", MODE_PRIVATE)
+                val savedSepStr = prefs.getString("separator_type", "PAGE")
+                quranAdapter.currentSeparator = SeparatorType.fromString(savedSepStr)
+                quranAdapter.showTajweedColors = prefs.getBoolean("tajweed_on", true)
+                quranAdapter.showHizb = prefs.getBoolean("show_hizb", false)
+                quranAdapter.showManzil = prefs.getBoolean("show_manzil", false)
                 quranAdapter.notifyDataSetChanged()
             }
         }
@@ -183,7 +220,26 @@ class MainActivity : AppCompatActivity() {
         
         topBarSuraText.setOnClickListener { openUnifiedIndex(0) }
         topBarJuzText.setOnClickListener { openUnifiedIndex(1) }
-        topBarTimerText.setOnClickListener { showTimerDialog() }
+        topBarTimerText.setOnClickListener {
+            if (isOpenTimerActive) {
+                isOpenTimerPaused = !isOpenTimerPaused
+                val topBarTimerCard = findViewById<com.google.android.material.card.MaterialCardView>(R.id.topBarTimerCard)
+                val bgColor = if (isOpenTimerPaused) "#FFCDD2" else "#D2B48C"
+                topBarTimerCard?.setCardBackgroundColor(Color.parseColor(bgColor))
+                Toast.makeText(this, if (isOpenTimerPaused) "تم إيقاف المؤقت مؤقتاً" else "تم استئناف المؤقت", Toast.LENGTH_SHORT).show()
+            } else {
+                showTimerDialog()
+            }
+        }
+        topBarTimerText.setOnLongClickListener {
+            if (isOpenTimerActive) {
+                stopOpenTimer()
+                Toast.makeText(this, "تم إيقاف وإعادة ضبط المؤقت", Toast.LENGTH_SHORT).show()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun setupZoom() {
@@ -232,7 +288,11 @@ class MainActivity : AppCompatActivity() {
                         val savedBg = prefs.getString("bg_color", "#121212") ?: "#121212"
                         val savedTxt = prefs.getString("txt_color", "#000000") ?: "#000000"
                         val savedBar = prefs.getString("bar_color", "#E6DCC8") ?: "#E6DCC8"
+                        val savedSepStr = prefs.getString("separator_type", "PAGE")
+                        quranAdapter.currentSeparator = SeparatorType.fromString(savedSepStr)
                         quranAdapter.showTajweedColors = prefs.getBoolean("tajweed_on", true)
+                        quranAdapter.showHizb = prefs.getBoolean("show_hizb", false)
+                        quranAdapter.showManzil = prefs.getBoolean("show_manzil", false)
                         
                         applyTheme(savedBg, savedTxt, savedBar)
 
@@ -277,11 +337,6 @@ class MainActivity : AppCompatActivity() {
         for (i in verses.indices) {
             val v = verses[i]
             v.suraName = suraNames[v.sura] ?: "سورة ${v.sura}"
-            if (i < verses.size - 1) {
-                val n = verses[i + 1]
-                v.isEndOfRuku = v.ruku != n.ruku
-                v.isEndOfHizb = v.hizbQuarter != n.hizbQuarter
-            }
         }
         var curPage = -1; var curVerses = ArrayList<VerseModel>()
         for (v in verses) {
@@ -305,7 +360,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTopBar(b: VerseBlock) {
-        topBarPageText.text = b.pageNumber.toString()
+        topBarPageText.text = "ص ${b.pageNumber}"
         topBarSuraText.text = "${b.suraNumber} ${b.suraName}"
         topBarJuzText.text = "الجزء ${b.juzNumber}"
     }
@@ -332,14 +387,21 @@ class MainActivity : AppCompatActivity() {
     private fun applyTheme(bg: String, txt: String, bar: String) {
         val isDarkMode = bg == "#121212"
         val bgColor = Color.parseColor(bg)
-        val txtColor = if (isDarkMode) Color.parseColor("#E0E0E0") else Color.parseColor(txt)
+        val resolvedTxtHex = if (isDarkMode) "#E0E0E0" else (if (txt == "#000000" || txt.isBlank()) "#212121" else txt)
+        val txtColor = Color.parseColor(resolvedTxtHex)
         val barColor = if (isDarkMode) Color.parseColor("#2D2D2D") else Color.parseColor(bar)
         val subtleBorder = if (isDarkMode) Color.parseColor("#555555") else Color.parseColor("#E4D7B4")
+
+        if (::quranAdapter.isInitialized) {
+            quranAdapter.currentBgColor = bg
+            quranAdapter.currentTextColor = resolvedTxtHex
+            quranAdapter.notifyDataSetChanged()
+        }
 
         mainRootLayout.setBackgroundColor(bgColor)
         quranRecyclerView.setBackgroundColor(Color.TRANSPARENT)
         
-                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !isDarkMode
         windowInsetsController.isAppearanceLightNavigationBars = !isDarkMode
 
@@ -401,7 +463,12 @@ class MainActivity : AppCompatActivity() {
         }
         val onTajweedChangedAction = { isChecked: Boolean ->
             if (::quranAdapter.isInitialized) {
-                quranAdapter.showTajweedColors = isChecked
+                val prefs = getSharedPreferences("app", MODE_PRIVATE)
+                val savedSepStr = prefs.getString("separator_type", "PAGE")
+                quranAdapter.currentSeparator = SeparatorType.fromString(savedSepStr)
+                quranAdapter.showTajweedColors = prefs.getBoolean("tajweed_on", true)
+                quranAdapter.showHizb = prefs.getBoolean("show_hizb", false)
+                quranAdapter.showManzil = prefs.getBoolean("show_manzil", false)
                 quranAdapter.notifyDataSetChanged()
             }
         }
@@ -426,10 +493,186 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showTimerDialog() {
-        val options = arrayOf("5 دقائق", "10 دقائق", "15 دقيقة", "20 دقيقة", "وقت مخصص")
-        AlertDialog.Builder(this).setTitle("المؤقت").setItems(options) { _, which ->
-            if (which < 4) startTimer((which + 1) * 5) else showCustomTimerInput()
+        val options = arrayOf("5 دقائق", "10 دقائق", "15 دقيقة", "20 دقيقة", "الوقت المفتوح (تصاعدي)", "وضع الصلاة (مؤقت + تحريك للركوع)", "وقت مخصص")
+        AlertDialog.Builder(this).setTitle("الخيارات").setItems(options) { _, which ->
+            if (which < 4) {
+                stopOpenTimer()
+                startTimer((which + 1) * 5)
+            } else if (which == 4) {
+                startOpenTimer()
+            } else if (which == 5) {
+                stopOpenTimer()
+                startPrayerMode()
+            } else {
+                stopOpenTimer()
+                showCustomTimerInput()
+            }
         }.show()
+    }
+    
+    private fun startOpenTimer() {
+        stopOpenTimer()
+        countdownTimer?.cancel()
+        isOpenTimerActive = true
+        isOpenTimerPaused = false
+        openTimerSeconds = 0
+        topBarTimerText.text = "00:00"
+        
+        val topBarTimerCard = findViewById<com.google.android.material.card.MaterialCardView>(R.id.topBarTimerCard)
+        topBarTimerCard?.setCardBackgroundColor(Color.parseColor("#D2B48C"))
+        
+        openTimerRunnable = object : Runnable {
+            override fun run() {
+                if (isOpenTimerActive) {
+                    if (!isOpenTimerPaused) {
+                        openTimerSeconds++
+                        val mins = openTimerSeconds / 60
+                        val secs = openTimerSeconds % 60
+                        topBarTimerText.text = String.format(Locale.ENGLISH, "%02d:%02d", mins, secs)
+                    }
+                    mainHandler.postDelayed(this, 1000)
+                }
+            }
+        }
+        mainHandler.post(openTimerRunnable!!)
+        Toast.makeText(this, "تم تشغيل الوقت المفتوح. نقرة للإيقاف المؤقت، نقرة مطولة للإلغاء.", Toast.LENGTH_LONG).show()
+    }
+
+    private fun stopOpenTimer() {
+        isOpenTimerActive = false
+        isOpenTimerPaused = false
+        openTimerSeconds = 0
+        openTimerRunnable?.let { mainHandler.removeCallbacks(it) }
+        openTimerRunnable = null
+        topBarTimerText.text = "00:00"
+        val topBarTimerCard = findViewById<com.google.android.material.card.MaterialCardView>(R.id.topBarTimerCard)
+        topBarTimerCard?.setCardBackgroundColor(Color.parseColor("#D2B48C"))
+    }
+    
+    private fun setupPrayerTimerWidget() {
+        val pauseResumeAction = {
+            isPrayerModePaused = !isPrayerModePaused
+            val bgColor = if (isPrayerModePaused) "#FFCDD2" else "#FFFFFF"
+            val strokeColor = if (isPrayerModePaused) "#FF8A80" else "#A5D6A7"
+            val card = prayerTimerWidget as com.google.android.material.card.MaterialCardView
+            card.setCardBackgroundColor(Color.parseColor(bgColor))
+            card.strokeColor = Color.parseColor(strokeColor)
+            Toast.makeText(this, if (isPrayerModePaused) "تم الإيقاف مؤقتاً" else "تم الاستئناف", Toast.LENGTH_SHORT).show()
+        }
+        prayerTimerWidget.setOnClickListener { pauseResumeAction() }
+        prayerTimeText.setOnClickListener { pauseResumeAction() }
+        
+        btnStopPrayer.setOnClickListener {
+            stopPrayerMode()
+            Toast.makeText(this, "تم إيقاف وضع الصلاة", Toast.LENGTH_SHORT).show()
+        }
+
+        btnSpeedUp.setOnClickListener {
+            if (scrollSpeedDelay > 10L) {
+                scrollSpeedDelay -= 5L
+                Toast.makeText(this, "تم زيادة السرعة", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnSpeedDown.setOnClickListener {
+            if (scrollSpeedDelay < 100L) {
+                scrollSpeedDelay += 5L
+                Toast.makeText(this, "تم تقليل السرعة", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun startPrayerMode() {
+        prayerTimerWidget.visibility = View.VISIBLE
+        bottomBarLayout.visibility = View.GONE
+        isPrayerModeActive = true
+        isPrayerModePaused = false
+        prayerMsElapsed = 0L
+        prayerRukuCount = 0
+        countedRukus.clear()
+        
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        val showArabic = prefs.getBoolean("show_arabic_ruku", false)
+        val showEastern = prefs.getBoolean("show_eastern_ruku", false)
+        val lm = quranRecyclerView.layoutManager as LinearLayoutManager
+        val firstPos = lm.findFirstVisibleItemPosition()
+        val lastPos = lm.findLastVisibleItemPosition()
+        if (firstPos != RecyclerView.NO_POSITION && lastPos != RecyclerView.NO_POSITION) {
+            for (i in firstPos..lastPos) {
+                val block = blockList.getOrNull(i) ?: continue
+                for (v in block.verses) {
+                    val isRuku = (showArabic && v.rukooArDisplay.isNotBlank()) || (showEastern && v.rukooShDisplay.isNotBlank())
+                    if (isRuku) countedRukus.add(v.id)
+                }
+            }
+        }
+        
+        scrollSpeedDelay = 40L
+        prayerTimeText.text = "00:00"
+        prayerTotalRukuText.text = "الركوعات: 0"
+        
+        val card = prayerTimerWidget as com.google.android.material.card.MaterialCardView
+        card.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        card.strokeColor = Color.parseColor("#A5D6A7")
+        
+        prayerTimerRunnable?.let { mainHandler.removeCallbacks(it) }
+        autoScrollRunnable?.let { mainHandler.removeCallbacks(it) }
+        
+        prayerTimerRunnable = object : Runnable {
+            override fun run() {
+                if (isPrayerModeActive && !isPrayerModePaused) {
+                    prayerMsElapsed += 1000
+                    prayerTimeText.text = String.format(Locale.ENGLISH, "%02d:%02d", (prayerMsElapsed / 60000), (prayerMsElapsed % 60000) / 1000)
+                }
+                if (isPrayerModeActive) mainHandler.postDelayed(this, 1000)
+            }
+        }
+        mainHandler.postDelayed(prayerTimerRunnable!!, 1000)
+        
+        autoScrollRunnable = object : Runnable {
+            override fun run() {
+                if (isPrayerModeActive && !isPrayerModePaused) {
+                    quranRecyclerView.scrollBy(0, 2)
+                    checkPrayerRuku()
+                }
+                if (isPrayerModeActive) mainHandler.postDelayed(this, scrollSpeedDelay)
+            }
+        }
+        mainHandler.postDelayed(autoScrollRunnable!!, scrollSpeedDelay)
+        Toast.makeText(this, "تم تشغيل وضع الصلاة. انقر على المؤقت للإيقاف المؤقت.", Toast.LENGTH_LONG).show()
+    }
+
+    private fun stopPrayerMode() {
+        isPrayerModeActive = false
+        prayerTimerWidget.visibility = View.GONE
+        bottomBarLayout.visibility = View.VISIBLE
+        prayerTimerRunnable?.let { mainHandler.removeCallbacks(it) }
+        autoScrollRunnable?.let { mainHandler.removeCallbacks(it) }
+    }
+
+    private fun checkPrayerRuku() {
+        val lm = quranRecyclerView.layoutManager as LinearLayoutManager
+        val lastPos = lm.findLastVisibleItemPosition()
+        if (lastPos == RecyclerView.NO_POSITION) return
+        
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        val showArabic = prefs.getBoolean("show_arabic_ruku", false)
+        val showEastern = prefs.getBoolean("show_eastern_ruku", false)
+        
+        val block = blockList.getOrNull(lastPos) ?: return
+        for (v in block.verses) {
+            val isRuku = (showArabic && v.rukooArDisplay.isNotBlank()) || (showEastern && v.rukooShDisplay.isNotBlank())
+            if (isRuku && !countedRukus.contains(v.id)) {
+                countedRukus.add(v.id)
+                isPrayerModePaused = true
+                prayerRukuCount++
+                prayerTotalRukuText.text = "الركوعات: $prayerRukuCount"
+                val card = prayerTimerWidget as com.google.android.material.card.MaterialCardView
+                card.setCardBackgroundColor(Color.parseColor("#FFCDD2"))
+                card.strokeColor = Color.parseColor("#FF8A80")
+                return
+            }
+        }
     }
 
     private fun startTimer(minutes: Int) {
@@ -466,10 +709,24 @@ class MainActivity : AppCompatActivity() {
     fun openSearchDialog() {
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.dialog_modern_search, null)
+        val themeColors = ThemeHelper.getThemeColors(this)
+        view.setBackgroundColor(themeColors.bg)
+        
+        view.findViewById<TextView>(R.id.tvSearchDialogTitle)?.setTextColor(themeColors.txt)
+        val et = view.findViewById<EditText>(R.id.etModernSearch)
+        et?.setTextColor(themeColors.txt)
+        et?.setHintTextColor(themeColors.txt)
+        
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSearchShadow)?.setCardBackgroundColor(themeColors.shadow)
+        view.findViewById<com.google.android.material.card.MaterialCardView>(R.id.cvSearchCard)?.apply {
+            setCardBackgroundColor(themeColors.cardBg)
+            strokeColor = themeColors.stroke
+        }
+        
         dialog.setContentView(view)
         setupExpandedBottomSheet(dialog)
         
-        val et = view.findViewById<EditText>(R.id.etModernSearch)
+        // et is already defined above
         val btnQuran = view.findViewById<Button>(R.id.btnSearchQuran)
         val btnTafseer = view.findViewById<Button>(R.id.btnSearchTafseer)
         val btnAzkar = view.findViewById<Button>(R.id.btnSearchAzkar)
@@ -547,7 +804,7 @@ class MainActivity : AppCompatActivity() {
                     val match = if (type == 0) {
                         v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean)
                     } else {
-                        v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirJalalayn.contains(q)
+                        v.textClean.removeTashkeel().contains(qClean) || v.textTajweed.removeTashkeel().contains(qClean) || v.tafsirAr.contains(q)
                     }
                     if (match) {
                         res.add(Triple(v, v.textTajweed, i))
@@ -592,8 +849,23 @@ class MainActivity : AppCompatActivity() {
         val view = layoutInflater.inflate(R.layout.dialog_verse_options, null)
         dialog.setContentView(view)
 
-        val preview = if (v.textTajweed.length > 50) v.textTajweed.take(50) + "..." else v.textTajweed
+        val preview = if (v.textClean.length > 50) v.textClean.take(50) + "..." else v.textClean
         view.findViewById<TextView>(R.id.tvVersePreviewTitle).text = preview
+        
+        val tvTranslation = view.findViewById<TextView>(R.id.tvVerseTranslation)
+        val translationLang = getSharedPreferences("app", MODE_PRIVATE).getString("translation_lang", "none") ?: "none"
+        if (translationLang != "none") {
+            tvTranslation.visibility = View.VISIBLE
+            val transText = when (translationLang) {
+                "en" -> v.translationEn
+                "id" -> v.translationId
+                "ar" -> v.tafsirAr
+                else -> ""
+            }
+            tvTranslation.text = transText
+        } else {
+            tvTranslation.visibility = View.GONE
+        }
 
         view.findViewById<View>(R.id.btnOptionTafsir).setOnClickListener {
             dialog.dismiss()
@@ -601,7 +873,7 @@ class MainActivity : AppCompatActivity() {
         }
         view.findViewById<View>(R.id.btnOptionAudioAyah).setOnClickListener {
             dialog.dismiss()
-            playInternalAudio(v) // Online streaming for Ayah
+            playVerseAudioFromUrl(v) // New method to play audio_url
         }
         view.findViewById<View>(R.id.btnOptionAudioSurah).setOnClickListener {
             dialog.dismiss()
@@ -619,8 +891,34 @@ class MainActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun playVerseAudioFromUrl(v: VerseModel) {
+        if (v.audioUrl.isNotEmpty()) {
+            currentReciterId = "EveryAyah_DB"
+            currentReciterUrlTemplate = v.audioUrl // Use the full URL
+            currentAudioSura = v.sura
+            currentAudioAya = v.aya
+            playNextVerse()
+        } else {
+            // Fallback
+            playInternalAudio(v)
+        }
+    }
+
     private fun showTafsirDialog(v: VerseModel) {
-        AlertDialog.Builder(this).setTitle("تفسير").setMessage(v.tafsirJalalayn).show()
+        val dialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.dialog_tafsir, null)
+        dialog.setContentView(view)
+        setupExpandedBottomSheet(dialog)
+
+        val tvVerse = view.findViewById<TextView>(R.id.tvTafsirVerseText)
+        val tvTafsir = view.findViewById<TextView>(R.id.tvTafsirText)
+        val btnClose = view.findViewById<android.widget.Button>(R.id.btnCloseTafsir)
+
+        tvVerse.text = v.textTajweed.replace(Regex("<[^>]*>"), "")
+        tvTafsir.text = v.tafsirAr
+
+        btnClose.setOnClickListener { dialog.dismiss() }
+        dialog.show()
     }
 
     private fun searchGemini(v: VerseModel) {
@@ -648,7 +946,7 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread { tvResponse.text = text }
             } catch (e: Exception) {
                 runOnUiThread { 
-                    tvResponse.text = "تعذر الحصول على الاستزادة (${e.message}).\n\nالتفسير المحلي:\n${v.tafsirJalalayn}"
+                    tvResponse.text = "تعذر الحصول على الاستزادة (${e.message}).\n\nالتفسير المحلي:\n${v.tafsirAr}"
                 }
             }
         }.start()
@@ -842,7 +1140,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val url = String.format(java.util.Locale.ENGLISH, currentReciterUrlTemplate, currentAudioSura, currentAudioAya)
+        val verse = blockList.flatMap { it.verses }.find { it.sura == currentAudioSura && it.aya == currentAudioAya }
+        val url = if (currentReciterId == "EveryAyah_DB" && verse != null && verse.audioUrl.isNotEmpty()) {
+            verse.audioUrl
+        } else {
+            try {
+                String.format(java.util.Locale.ENGLISH, currentReciterUrlTemplate, currentAudioSura, currentAudioAya)
+            } catch (e: Exception) {
+                currentReciterUrlTemplate
+            }
+        }
+        
         val file = java.io.File(getAudioDir(currentReciterId, currentAudioSura), String.format("%03d%03d.mp3", currentAudioSura, currentAudioAya))
         
         val dataSource = if (file.exists() && file.length() > 0) file.absolutePath else url

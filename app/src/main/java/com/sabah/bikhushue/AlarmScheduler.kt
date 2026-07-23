@@ -51,6 +51,21 @@ object AlarmScheduler {
         val dateComponents = DateComponents.from(Date())
         val prayerTimes = PrayerTimes(coordinates, dateComponents, params)
 
+        // Reset current prayer alarm (if any) to ensure it's up to date
+        val currentPrayer = prayerTimes.currentPrayer()
+        if (currentPrayer != Prayer.NONE && currentPrayer != Prayer.SUNRISE) {
+             val prayerTime = prayerTimes.timeForPrayer(currentPrayer)
+             val offset = prefsCore.getInt("offset_${currentPrayer.name}", 0)
+             val adjustedTime = prayerTime.time + (offset * 60 * 1000)
+             
+             // If the adjusted time is in the future (due to offset), schedule it
+             if (adjustedTime > System.currentTimeMillis()) {
+                 scheduleExactAlarm(context, adjustedTime, 100, Intent(context, PrayerNotificationReceiver::class.java).apply {
+                     putExtra("prayer_name", currentPrayer.name)
+                 })
+             }
+        }
+
         val nextPrayer = prayerTimes.nextPrayer()
         if (nextPrayer != Prayer.NONE) {
             var nextTime = prayerTimes.timeForPrayer(nextPrayer)
