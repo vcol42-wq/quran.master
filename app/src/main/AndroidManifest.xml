@@ -39,15 +39,13 @@
             android:name=".HomeActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden">
-            <!-- Android App Links for GitHub Pages and Firebase -->
+            <!-- Android App Links for GitHub Pages -->
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="vcol42-wq.github.io" />
                 <data android:scheme="http" android:host="vcol42-wq.github.io" />
-                <data android:scheme="https" android:host="sabah-bikhushue.web.app" />
-                <data android:scheme="http" android:host="sabah-bikhushue.web.app" />
             </intent-filter>
         </activity>
 
