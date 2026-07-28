@@ -188,6 +188,7 @@ class SpiralBeadsView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (width <= 0 || height <= 0 || beadsPositions.size < 2) return
         
         // Draw the connecting string on the border
         stringPaint.style = Paint.Style.STROKE

@@ -127,15 +127,16 @@ class BeadsCircleView @JvmOverloads constructor(
         val beadRadius = (Math.PI * radius / numSlots).toFloat() * 0.85f
         
         // Static center circle
+        val centerRadius = (radius - 80f).coerceAtLeast(10f)
         staticPaint.color = staticCenterColor
         staticPaint.alpha = 255
-        canvas.drawCircle(cx, cy, radius - 80f, staticPaint)
+        canvas.drawCircle(cx, cy, centerRadius, staticPaint)
         
         // Center strong pulse
         if (animFraction > 0f) {
             glowPaint.color = evaluateColor(animFraction, staticCenterColor, pulseColor)
             glowPaint.alpha = ((1f - animFraction) * 150).toInt()
-            val pulseRadius = radius - 80f + (animFraction * 120f)
+            val pulseRadius = (centerRadius + (animFraction * 120f)).coerceAtLeast(10f)
             canvas.drawCircle(cx, cy, pulseRadius, glowPaint)
         }
         

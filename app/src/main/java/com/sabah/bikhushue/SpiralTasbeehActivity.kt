@@ -228,31 +228,35 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     }
 
     private fun playClickHaptic() {
-        if (!vibrator.hasVibrator()) return
-        val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
-        if (!prefs.getBoolean("vibrate_enabled", true)) return
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(10)
-        }
+        try {
+            if (!vibrator.hasVibrator()) return
+            val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
+            if (!prefs.getBoolean("vibrate_enabled", true)) return
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.DEFAULT_AMPLITUDE))
+            } else {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(10)
+            }
+        } catch (e: Exception) {}
     }
 
     private fun playGoalHaptic() {
-        if (!vibrator.hasVibrator()) return
-        val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
-        if (!prefs.getBoolean("vibrate_enabled", true)) return
-        
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val timings = longArrayOf(0, 100, 50, 100)
-            val amplitudes = intArrayOf(0, 255, 0, 255)
-            vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
-        } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(longArrayOf(0, 100, 50, 100), -1)
-        }
+        try {
+            if (!vibrator.hasVibrator()) return
+            val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
+            if (!prefs.getBoolean("vibrate_enabled", true)) return
+            
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val timings = longArrayOf(0, 100, 50, 100)
+                val amplitudes = intArrayOf(0, 255, 0, 255)
+                vibrator.vibrate(VibrationEffect.createWaveform(timings, amplitudes, -1))
+            } else {
+                @Suppress("DEPRECATION")
+                vibrator.vibrate(longArrayOf(0, 100, 50, 100), -1)
+            }
+        } catch (e: Exception) {}
     }
 
     private fun playClickSound() {

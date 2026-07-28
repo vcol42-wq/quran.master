@@ -412,27 +412,40 @@ class TasbeehActivity : AppCompatActivity() {
     }
     
     private fun playVibrateTick() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK))
-        } else {
-            tasbeehRoot.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && vibrator.hasVibrator()) {
+                vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK))
+            } else {
+                tasbeehRoot.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
+            }
+        } catch (e: Exception) {
+            try { tasbeehRoot.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP) } catch (ex: Exception) {}
         }
     }
     
     private fun playSoundTick() {
-        audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK, 0.3f)
+        try {
+            audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK, 0.3f)
+        } catch (e: Exception) {}
     }
     
     private fun playVibrateGoalReached() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 100, 50, 100), -1))
-        } else {
-            vibrator.vibrate(300)
-        }
+        try {
+            if (vibrator.hasVibrator()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vibrator.vibrate(VibrationEffect.createWaveform(longArrayOf(0, 100, 50, 100), -1))
+                } else {
+                    @Suppress("DEPRECATION")
+                    vibrator.vibrate(300)
+                }
+            }
+        } catch (e: Exception) {}
     }
     
     private fun playSoundGoalReached() {
-        audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK, 1.0f)
+        try {
+            audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK, 1.0f)
+        } catch (e: Exception) {}
     }
 
     private fun updateUI(animate: Boolean) {
