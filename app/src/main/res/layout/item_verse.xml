@@ -64,11 +64,11 @@
                         android:layout_height="wrap_content"
                         android:gravity="start|center_vertical"
                         android:fontFamily="@font/amiri_quran"
-                        android:textSize="14sp"
+                        android:textSize="11sp"
                         android:maxLines="1"
                         app:autoSizeTextType="uniform"
-                        app:autoSizeMinTextSize="10sp"
-                        app:autoSizeMaxTextSize="14sp"
+                        app:autoSizeMinTextSize="8sp"
+                        app:autoSizeMaxTextSize="11sp"
                         app:autoSizeStepGranularity="1sp"
                         android:textColor="#3D2B1F"/>
                         
@@ -131,18 +131,44 @@
                 android:shadowRadius="0"/>
         </LinearLayout>
 
-        <!-- رقم الصفحة في الأسفل (وحده بدون خطوط) -->
-        <TextView
-            android:id="@+id/sectionTitleText"
+        <!-- رقم الصفحة والمؤشرات الجانبية (محاذاة مطلقة لليمن واليسار) -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="0dp"
-            android:textSize="10sp"
-            android:textColor="#9E9E9E"
-            android:fontFamily="@font/amiri_quran"
-            android:includeFontPadding="false"/>
+            android:layout_height="32dp"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="16dp">
+
+            <!-- جهة يسار المستخدم (دائرة حمراء للصفحات الزوجية) -->
+            <View
+                android:id="@+id/indicatorLeft"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_indicator_red_soft"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/sectionTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:fontFamily="@font/amiri_quran"
+                android:includeFontPadding="false"
+                android:text="ص 1" />
+
+            <!-- جهة يمين المستخدم (دائرة خضراء للصفحات الفردية) -->
+            <View
+                android:id="@+id/indicatorRight"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_indicator_green_soft"
+                android:visibility="invisible" />
+        </RelativeLayout>
 
         <!-- بطاقة دعاء ختم القرآن الكريم -->
         <com.google.android.material.card.MaterialCardView

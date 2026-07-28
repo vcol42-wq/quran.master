@@ -22,13 +22,17 @@
             android:src="@drawable/nnbb"
             android:scaleType="fitXY" />
 
-        <ImageView
+        <TextView
             android:id="@+id/splashTitle"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:src="@drawable/ghg"
-            android:scaleType="fitCenter" />
+            android:text="سبح بخشوع"
+            android:textColor="#FFFFFF"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="center" />
 
     </LinearLayout>
 

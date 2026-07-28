@@ -8,13 +8,13 @@ plugins {
 
 android {
     namespace 'com.sabah.bikhushue'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.sabah.bikhushue"
         minSdk 24
-        targetSdk 35
-        versionCode 10
+        targetSdk 36
+        versionCode 11
         versionName "2.3"
     }
 

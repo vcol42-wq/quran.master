@@ -52,6 +52,11 @@
         </activity>
 
         <activity
+            android:name=".ExperimentalHomeActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false" />
@@ -86,6 +91,16 @@
             android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
+            android:exported="false" />
+
+        <activity
+            android:name=".ArticleActivity"
+            android:configChanges="orientation|screenSize|screenLayout|smallestScreenSize|keyboardHidden"
+            android:exported="false" />
 
         <receiver android:name=".PrayerNotificationReceiver" android:exported="false" />
         <receiver android:name=".AzkarAlarmReceiver" android:exported="false" />

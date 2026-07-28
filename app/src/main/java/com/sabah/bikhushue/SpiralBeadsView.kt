@@ -210,10 +210,10 @@ class SpiralBeadsView @JvmOverloads constructor(
             val bx = beadsPositions[i * 2]
             val by = beadsPositions[i * 2 + 1]
 
-            val isCounted = i < currentCount
-            val isThisBeadActive = (i == activeBeadIndex)
+            val filledBeads = if (currentCount <= 0) 0 else { val rem = currentCount % totalBeads; if (rem == 0) totalBeads else rem }
+            val isCounted = i < filledBeads
 
-            val beadColor = if (!isNightOrLunar && isThisBeadActive) {
+            val beadColor = if (isCounted) {
                 Color.GRAY
             } else {
                 idleColor

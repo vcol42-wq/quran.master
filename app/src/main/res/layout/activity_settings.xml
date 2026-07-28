@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settingsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#F4ECD8">
+
+    <!-- Header Toolbar -->
+    <LinearLayout
+        android:id="@+id/settingsHeader"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="#E6DCC8"
+        android:elevation="6dp">
+
+        <ImageView
+            android:id="@+id/btnBackSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            app:tint="#3D2B1F"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="إعدادات التطبيق"
+            android:textColor="#2E5B42"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/kitab_regular"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/settingsHeader"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="40dp">
+
+            <!-- 1️⃣ بطاقة إعدادات القراءة والمظهر -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    app:cardBackgroundColor="#152E5B42"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvAppearanceCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#2E5B42">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <TextView
+                            android:id="@+id/tvAppearanceTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="أ) إعدادات القراءة والمظهر"
+                            android:textColor="#2E5B42"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="14dp"/>
+
+                        <!-- لون الخلفية (الثيم) -->
+                        <TextView
+                            android:id="@+id/tvThemeLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="لون الخلفية (الثيم)"
+                            android:textColor="#5D4037"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="6dp"/>
+                            
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="14dp">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvSpinnerCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="#FAF8F5"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="1dp"
+                                app:strokeColor="#D2B48C">
+                                <Spinner
+                                    android:id="@+id/spinnerTheme"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="44dp"
+                                    android:background="@android:drawable/btn_dropdown"/>
+                            </com.google.android.material.card.MaterialCardView>
+                        </FrameLayout>
+
+                        <!-- لغة الترجمة عند النقر -->
+                        <TextView
+                            android:id="@+id/tvTranslationLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="لغة الترجمة عند النقر على الآية"
+                            android:textColor="#5D4037"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="6dp"/>
+                            
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvTranslationCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="#FAF8F5"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="1dp"
+                                app:strokeColor="#D2B48C">
+                                <Spinner
+                                    android:id="@+id/spinnerTranslation"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="44dp"
+                                    android:background="@android:drawable/btn_dropdown"/>
+                            </com.google.android.material.card.MaterialCardView>
+                        </FrameLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <!-- 2️⃣ بطاقة فواصل القرآن والختمات -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    app:cardBackgroundColor="#152E5B42"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvReadingCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#2E5B42">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <TextView
+                            android:id="@+id/tvReadingTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ب) فواصل القرآن والختمات"
+                            android:textColor="#2E5B42"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="10dp"/>
+
+                        <TextView
+                            android:id="@+id/tvSeparatorTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="اختيار الفاصل المصحفي:"
+                            android:textColor="#5D4037"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="10dp"/>
+
+                        <RadioGroup
+                            android:id="@+id/rgSeparatorType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/rbSeparatorKhatma29"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="(ركوعات 540) ختمة 29 يوم"
+                                android:textColor="#3D2B1F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/kitab_regular"
+                                android:paddingVertical="8dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbSeparatorKhatma30"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="(ركوعات 558) ختمة 30 يوم"
+                                android:textColor="#3D2B1F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/kitab_regular"
+                                android:paddingVertical="8dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbSeparatorHizb"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="الأحزاب وأرباعها"
+                                android:textColor="#3D2B1F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/kitab_regular"
+                                android:paddingVertical="8dp"/>
+
+                            <RadioButton
+                                android:id="@+id/rbSeparatorNone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="بدون فواصل"
+                                android:textColor="#3D2B1F"
+                                android:textSize="14sp"
+                                android:fontFamily="@font/kitab_regular"
+                                android:paddingVertical="8dp"/>
+                        </RadioGroup>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <!-- 3️⃣ بطاقة التنبيهات والمواقيت -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    app:cardBackgroundColor="#152E5B42"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvAudioCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#2E5B42">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <TextView
+                            android:id="@+id/tvAudioTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ج) التنبيهات والمواقيت"
+                            android:textColor="#2E5B42"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="12dp"/>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchSound"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="صوت الأذان 🔊"
+                            android:textColor="#3D2B1F"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            app:useMaterialThemeColors="false"
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
+                            android:layout_marginBottom="12dp"/>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchVibration"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="الاهتزاز"
+                            android:textColor="#3D2B1F"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            app:useMaterialThemeColors="false"
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
+                            android:layout_marginBottom="12dp"/>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchAzan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="إشعارات الأذان والأذكار"
+                            android:textColor="#3D2B1F"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            app:useMaterialThemeColors="false"
+                            app:thumbTint="@color/switch_thumb_color"
+                            app:trackTint="@color/switch_track_color"
+                            android:layout_marginBottom="16dp"/>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/btnLocationSettings"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="12dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="#FAF8F5"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="#C5A059"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp"
+                                android:text="الضبط العام للمواقيت والموقع الجغرافي 📍"
+                                android:textColor="#2E5B42"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/kitab_regular"
+                                android:gravity="center"
+                                android:background="?attr/selectableItemBackground"/>
+                        </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <!-- 4️⃣ بطاقة الذكاء الاصطناعي والمعلومات -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    app:cardBackgroundColor="#152E5B42"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvAiCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#2E5B42">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <TextView
+                            android:id="@+id/tvAiTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="د) الذكاء الاصطناعي والمعلومات"
+                            android:textColor="#2E5B42"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="12dp"/>
+
+                        <TextView
+                            android:id="@+id/tvApiKeyLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="مفتاح جُمني (Gemini API Key)"
+                            android:textColor="#5D4037"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:layout_marginBottom="6dp"/>
+                            
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvApiKeyCard"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="#FAF8F5"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="1dp"
+                                app:strokeColor="#D2B48C">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/tilApiKey"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    app:endIconMode="custom"
+                                    app:endIconDrawable="@android:drawable/ic_menu_save"
+                                    app:endIconTint="#2E5B42"
+                                    app:boxStrokeWidth="0dp"
+                                    app:boxStrokeWidthFocused="0dp">
+                                    
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/etApiKey"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="أدخل مفتاح Gemini هنا..."
+                                        android:inputType="textPassword"
+                                        android:background="@null"
+                                        android:paddingHorizontal="14dp"
+                                        android:paddingVertical="10dp"
+                                        android:textSize="13sp"/>
+                                </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvGetApiKey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="كيف أحصل على مفتاح API مجاني؟ 🔗"
+                            android:textColor="#2E5B42"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/kitab_regular"
+                            android:gravity="center"
+                            android:padding="6dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:layout_marginBottom="14dp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvPrivacyCard"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:cardBackgroundColor="#FAF8F5"
+                                app:strokeWidth="1dp"
+                                app:strokeColor="#D2B48C">
+
+                                <TextView
+                                    android:id="@+id/btnPrivacyPolicy"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="44dp"
+                                    android:text="سياسة الخصوصية"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#2E5B42"
+                                    android:fontFamily="@font/kitab_regular"
+                                    android:gravity="center"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:clickable="true"
+                                    android:focusable="true"/>
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cvAboutCard"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="4dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:cardBackgroundColor="#FAF8F5"
+                                app:strokeWidth="1dp"
+                                app:strokeColor="#D2B48C">
+
+                                <TextView
+                                    android:id="@+id/btnAboutApp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="44dp"
+                                    android:text="حول التطبيق"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#2E5B42"
+                                    android:fontFamily="@font/kitab_regular"
+                                    android:gravity="center"
+                                    android:background="?attr/selectableItemBackground"
+                                    android:clickable="true"
+                                    android:focusable="true"/>
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <!-- زر حفظ الإعدادات الرئيسي -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    app:cardBackgroundColor="#152E5B42"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#2E5B42"
+                    app:strokeWidth="0dp">
+
+                    <TextView
+                        android:id="@+id/btnSaveSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:text="حفظ الإعدادات"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:fontFamily="@font/kitab_regular"
+                        android:gravity="center"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

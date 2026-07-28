@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/articleRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#F4ECD8">
+
+    <!-- Top Action Bar -->
+    <RelativeLayout
+        android:id="@+id/articleHeader"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_alignParentTop="true"
+        android:background="#2E5B42"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/btnBackArticle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            app:tint="#FFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="مقال سبّح بخشوع"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/amiri_quran" />
+    </RelativeLayout>
+
+    <!-- Main Scrollable Article Body -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/articleHeader"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:gravity="center_horizontal">
+
+            <!-- Hero Banner Image (صورة ag المزخرفة) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="#8B7355">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ag" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#35000000" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_decorative_frame" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="سبّح بخشوع"
+                        android:textColor="#FFFFFF"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        android:shadowColor="#EE000000"
+                        android:shadowDx="2"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:fontFamily="@font/amiri_quran" />
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Main Title & Article Container Frame -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="#8B7355"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:background="@drawable/bg_decorative_frame">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="لماذا سبّح بخشوع؟ • معنى ودلالة التسبيح"
+                        android:textColor="#2E5B42"
+                        android:textSize="21sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/amiri_quran" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#D2B48C"
+                        android:layout_marginBottom="16dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="التسبيح ليس مجرد كلمات باردة يُرددها اللسان، بل هو حركة الروح وسرعتها الفائقة في الهروب نحو الله، والانعتاق من قيود الأرض والجسد. فكما يشتق التسبيح لغوياً من (السَّبْح) وهو الجري السريع والسباحة، فهو في حقيقته سباق وجداني تتسارع فيه نبضات القلب وأفعال الجوارح لتقديس الخالق ونفي النقص عنه."
+                        android:textColor="#3D2B1F"
+                        android:textSize="16sp"
+                        android:lineSpacingExtra="6dp"
+                        android:fontFamily="@font/kitab_regular" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="هذا التدفق الروحي المتسارع يتجسد في أسمى العبادات:"
+                        android:textColor="#2E5B42"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/amiri_quran" />
+
+                    <!-- Item 1: تلاوة القرآن -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="14dp"
+                        android:background="#F9F6F0"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="۞ تلاوة القرآن الكريم:"
+                            android:textColor="#2E5B42"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/amiri_quran" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="جريان الآيات الشريفة على اللسان، وتغلغلها السريع في الوجدان كالسيل المُنهمر الذي يغسل قلب المؤمن ويقذفه في أنوار التنزيه والتدبر."
+                            android:textColor="#5D4037"
+                            android:textSize="15sp"
+                            android:lineSpacingExtra="4dp"
+                            android:fontFamily="@font/kitab_regular" />
+                    </LinearLayout>
+
+                    <!-- Item 2: إقامة الصلاة -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="14dp"
+                        android:background="#F9F6F0"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="۞ إقامة الصلاة:"
+                            android:textColor="#2E5B42"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/amiri_quran" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="حركة البدن السريعة بالخضوع، وهبوط الجسد مستسلماً في ركوع وسجود يبث في الروح طاقة حركية تقربها من عرش الرحمن وتنزّهه بفعل الجوارح."
+                            android:textColor="#5D4037"
+                            android:textSize="15sp"
+                            android:lineSpacingExtra="4dp"
+                            android:fontFamily="@font/kitab_regular" />
+                    </LinearLayout>
+
+                    <!-- Item 3: ترديد الأذكار -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="16dp"
+                        android:background="#F9F6F0"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="۞ ترديد الأذكار:"
+                            android:textColor="#2E5B42"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/amiri_quran" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="انطلاق اللسان بلهفة وسرعة بكلمات التعظيم (سبحان الله) التي تطير بها الروح شوقاً وحباً كالسهم المصوّب نحو رضا الله جل وعلا."
+                            android:textColor="#5D4037"
+                            android:textSize="15sp"
+                            android:lineSpacingExtra="4dp"
+                            android:fontFamily="@font/kitab_regular" />
+                    </LinearLayout>
+
+                    <!-- Closing Vision -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="✨ غاية التطبيق ورسالته:"
+                        android:textColor="#8B7355"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/amiri_quran" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="أن يكون رفيقك الإيماني اليومي الذي يعينك على تدبر كتاب الله، وحفظ أورادك وأذكارك، وإقامة صلاتك في أوقاتها بأجواء تمتاز بالهدوء والجمال والخشوع."
+                        android:textColor="#5D4037"
+                        android:textSize="15sp"
+                        android:lineSpacingExtra="4dp"
+                        android:fontFamily="@font/kitab_regular" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

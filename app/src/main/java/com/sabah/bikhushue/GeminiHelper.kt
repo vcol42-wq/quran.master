@@ -13,18 +13,34 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 object GeminiHelper {
 
+    private const val DEFAULT_KEY_B64 = "QVEuQWI4Uk42TDZuanBXM1hIQkpVLU4tOExVQ1hvX09OMjJ4NXlBT3lKWUJRR01EUl9UQ0E="
+
+    val DEFAULT_API_KEY: String
+        get() {
+            return try {
+                String(android.util.Base64.decode(DEFAULT_KEY_B64, android.util.Base64.DEFAULT), Charsets.UTF_8)
+            } catch (e: Exception) {
+                ""
+            }
+        }
+
+    fun getEffectiveApiKey(context: Context): String {
+        val userKey = context.getSharedPreferences("app", Context.MODE_PRIVATE).getString("api", "")?.trim() ?: ""
+        return if (userKey.isNotEmpty()) userKey else DEFAULT_API_KEY
+    }
+
     fun queryGemini(apiKey: String, prompt: String): String {
-        val cleanKey = apiKey.trim()
+        val cleanKey = if (apiKey.trim().isNotEmpty()) apiKey.trim() else DEFAULT_API_KEY
         val endpoints = listOf(
-            "v1beta/models/gemini-1.5-flash",
-            "v1beta/models/gemini-3.5-flash",
             "v1beta/models/gemini-flash-latest",
-            "v1beta/models/gemini-3.1-pro-preview",
-            "v1/models/gemini-1.5-flash",
+            "v1beta/models/gemini-2.5-flash",
+            "v1beta/models/gemini-2.0-flash",
+            "v1beta/models/gemini-1.5-flash",
+            "v1beta/models/gemini-1.5-flash-latest",
+            "v1beta/models/gemini-2.0-flash-exp",
             "v1beta/models/gemini-1.5-pro",
-            "v1/models/gemini-1.5-pro",
-            "v1beta/models/gemini-pro",
-            "v1beta/models/gemini-1.0-pro"
+            "v1/models/gemini-1.5-flash",
+            "v1/models/gemini-1.5-pro"
         )
         val jsonBody = org.json.JSONObject().apply {
             put("contents", org.json.JSONArray().apply {

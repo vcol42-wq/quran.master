@@ -1,61 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mini_player"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#D2B48C"
-    android:padding="8dp"
     android:visibility="gone"
-    android:gravity="center_vertical"
-    android:layout_gravity="bottom">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="12dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#D2B48C"
+    app:cardBackgroundColor="#FAF3E0">
 
-    <TextView
-        android:id="@+id/tvMiniPlayerTitle"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="جاري التشغيل"
-        android:textColor="#3D2B1F"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:fontFamily="@font/amiri_quran" />
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:gravity="center_vertical">
 
-    <ImageView
-        android:id="@+id/btnMiniRewind"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_media_rew"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="تأخير 10 ثواني" />
+        <TextView
+            android:id="@+id/tvMiniPlayerTitle"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="جاري تشغيل الآية..."
+            android:textColor="#3D2B1F"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/amiri_quran" />
 
-    <ImageView
-        android:id="@+id/btnMiniPlayPause"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_media_pause"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="تشغيل/إيقاف" />
+        <ImageView
+            android:id="@+id/btnMiniRewind"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_media_rew"
+            app:tint="#3D2B1F"
+            android:background="?attr/selectableItemBackgroundBorderless" />
 
-    <ImageView
-        android:id="@+id/btnMiniForward"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_media_ff"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="تقديم 10 ثواني" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="8dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#2E5B42">
 
-    <ImageView
-        android:id="@+id/btnMiniStop"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_delete"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="إيقاف التشغيل" />
-</LinearLayout>
+            <ImageView
+                android:id="@+id/btnMiniPlayPause"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@android:drawable/ic_media_pause"
+                app:tint="#FFFFFF"
+                android:scaleType="centerInside" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/btnMiniForward"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_media_ff"
+            app:tint="#3D2B1F"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+        <ImageView
+            android:id="@+id/btnMiniStop"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="4dp"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="#D32F2F"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

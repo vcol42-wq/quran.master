@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,21 +26,20 @@ class AssistantActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_assistant)
+
+        findViewById<View>(R.id.llAssistantRoot)?.let { root ->
+            androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
+                val systemBars = insets.getInsets(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+                insets
+            }
+        }
 
         val theme = ThemeHelper.getThemeColors(this)
         ThemeHelper.applySystemWindowsColors(this)
-                        findViewById<View>(R.id.llAssistantRoot)?.setBackgroundColor(theme.bg)
-
-        var flags = window.decorView.systemUiVisibility
-        if (!theme.isDark) {
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-        } else {
-            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR.inv()
-        }
-        window.decorView.systemUiVisibility = flags
+        findViewById<View>(R.id.llAssistantRoot)?.setBackgroundColor(theme.bg)
 
         BottomBarHelper.setupBottomBar(this, onThemeChanged = {
             recreate()
@@ -99,13 +99,7 @@ class AssistantActivity : AppCompatActivity() {
 
     private fun sendMessage(query: String) {
         val sp = getSharedPreferences("app", Context.MODE_PRIVATE)
-        val apiKey = sp.getString("api", "") ?: ""
-
-        if (apiKey.isEmpty()) {
-            Toast.makeText(this, "سيتم تحويلك إلى البحث المحلي لعدم توفر مفتاح جُمني.", Toast.LENGTH_SHORT).show()
-            GlobalSearchHelper.show(this, query)
-            return
-        }
+        val apiKey = GeminiHelper.getEffectiveApiKey(this)
 
         etInput.setText("")
         isWaitingForResponse = true
@@ -153,8 +147,6 @@ class AssistantActivity : AppCompatActivity() {
                     needsRecreate = true
                 } else if (text.contains("[TOGGLE_TAJWEED]")) {
                     displayText = text.replace("[TOGGLE_TAJWEED]", "").trim()
-                    val currentState = sp.getBoolean("tajweed_on", true)
-                    sp.edit().putBoolean("tajweed_on", !currentState).apply()
                     needsRecreate = true
                 }
 

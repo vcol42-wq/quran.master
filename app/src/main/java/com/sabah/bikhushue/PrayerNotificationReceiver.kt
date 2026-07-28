@@ -18,7 +18,7 @@ class PrayerNotificationReceiver : BroadcastReceiver() {
         }
 
         val prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE)
-        val isSoundEnabled = prefs.getBoolean("athan_sound_enabled", true)
+        val isSoundEnabled = prefs.getBoolean("athan_sound_enabled", true) && prefs.getBoolean("sound_on", true)
 
         if (isSoundEnabled) {
             val serviceIntent = Intent(context, AthanService::class.java).apply {

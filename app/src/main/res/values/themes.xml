@@ -11,8 +11,8 @@
         <item name="android:navigationBarColor">#E6DCC8</item>
         <item name="android:windowLightStatusBar">true</item>
 
-        <item name="fontFamily">@font/amiri_quran</item>
-        <item name="android:fontFamily">@font/amiri_quran</item>
+        <item name="fontFamily">@font/uthman_taha_naskh_regular</item>
+        <item name="android:fontFamily">@font/uthman_taha_naskh_regular</item>
     </style>
 
     <!-- Splash Theme to avoid white flash and use animated background -->

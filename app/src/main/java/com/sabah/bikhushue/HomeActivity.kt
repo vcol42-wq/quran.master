@@ -20,7 +20,14 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.homeRoot)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         BottomBarHelper.setupBottomBar(this, onThemeChanged = { applyTheme() })
 
@@ -37,32 +44,50 @@ class HomeActivity : AppCompatActivity() {
         val cardTasbeeh: MaterialCardView = findViewById(R.id.cardTasbeeh)
         val cardPrayer: MaterialCardView = findViewById(R.id.cardPrayer)
 
+        findViewById<View>(R.id.btnSwitchToExpHome)?.setOnClickListener {
+            getSharedPreferences("app", MODE_PRIVATE)
+                .edit()
+                .putBoolean("use_experimental_home", true)
+                .apply()
+            startActivity(Intent(this, ExperimentalHomeActivity::class.java))
+            finish()
+        }
+
         cardSettings.setOnClickListener {
-            showWhyKhushueDialog()
+            animateCardClick(cardSettings) {
+                startActivity(Intent(this, ArticleActivity::class.java))
+            }
         }
 
         cardQuran.setOnClickListener {
-            if (DatabaseDownloader.isQuranDbReady(this)) {
-                startActivity(Intent(this, MainActivity::class.java))
-            } else {
-                Toast.makeText(this, "جاري تنزيل بيانات المصحف، يرجى الانتظار قليلاً...", Toast.LENGTH_SHORT).show()
-                // Restart download if it somehow failed
-                if (!DatabaseDownloader.isDownloading) {
-                    startDatabaseDownload()
+            animateCardClick(cardQuran) {
+                if (DatabaseDownloader.isQuranDbReady(this)) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    Toast.makeText(this, "جاري تنزيل بيانات المصحف، يرجى الانتظار قليلاً...", Toast.LENGTH_SHORT).show()
+                    if (!DatabaseDownloader.isDownloading) {
+                        startDatabaseDownload()
+                    }
                 }
             }
         }
 
         cardAzkar.setOnClickListener {
-            startActivity(Intent(this, AzkarActivity::class.java))
+            animateCardClick(cardAzkar) {
+                startActivity(Intent(this, AzkarActivity::class.java))
+            }
         }
 
         cardTasbeeh.setOnClickListener {
-            startActivity(Intent(this, TasbeehActivity::class.java))
+            animateCardClick(cardTasbeeh) {
+                startActivity(Intent(this, TasbeehActivity::class.java))
+            }
         }
 
         cardPrayer.setOnClickListener {
-            startActivity(Intent(this, AthanActivity::class.java))
+            animateCardClick(cardPrayer) {
+                startActivity(Intent(this, AthanActivity::class.java))
+            }
         }
         
         // Start background download for databases if not ready
@@ -81,6 +106,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         setupDailyCard()
+        setupDynamicHeader()
     }
     
     private fun startDatabaseDownload() {
@@ -91,6 +117,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        setupDynamicHeader()
         applyTheme()
     }
 
@@ -115,7 +142,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer, R.id.cardDaily, R.id.cardSalawat)
+        val gridCards = listOf(R.id.cardQuran, R.id.cardAzkar, R.id.cardTasbeeh, R.id.cardPrayer, R.id.cardDynamicHeader, R.id.cardSalawat)
         gridCards.forEach { id ->
             findViewById<MaterialCardView>(id)?.apply {
                 setCardBackgroundColor(cardBgColor)
@@ -153,14 +180,31 @@ class HomeActivity : AppCompatActivity() {
             .setDuration(300).start()
     }
 
-    private fun setupDailyCard() {
-        val cardDaily = findViewById<MaterialCardView>(R.id.cardDaily)
-        cardDaily?.setOnClickListener {
-            val intent = Intent(this, AzkarActivity::class.java)
-            intent.putExtra("category", "دعاء المحزون")
-            startActivity(intent)
+    private fun setupDynamicHeader() {
+        val cardDynamicHeader = findViewById<MaterialCardView>(R.id.cardDynamicHeader)
+        val tvSub = findViewById<TextView>(R.id.tvDynamicHeaderSubtitle)
+        val prefs = getSharedPreferences("app", MODE_PRIVATE)
+        val lastPage = prefs.getInt("last_page", 0)
+        
+        if (lastPage > 0) {
+            tvSub?.text = "وردك القرآني • صفحة ${lastPage + 1} (انقر للمتابعة)"
+        } else {
+            tvSub?.text = "سورة البقرة • صفحة 1 (انقر للمتابعة)"
         }
 
+        cardDynamicHeader?.setOnClickListener {
+            if (DatabaseDownloader.isQuranDbReady(this)) {
+                startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                Toast.makeText(this, "جاري تنزيل بيانات المصحف، يرجى الانتظار قليلاً...", Toast.LENGTH_SHORT).show()
+                if (!DatabaseDownloader.isDownloading) {
+                    startDatabaseDownload()
+                }
+            }
+        }
+    }
+
+    private fun setupDailyCard() {
         val cardSalawat = findViewById<MaterialCardView>(R.id.cardSalawat)
         cardSalawat?.setOnClickListener {
             val intent = Intent(this, SpiralTasbeehActivity::class.java)
@@ -199,5 +243,20 @@ class HomeActivity : AppCompatActivity() {
             .setView(scrollView)
             .setPositiveButton("حسناً", null)
             .show()
+    }
+
+    private fun animateCardClick(view: View, onEnd: () -> Unit) {
+        view.animate()
+            .scaleX(0.95f)
+            .scaleY(0.95f)
+            .setDuration(90)
+            .withEndAction {
+                view.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(90)
+                    .withEndAction { onEnd() }
+                    .start()
+            }.start()
     }
 }

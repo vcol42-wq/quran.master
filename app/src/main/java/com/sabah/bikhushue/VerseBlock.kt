@@ -5,7 +5,6 @@ data class VerseModel(
     val sura: Int,
     val aya: Int,
     val textTajweed: String, // mapped to ayahText
-    val tajweedMeta: String, // mapped to tajweed_meta
     val tafsirAr: String,    // mapped to tafsir_ar
     val translationEn: String,
     val translationId: String,
@@ -24,7 +23,8 @@ data class VerseModel(
     val rukooArSura: Int = 0,
     val rukooArTotal: Int = 0,
     val rukooShSura: Int = 0,
-    val rukooShTotal: Int = 0
+    val rukooShTotal: Int = 0,
+    val asbabNuzul: String = ""
 )
 
 data class VerseBlock(

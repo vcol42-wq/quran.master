@@ -40,11 +40,29 @@ object BottomBarHelper {
         btnSettings?.setColorFilter(txtColorInt)
 
         btnHome?.setOnClickListener { 
-            if (activity !is HomeActivity) {
-                activity.finish() 
-            } else {
-                val scrollView = activity.findViewById<android.widget.ScrollView>(R.id.homeScrollView)
-                scrollView?.smoothScrollTo(0, 0)
+            when (activity) {
+                is ExperimentalHomeActivity -> {
+                    val scrollView = activity.findViewById<android.widget.ScrollView>(R.id.expScrollView)
+                    scrollView?.smoothScrollTo(0, 0)
+                }
+                is HomeActivity -> {
+                    val scrollView = activity.findViewById<android.widget.ScrollView>(R.id.homeScrollView)
+                    scrollView?.smoothScrollTo(0, 0)
+                }
+                else -> {
+                    if (activity.isTaskRoot) {
+                        val prefs = activity.getSharedPreferences("app", Context.MODE_PRIVATE)
+                        val useExp = prefs.getBoolean("use_experimental_home", true)
+                        val targetClass = if (useExp) ExperimentalHomeActivity::class.java else HomeActivity::class.java
+                        val intent = Intent(activity, targetClass).apply {
+                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        }
+                        activity.startActivity(intent)
+                        activity.finish()
+                    } else {
+                        activity.finish()
+                    }
+                }
             }
         }
         

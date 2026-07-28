@@ -27,14 +27,18 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     private lateinit var tasbeehFrame: View
     private lateinit var btnReset: ImageView
     private lateinit var vibrator: Vibrator
+    private lateinit var audioManager: android.media.AudioManager
 
     private var counter = 0
     private var hundredsCounter = 0
     private val GOAL = 100
 
+    private val isIstighfarMode: Boolean
+        get() = intent.getStringExtra("mode") == "istighfar"
+
     private val syncReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: android.content.Intent?) {
-            if (intent?.action == "com.sabah.bikhushue.SYNC_SALAWAT") {
+            if (intent?.action == "com.sabah.bikhushue.SYNC_SALAWAT" || intent?.action == "com.sabah.bikhushue.SYNC_ISTIGHFAR") {
                 loadCounter()
                 updateUI(true)
             }
@@ -46,7 +50,12 @@ class SpiralTasbeehActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_spiral_tasbeeh)
 
-        val filter = android.content.IntentFilter("com.sabah.bikhushue.SYNC_SALAWAT")
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+
+        val filter = android.content.IntentFilter().apply {
+            addAction("com.sabah.bikhushue.SYNC_SALAWAT")
+            addAction("com.sabah.bikhushue.SYNC_ISTIGHFAR")
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             registerReceiver(syncReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
         } else {
@@ -65,6 +74,11 @@ class SpiralTasbeehActivity : AppCompatActivity() {
         beadsCircle = findViewById(R.id.beadsCircle)
         tasbeehFrame = findViewById(R.id.tasbeehFrame)
         btnReset = findViewById(R.id.tvResetCounter)
+
+        if (isIstighfarMode) {
+            tvSalawatStatic.text = "استغفر الله"
+            findViewById<TextView>(R.id.tvSalawatQuote)?.text = "فَقُلْتُ اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا"
+        }
 
         vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -87,11 +101,14 @@ class SpiralTasbeehActivity : AppCompatActivity() {
                 counter = 0 // "Zeroes out" (يصفر)
                 hundredsCounter++
                 playGoalHaptic()
+                playGoalSound()
             } else if (counter == 100) {
                 // Keep showing 100
                 playGoalHaptic()
+                playGoalSound()
             } else {
                 playClickHaptic()
+                playClickSound()
             }
 
             saveCounter()
@@ -109,6 +126,10 @@ class SpiralTasbeehActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         applyTheme()
+        if (isIstighfarMode) {
+            tvSalawatStatic.text = "استغفر الله"
+            findViewById<TextView>(R.id.tvSalawatQuote)?.text = "فَقُلْتُ اسْتَغْفِرُوا رَبَّكُمْ إِنَّهُ كَانَ غَفَّارًا"
+        }
         loadCounter()
         updateUI(false)
     }
@@ -127,7 +148,7 @@ class SpiralTasbeehActivity : AppCompatActivity() {
         beadsCircle.setNightOrLunar(theme.isDark)
         
         findViewById<View>(R.id.tasbeehRoot).setBackgroundColor(theme.bg)
-                        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
+        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
         windowInsetsController.isAppearanceLightStatusBars = !theme.isDark
         windowInsetsController.isAppearanceLightNavigationBars = !theme.isDark
 
@@ -160,22 +181,27 @@ class SpiralTasbeehActivity : AppCompatActivity() {
 
     private fun loadCounter() {
         val prefs = getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
-        counter = prefs.getInt("salawat_count", 0)
-        hundredsCounter = prefs.getInt("salawat_rounds", 0)
+        val countKey = if (isIstighfarMode) "istighfar_count" else "salawat_count"
+        val roundsKey = if (isIstighfarMode) "istighfar_rounds" else "salawat_rounds"
+        counter = prefs.getInt(countKey, 0)
+        hundredsCounter = prefs.getInt(roundsKey, 0)
     }
 
     private fun saveCounter() {
         val prefs = getSharedPreferences("SalawatProgress", Context.MODE_PRIVATE)
+        val countKey = if (isIstighfarMode) "istighfar_count" else "salawat_count"
+        val roundsKey = if (isIstighfarMode) "istighfar_rounds" else "salawat_rounds"
         prefs.edit()
-            .putInt("salawat_count", counter)
-            .putInt("salawat_rounds", hundredsCounter)
+            .putInt(countKey, counter)
+            .putInt(roundsKey, hundredsCounter)
             .apply()
 
         // Update all widgets
         updateAllWidgets()
         
         // Notify other parts of the app (if open)
-        sendBroadcast(android.content.Intent("com.sabah.bikhushue.SYNC_SALAWAT").apply {
+        val action = if (isIstighfarMode) "com.sabah.bikhushue.SYNC_ISTIGHFAR" else "com.sabah.bikhushue.SYNC_SALAWAT"
+        sendBroadcast(android.content.Intent(action).apply {
             setPackage(packageName)
         })
     }
@@ -226,6 +252,28 @@ class SpiralTasbeehActivity : AppCompatActivity() {
         } else {
             @Suppress("DEPRECATION")
             vibrator.vibrate(longArrayOf(0, 100, 50, 100), -1)
+        }
+    }
+
+    private fun playClickSound() {
+        val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
+        if (prefs.getBoolean("sound_on", true)) {
+            try {
+                audioManager.playSoundEffect(android.media.AudioManager.FX_KEY_CLICK, 0.4f)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun playGoalSound() {
+        val prefs = getSharedPreferences("app", Context.MODE_PRIVATE)
+        if (prefs.getBoolean("sound_on", true)) {
+            try {
+                audioManager.playSoundEffect(android.media.AudioManager.FX_KEY_CLICK, 1.0f)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

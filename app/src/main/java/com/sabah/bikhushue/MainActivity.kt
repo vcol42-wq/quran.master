@@ -1049,17 +1049,11 @@ class MainActivity : AppCompatActivity() {
         // --- Conditional Logic for AI Assistant ---
         val btnAssistant = view.findViewById<View>(R.id.btnOptionAssistant)
         val sepAssistant = view.findViewById<View>(R.id.sepAssistant)
-        val apiKey = getSharedPreferences("app", MODE_PRIVATE).getString("api", "") ?: ""
-        if (apiKey.isBlank()) {
-            btnAssistant?.visibility = View.GONE
-            sepAssistant?.visibility = View.GONE
-        } else {
-            btnAssistant?.visibility = View.VISIBLE
-            sepAssistant?.visibility = View.VISIBLE
-            btnAssistant?.setOnClickListener {
-                dialog.dismiss()
-                searchGemini(v)
-            }
+        btnAssistant?.visibility = View.VISIBLE
+        sepAssistant?.visibility = View.VISIBLE
+        btnAssistant?.setOnClickListener {
+            dialog.dismiss()
+            searchGemini(v)
         }
 
         view.findViewById<View>(R.id.btnOptionAudioAyah).setOnClickListener {
@@ -1137,12 +1131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchGemini(v: VerseModel) {
-        val apiKey = getSharedPreferences("app", MODE_PRIVATE).getString("api", "") ?: ""
-        
-        if (apiKey.isEmpty()) {
-            showTafsirDialog(v)
-            return
-        }
+        val apiKey = GeminiHelper.getEffectiveApiKey(this)
         
         val dialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.dialog_gemini_response, null)

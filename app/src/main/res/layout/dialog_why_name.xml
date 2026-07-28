@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottom_sheet"
+    android:padding="20dp">
+
+    <!-- Top Handle Bar -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="48dp"
+        android:layout_height="6dp"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="#D2B48C"
+        app:cardCornerRadius="3dp"
+        app:cardElevation="0dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Header Banner with ghg image -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="1.5dp"
+        app:strokeColor="#8B7355">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ghg" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="سبّح بخشوع"
+                android:textColor="#FFFFFF"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:shadowColor="#EE000000"
+                android:shadowDx="2"
+                android:shadowDy="3"
+                android:shadowRadius="6"
+                android:fontFamily="@font/amiri_quran" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="لماذا سبّح بخشوع؟ • معنى ودلالة التسبيح"
+        android:textColor="#2E5B42"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/amiri_quran" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="290dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:text="التسبيح ليس مجرد كلمات باردة يُرددها اللسان، بل هو حركة الروح وسرعتها الفائقة في الهروب نحو الله، والانعتاق من قيود الأرض والجسد. فكما يشتق التسبيح لغوياً من (السَّبْح) وهو الجري السريع والسباحة، فهو في حقيقته سباق وجداني تتسارع فيه نبضات القلب وأفعال الجوارح لتقديس الخالق ونفي النقص عنه."
+                android:textColor="#3D2B1F"
+                android:textSize="15sp"
+                android:lineSpacingExtra="5dp"
+                android:fontFamily="@font/kitab_regular" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="هذا التدفق الروحي المتسارع يتجسد في أسمى العبادات:"
+                android:textColor="#2E5B42"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/amiri_quran" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="۞ تلاوة القرآن:"
+                android:textColor="#2E5B42"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="جريان الآيات الشريفة على اللسان، وتغلغلها السريع في الوجدان كالسيل المُنهمر الذي يغسل قلب المؤمن ويقذفه في أنوار التنزيه."
+                android:textColor="#5D4037"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/kitab_regular" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="۞ إقامة الصلاة:"
+                android:textColor="#2E5B42"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="حركة البدن السريعة بالخضوع، وهبوط الجسد مستسلماً في ركوع وسجود يبث في الروح طاقة حركية تقربها من عرش الرحمن وتنزّهه بفعل الجوارح."
+                android:textColor="#5D4037"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/kitab_regular" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="۞ ترديد الأذكار:"
+                android:textColor="#2E5B42"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="انطلاق اللسان بلهفة وسرعة بكلمات التعظيم (سبحان الله) التي تطير بها الروح شوقاً وحباً كالسهم المصوّب نحو رضا الله جل وعلا."
+                android:textColor="#5D4037"
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:fontFamily="@font/kitab_regular" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCloseWhyName"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:text="حسناً"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#2E5B42"
+        app:cornerRadius="14dp"
+        android:layout_marginTop="16dp" />
+</LinearLayout>

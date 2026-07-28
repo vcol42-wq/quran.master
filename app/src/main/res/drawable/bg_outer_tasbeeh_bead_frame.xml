@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer Frame Spherical Round Beads (خرزات إطار دائرية مدورة) -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="44dp" />
+            <solid android:color="#00000000" />
+            <stroke
+                android:width="14dp"
+                android:color="#D4AF37"
+                android:dashWidth="1dp"
+                android:dashGap="18dp" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="36dp" />
+            <solid android:color="#0D2E5B42" />
+            <stroke
+                android:width="2dp"
+                android:color="#2E5B42" />
+        </shape>
+    </item>
+</layer-list>

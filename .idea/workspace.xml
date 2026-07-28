@@ -10,7 +10,17 @@
           <theme>@style/Theme.QuranMaster</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/bg_pill.xml">
+        <config>
+          <theme>@style/Theme.QuranMaster</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/hizb_badge.xml">
+        <config>
+          <theme>@style/Theme.QuranMaster</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_mihrab.xml">
         <config>
           <theme>@style/Theme.QuranMaster</theme>
         </config>
@@ -21,6 +31,11 @@
         </config>
       </layout>
       <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/top_bar_dome.xml">
+        <config>
+          <theme>@style/Theme.QuranMaster</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/widget_bg_rounded.xml">
         <config>
           <theme>@style/Theme.QuranMaster</theme>
         </config>
@@ -171,39 +186,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;BundleExportedModule&quot;: &quot;quran.master.app&quot;,
-    &quot;ExportBundle.BundlePathForquran.master.app&quot;: &quot;C:\\quran.master\\app&quot;,
-    &quot;GradleDaemonJvmCriteriaMigrationNotification.isNotificationDisabled&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/quran.master/app/src/main/assets&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;templates.modelproviders.configurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Android App.app.executor": "Run",
+    "BundleExportedModule": "quran.master.app",
+    "ExportBundle.BundlePathForquran.master.app": "C:\\quran.master\\app",
+    "GradleDaemonJvmCriteriaMigrationNotification.isNotificationDisabled": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/quran.master/app/src/main/assets",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "settings.sync"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ExportApk.BuildVariants&quot;: [
-      &quot;release&quot;
+  "keyToStringList": {
+    "ExportApk.BuildVariants": [
+      "release"
     ],
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\quran.master\app\src\main\assets" />
@@ -422,7 +440,55 @@
       <option name="project" value="LOCAL؜" />
       <updated>1784384211083</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL؜-٠٠٠٠٩" summary="الصلاة على النبي">
+      <option name="closed" value="true" />
+      <created>1784805860784</created>
+      <option name="number" value="٠٠٠٠٩" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠٠٩" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784805860784</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٠" summary="قاعدة بيانات&#10;جديدة">
+      <option name="closed" value="true" />
+      <created>1784805920049</created>
+      <option name="number" value="٠٠٠١٠" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٠" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784805920049</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١١" summary="واجهة&#10;جديدة">
+      <option name="closed" value="true" />
+      <created>1784861702217</created>
+      <option name="number" value="٠٠٠١١" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١١" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784861702217</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٢" summary="واجهة&#10;جديدة">
+      <option name="closed" value="true" />
+      <created>1784861709566</created>
+      <option name="number" value="٠٠٠١٢" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٢" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784861709566</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٣" summary="واجهة&#10;جديدة">
+      <option name="closed" value="true" />
+      <created>1784903109030</created>
+      <option name="number" value="٠٠٠١٣" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٣" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1784903109030</updated>
+    </task>
+    <task id="LOCAL؜-٠٠٠١٤" summary="واجهة&#10;جديدة">
+      <option name="closed" value="true" />
+      <created>1785105681414</created>
+      <option name="number" value="٠٠٠١٤" />
+      <option name="presentableId" value="LOCAL؜-٠٠٠١٤" />
+      <option name="project" value="LOCAL؜" />
+      <updated>1785105681415</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -435,7 +501,9 @@
     <MESSAGE value="UI enhancements: unified decorative frames, improved Tasbeeh arrows and zikr selection, fixed swipe counter bug" />
     <MESSAGE value="تجاهل app/build" />
     <MESSAGE value="الصلاة على النبي" />
-    <option name="LAST_COMMIT_MESSAGE" value="الصلاة على النبي" />
+    <MESSAGE value="قاعدة بيانات&#10;جديدة" />
+    <MESSAGE value="واجهة&#10;جديدة" />
+    <option name="LAST_COMMIT_MESSAGE" value="واجهة&#10;جديدة" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
@@ -452,12 +520,12 @@
         </entry>
         <entry key="com.sabah.bikhushue">
           <value>
-            <CheckInfo lastCheckTimestamp="1784061769963" />
+            <CheckInfo lastCheckTimestamp="1785181855052" />
           </value>
         </entry>
         <entry key="com.sabah.bikhushue.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1784061769963" />
+            <CheckInfo lastCheckTimestamp="1785181855054" />
           </value>
         </entry>
       </map>

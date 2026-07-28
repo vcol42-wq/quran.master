@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/prayerTimerWidget"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="8dp"
+    android:layout_above="@id/bottomBarLayout"
+    app:cardCornerRadius="32dp"
+    app:cardElevation="10dp"
+    app:strokeWidth="1.5dp"
+    app:strokeColor="#A5D6A7"
+    app:cardBackgroundColor="#FFFFFF"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp">
+
+        <!-- 1. اليمين (في RTL): عداد الركوعات -->
+        <LinearLayout
+            android:id="@+id/layoutRightCounter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|start">
+
+            <TextView
+                android:id="@+id/prayerTotalRukuText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الركوعات: 0"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran"
+                android:textColor="#2E7D32"/>
+        </LinearLayout>
+
+        <!-- 2. الوسط: المؤقت المزدوج -->
+        <LinearLayout
+            android:id="@+id/layoutCenterTimers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <!-- مؤقت الركوع الحالي -->
+            <TextView
+                android:id="@+id/prayerTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ر 00:00"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran"
+                android:textColor="#1B5E20" />
+
+            <!-- ساعة النظام الكلية للجلسة -->
+            <TextView
+                android:id="@+id/systemClockText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran"
+                android:textColor="#757575" />
+        </LinearLayout>
+
+        <!-- 3. اليسار (في RTL): أدوات التحكم -->
+        <LinearLayout
+            android:id="@+id/layoutLeftControls"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|end">
+
+            <!-- زر المتابعة عند الوصول لنهاية الركوع -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContinueRuku"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:paddingHorizontal="8dp"
+                android:text="متابعة"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/amiri_quran"
+                app:cornerRadius="16dp"
+                android:backgroundTint="#FFB300"
+                android:textColor="#3D2B1F"
+                android:visibility="gone"
+                android:layout_marginEnd="4dp" />
+
+            <!-- زر التشغيل والإيقاف المؤقت -->
+            <TextView
+                android:id="@+id/btnPlayPause"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="⏸"
+                android:textSize="15sp"
+                android:textColor="#1B5E20"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <!-- زر الإبطاء (-) -->
+            <TextView
+                android:id="@+id/btnSpeedDown"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="18sp"
+                android:textColor="#1B5E20"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <!-- زر التسريع (+) -->
+            <TextView
+                android:id="@+id/btnSpeedUp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:gravity="center"
+                android:text="+"
+                android:textSize="18sp"
+                android:textColor="#1B5E20"
+                android:textStyle="bold"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <!-- زر إيقاف الوضع -->
+            <TextView
+                android:id="@+id/btnStopPrayer"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:gravity="center"
+                android:text="✕"
+                android:textSize="15sp"
+                android:textColor="#C62828"
+                android:textStyle="bold"
+                android:layout_marginStart="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

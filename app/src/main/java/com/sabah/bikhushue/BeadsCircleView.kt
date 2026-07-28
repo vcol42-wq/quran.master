@@ -177,8 +177,8 @@ class BeadsCircleView @JvmOverloads constructor(
             val x = cx + radius * cos(angle).toFloat()
             val y = cy + radius * sin(angle).toFloat()
             
-            val isThisBeadActive = (i == activeBeadIndex)
-            val beadColor = if (!isNightOrLunar && isThisBeadActive) {
+            val isCounted = i < (if (currentCount <= 0) 0 else { val rem = currentCount % totalBeads; if (rem == 0) totalBeads else rem })
+            val beadColor = if (isCounted) {
                 Color.GRAY
             } else {
                 idleColor

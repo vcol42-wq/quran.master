@@ -39,7 +39,7 @@ class AthanService : Service(), SensorEventListener {
     companion object {
         const val ACTION_STOP_ATHAN = "com.sabah.bikhushue.ACTION_STOP_ATHAN"
         private const val NOTIFICATION_ID = 1002
-        private const val SHAKE_THRESHOLD = 1.3f
+        private const val SHAKE_THRESHOLD = 2.5f
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -70,13 +70,13 @@ class AthanService : Service(), SensorEventListener {
         startForeground(NOTIFICATION_ID, createNotification(lastPrayerNameAr, true))
         playAthanSound()
 
-        // Register sensor listener to stop on touch/flip
+        // Register sensor listener to stop on explicit flip/shake
         hasInitialSensorReading = false
         accelerometer?.let {
             sensorManager?.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
         }
 
-        // Auto stop after 30 seconds to make it short
+        // Auto stop after 30 seconds
         handler.postDelayed(stopRunnable, 30000)
 
         return START_NOT_STICKY
@@ -88,7 +88,9 @@ class AthanService : Service(), SensorEventListener {
             val uriString = prefs.getString("athan_sound_uri", "default")
 
             val soundUri = if (uriString == null || uriString == "default") {
-                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+                    ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                    ?: RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             } else {
                 Uri.parse(uriString)
             }
@@ -96,7 +98,7 @@ class AthanService : Service(), SensorEventListener {
             mediaPlayer = MediaPlayer().apply {
                 setAudioAttributes(
                     AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .build()
                 )

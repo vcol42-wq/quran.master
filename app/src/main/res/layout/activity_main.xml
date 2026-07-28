@@ -6,101 +6,278 @@
     android:layout_height="match_parent"
     android:background="#F4ECD8">
 
+    <!-- 1. Persistent Thin Top Bar (ارتفاع نحيف 32dp ثابت لا يختفي) -->
+    <LinearLayout
+        android:id="@+id/thinTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:background="#E6DCC8"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:elevation="12dp">
 
+        <!-- الجهة اليمنى: عدد ركوعات السورة الحالية (ع سورة 1) -->
+        <TextView
+            android:id="@+id/tvSuraRukoo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ع سورة 1"
+            android:textColor="#00A86B"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="start|center_vertical" />
 
-    <!-- 2. محرك العرض (يملأ الشاشة لمنع الارتجاج) -->
+        <!-- الوسط: منبه/مؤقت الجلسة -->
+        <TextView
+            android:id="@+id/tvSessionTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textColor="#3D2B1F"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="center"
+            android:paddingHorizontal="8dp" />
+
+        <!-- الجهة اليسرى: ع كلي (مجموع الركوعات الكلي) -->
+        <TextView
+            android:id="@+id/tvTotalRukoo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ع كلي 0"
+            android:textColor="#1B5E20"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="end|center_vertical" />
+    </LinearLayout>
+
+    <!-- 2. شريط معلومات المصحف المتحرك (Header Info Bar - يختفي مع القراءة) -->
+    <LinearLayout
+        android:id="@+id/quranInfoBar"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_below="@id/thinTopBar"
+        android:background="#F4ECD8"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/topBarSuraText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="سورة البقرة"
+            android:textColor="#3D2B1F"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="start|center_vertical" />
+
+        <TextView
+            android:id="@+id/topBarPageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ص 1"
+            android:textColor="#8B7355"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="center"
+            android:paddingHorizontal="12dp" />
+
+        <TextView
+            android:id="@+id/topBarJuzText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="الجزء 1"
+            android:textColor="#3D2B1F"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/uthman_taha_naskh_bold"
+            android:gravity="end|center_vertical" />
+
+        <!-- أيقونة الترس للضبط في الشريط العلوي -->
+        <ImageView
+            android:id="@+id/btnTopSettings"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_settings"
+            app:tint="#3D2B1F"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+    </LinearLayout>
+
+    <!-- 3. شريط تقدم الركوع النحيف (2dp) -->
+    <ProgressBar
+        android:id="@+id/rukooProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@id/quranInfoBar"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/bg_rukoo_progress"
+        android:elevation="10dp"
+        android:visibility="visible" />
+
+    <!-- 4. محرك عرض القرآن (RecyclerView) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/quranRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:clipToPadding="false"
-        android:paddingTop="60dp"
-        android:paddingBottom="65dp"/>
+        android:paddingTop="75dp"
+        android:paddingBottom="65dp"
+        android:visibility="gone" />
 
-    <!-- 3. الشريط العلوي (Overlay) -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/topBarContainer"
-        android:layout_width="match_parent"
+    <!-- 5. مؤشر سرعة التمرير المؤقت (Speed Overlay) -->
+    <TextView
+        android:id="@+id/tvScrollSpeedOverlay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
-        android:layout_marginTop="12dp"
-        app:cardCornerRadius="24dp"
+        android:layout_centerInParent="true"
+        android:background="#CC000000"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/uthman_taha_naskh_bold"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:visibility="gone"
+        android:elevation="20dp" />
+
+    <!-- 6. الشريط السفلي الثابت الجديد (Persistent Fixed Bottom Bar) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/fixedBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="28dp"
         app:cardElevation="10dp"
         app:strokeWidth="1dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        android:visibility="gone">
+        app:strokeColor="#D2B48C"
+        app:cardBackgroundColor="#FFFFFF">
 
-        <RelativeLayout
-            android:id="@+id/topBarInnerLayout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:background="@drawable/top_bar_dome"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="4dp">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
 
+            <!-- رأس سهم الخروج في أقصى جهة -->
+            <ImageView
+                android:id="@+id/btnExitApp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_back"
+                app:tint="#3D2B1F"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <!-- زر خفض السرعة -->
+            <ImageView
+                android:id="@+id/btnSpeedDown"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_remove"
+                app:tint="#3D2B1F"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:alpha="0.6" />
+
+            <!-- آيقونة زر التمرير التلقائي الانسيابي الدائري -->
+            <ImageView
+                android:id="@+id/btnAutoScrollToggle"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginHorizontal="6dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_play_scroll"
+                android:background="@drawable/bg_scroll_toggle"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- زر زيادة السرعة -->
+            <ImageView
+                android:id="@+id/btnSpeedUp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="6dp"
+                android:src="@drawable/ic_add"
+                app:tint="#3D2B1F"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:alpha="0.6" />
+
+            <!-- الساعة الرقمية للركوع 00:00 بلا إطار (شفافة) -->
             <TextView
-                android:id="@+id/topBarSuraText"
+                android:id="@+id/tvRukooClock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="6dp"
+                android:text="00:00"
                 android:textColor="#3D2B1F"
-                android:textSize="14sp"
-                android:text="السورة"
-                android:textStyle="bold"/>
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/uthman_taha_naskh_bold"
+                android:background="@android:color/transparent" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/topBarTimerCard"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_centerInParent="true"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="#D2B48C">
-                
-                <TextView
-                    android:id="@+id/topBarTimerText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:textColor="#3D2B1F"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:text="00:00" />
-            </com.google.android.material.card.MaterialCardView>
-
+            <!-- عداد ركوعات الجلسة بجانب الساعة السفلية (جلسة ع 0) -->
             <TextView
-                android:id="@+id/topBarPageText"
+                android:id="@+id/tvSessionRukoo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/topBarJuzText"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="12dp"
-                android:textColor="#3D2B1F"
-                android:textSize="12sp"
-                android:textStyle="bold"/>
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="10dp"
+                android:text="ع جلسة 0"
+                android:textColor="#00A86B"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/uthman_taha_naskh_bold" />
 
-            <TextView
-                android:id="@+id/topBarJuzText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textColor="#3D2B1F"
-                android:textSize="14sp"
-                android:text="الجزء"
-                android:textStyle="bold"/>
-        </RelativeLayout>
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <!-- آيقونة البحث في أقصى الجهة المقابلة -->
+            <ImageView
+                android:id="@+id/btnMainSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_search"
+                app:tint="#3D2B1F"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- 4. شريط مشغل الصوت المصغر -->
-    <include layout="@layout/layout_mini_player" />
-
-    <!-- 5. الشريط السفلي (Overlay) -->
-    <include layout="@layout/layout_bottom_bar" />
-
-    <!-- 6. ساعة التوقيت للمصحف -->
-    <include layout="@layout/layout_prayer_timer" />
+    <!-- 7. شريط مشغل الصوت المصغر -->
+    <include
+        layout="@layout/layout_mini_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/fixedBottomBar"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="-8dp" />
 
 </RelativeLayout>
