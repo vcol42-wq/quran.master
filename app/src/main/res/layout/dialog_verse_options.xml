@@ -28,14 +28,15 @@
             android:layout_height="wrap_content"
             android:text="خيارات الآية"
             android:textColor="#3D2B1F"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="8dp"
+            android:paddingHorizontal="24dp"
+            android:layout_marginBottom="12dp"
             android:fontFamily="@font/amiri_quran"
-            android:maxLines="2"
-            android:ellipsize="end"/>
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:lineSpacingMultiplier="1.2"/>
 
         <!-- Translation text (hidden by default unless enabled in settings) -->
         <TextView
@@ -55,7 +56,7 @@
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
 
-            <!-- الأولوية العالية (التفسير واستماع الآية) -->
+            <!-- Primary Actions Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +87,28 @@
                         android:background="?attr/selectableItemBackground"/>
                         
                     <View
+                        android:id="@+id/sepAsbab"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E0D4C3"
+                        android:layout_marginHorizontal="16dp"/>
+
+                    <TextView
+                        android:id="@+id/btnOptionAsbabNuzul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:paddingHorizontal="16dp"
+                        android:text="أسباب النزول"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#3D2B1F"
+                        android:drawableStart="@android:drawable/ic_menu_info_details"
+                        android:drawablePadding="12dp"
+                        android:background="?attr/selectableItemBackground"/>
+                        
+                    <View
+                        android:id="@+id/sepAssistant"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#E0D4C3"
@@ -127,7 +150,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- الخيارات الإضافية -->
+            <!-- Secondary Actions Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

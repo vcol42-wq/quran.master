@@ -1,0 +1,1288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/expHomeRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#F4ECD8">
+
+    <!-- Scrollable Goals View containing top header panel, goals strand, bottom ghg/ag article panel, and footer -->
+    <ScrollView
+        android:id="@+id/expScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomBarLayout"
+        android:layout_alignParentTop="true"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="24dp"
+            android:paddingHorizontal="16dp">
+
+            <!-- Controls row above the top image card (التبديل بين الواجهات) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnScrollToTopCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#8B7355"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:id="@+id/btnScrollToTop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="6dp"
+                        android:paddingHorizontal="12dp">
+
+                        <TextView
+                            android:id="@+id/tvHeaderTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="سبّح بخشوع"
+                            android:textColor="#2E5B42"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/amiri_quran" />
+
+                        <ImageView
+                            android:id="@+id/ivHeaderArrow"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="4dp"
+                            android:src="@drawable/ic_arrow_right"
+                            android:rotation="90"
+                            app:tint="#2E5B42" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnSwitchToStandardHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="4dp"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="#8B7355"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <TextView
+                        android:id="@+id/tvSwitchText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="واجهة البطاقات"
+                        android:textColor="#2E5B42"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:fontFamily="@font/kitab_regular" />
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+            <!-- 1. Top Panel: اللوحة العلوية المحاطة بإطار مزخرف ثلاثي الأبعاد مع ظلال عميقة -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginBottom="18dp">
+
+                <!-- 3D Shadow Layer (طبقة الظل السفلي ثلاثي الأبعاد) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/panelTopHeaderShadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="6dp"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:cardBackgroundColor="#351B3B2B" />
+
+                <!-- Main 3D Card (اللوحة الرئيسية البارزة) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/panelTopHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardCornerRadius="22dp"
+                    app:cardElevation="12dp"
+                    app:strokeWidth="3dp"
+                    app:strokeColor="#C5A059"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- Main Image ee -->
+                        <ImageView
+                            android:id="@+id/ivTopHeaderImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/ee" />
+
+                        <!-- Decorative Ornamental Frame Overlay (إطار مزخرف أصيل) -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignTop="@id/ivTopHeaderImage"
+                            android:layout_alignBottom="@id/ivTopHeaderImage"
+                            android:background="@drawable/bg_3d_panel_decorative_frame" />
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </FrameLayout>
+
+            <!-- 2. MAIN TASBEEH BEAD FRAME CONTAINER (قائمة الأهداف) -->
+            <com.sabah.bikhushue.BeadedFrameLayout
+                android:id="@+id/mainBeadedFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <!-- Central Tasbeeh Wire String -->
+                    <View
+                        android:id="@+id/tasbeehWire"
+                        android:layout_width="6dp"
+                        android:layout_height="1600dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/bg_tasbeeh_string" />
+
+                    <!-- Vertical List of Bead-Framed Tasbeeh Items -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+
+                        <!-- Top Head Bead connected to outer bead frame (خرزة علوية متصلة بالإطار الخارجي تحتوي على اللّه وأستغفر) -->
+                        <LinearLayout
+                            android:id="@+id/topConnectedBead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_marginTop="-10dp"
+                            android:layout_marginBottom="4dp">
+
+                            <!-- Top Connector Ring attaching directly to outer frame border -->
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="10dp"
+                                android:background="@drawable/bg_bead_connector_ring" />
+
+                            <!-- The First Bead with "اللّه" and "أستغفر" -->
+                            <LinearLayout
+                                android:id="@+id/topHeadBeadInner"
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:background="@drawable/bg_top_head_bead"
+                                android:elevation="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="اللّه"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/amiri_quran" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="1dp"
+                                    android:text="أستغفر"
+                                    android:textColor="#FFD700"
+                                    android:textSize="9.5sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/kitab_regular" />
+                            </LinearLayout>
+
+                            <!-- Bottom Connector Ring to strand below -->
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_bead_connector_ring" />
+                        </LinearLayout>
+
+                        <!-- Goal 1: قطعة واحدة متكاملة (الصورة + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal1"
+                            android:layout_width="176dp"
+                            android:layout_height="176dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame (الظل تحتهم كقطعة واحدة) -->
+                            <View
+                                android:id="@+id/shadowGoal1"
+                                android:layout_width="176dp"
+                                android:layout_height="176dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card (قطعة واحدة) -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal1"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardAg"
+                                    android:layout_width="156dp"
+                                    android:layout_height="156dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="78dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/ag" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#22000000" />
+
+                                        <!-- الضبط -->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:gravity="center"
+                                            android:padding="6dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="الضبط"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="24sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 1 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead1"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Goal 2: قطعة واحدة متكاملة (الصورة nnbb + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal2"
+                            android:layout_width="176dp"
+                            android:layout_height="176dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoal2"
+                                android:layout_width="176dp"
+                                android:layout_height="176dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal2"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardMushaf"
+                                    android:layout_width="156dp"
+                                    android:layout_height="156dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="78dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/nnbb" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#33000000" />
+
+                                        <!-- القرآن الكريم -->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:gravity="center"
+                                            android:padding="6dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="القرآن"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="22sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="2dp"
+                                                android:text="الكريم"
+                                                android:textColor="#FFD700"
+                                                android:textSize="22sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 2 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead2"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Bead 3: قطعة واحدة متكاملة (الأوراد والأدعية pra + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal3"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoal3"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal3"
+                                android:layout_width="164dp"
+                                android:layout_height="164dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardAzkar"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="75dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/pra" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#33000000" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:gravity="center"
+                                            android:padding="8dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="الأوراد"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="19sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="2dp"
+                                                android:text="والأدعية"
+                                                android:textColor="#FFD700"
+                                                android:textSize="19sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 3 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Bead 4: قطعة واحدة متكاملة (أوقات الصلاة prear + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal4"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoal4"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal4"
+                                android:layout_width="164dp"
+                                android:layout_height="164dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardPrayer"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="75dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/prear" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#33000000" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:gravity="center"
+                                            android:padding="8dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="أوقات"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="19sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="2dp"
+                                                android:text="الصلاة"
+                                                android:textColor="#FFD700"
+                                                android:textSize="19sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 4 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Bead 5: قطعة واحدة متكاملة (المسبحة mn + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal5"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoal5"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal5"
+                                android:layout_width="164dp"
+                                android:layout_height="164dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardTasbeeh"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="75dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/mn" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#33000000" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="28dp"
+                                            android:text="المسبحة"
+                                            android:textColor="#FFD700"
+                                            android:textSize="23sp"
+                                            android:textStyle="bold"
+                                            android:shadowColor="#DD000000"
+                                            android:shadowDx="2"
+                                            android:shadowDy="3"
+                                            android:shadowRadius="6"
+                                            android:gravity="center"
+                                            android:fontFamily="@font/amiri_quran" />
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 5 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead5"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Goal Fafirru: قطعة واحدة متكاملة (ففروا إلى الله + خلفية خشبية + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoalFafirru"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoalFafirru"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card with Wooden Background -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoalFafirru"
+                                android:layout_width="164dp"
+                                android:layout_height="164dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardFafirru"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="75dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#C5A059"
+                                    app:cardBackgroundColor="#4A2511">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@drawable/bg_wooden_card">
+
+                                        <!-- Dark Overlay for Contrast -->
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#22000000" />
+
+                                        <!-- text 'الله' on top, text 'ففروا الى' on bottom -->
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:orientation="vertical"
+                                            android:gravity="center"
+                                            android:padding="8dp">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="اللّه"
+                                                android:textColor="#FFD700"
+                                                android:textSize="24sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginTop="2dp"
+                                                android:text="فَفِرُّوا إِلَى"
+                                                android:textColor="#FFFFFF"
+                                                android:textSize="20sp"
+                                                android:textStyle="bold"
+                                                android:shadowColor="#DD000000"
+                                                android:shadowDx="2"
+                                                android:shadowDy="3"
+                                                android:shadowRadius="6"
+                                                android:gravity="center"
+                                                android:fontFamily="@font/amiri_quran" />
+                                        </LinearLayout>
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Small Separator Bead 6 -->
+                        <LinearLayout
+                            android:id="@+id/smallBead6"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginVertical="4dp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_small_allah_bead"
+                            android:elevation="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="اللّه"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/amiri_quran" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="أستغفر"
+                                android:textColor="#FFD700"
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:fontFamily="@font/kitab_regular" />
+                        </LinearLayout>
+
+                        <!-- Bead 6: قطعة واحدة متكاملة (صلّ على النبي pop + إطار الخرز الدائري + الظل الإسقاطي تحتهم) -->
+                        <FrameLayout
+                            android:id="@+id/unifiedGoal6"
+                            android:layout_width="170dp"
+                            android:layout_height="170dp"
+                            android:layout_marginVertical="6dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- 1. 3D Drop Shadow Layer under BOTH the image and the bead frame -->
+                            <View
+                                android:id="@+id/shadowGoal6"
+                                android:layout_width="170dp"
+                                android:layout_height="170dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_circular_3d_shadow" />
+
+                            <!-- 2. The Unified Circular Bead Ring Frame & Image Card -->
+                            <com.sabah.bikhushue.BeadedFrameLayout
+                                android:id="@+id/beadFrameGoal6"
+                                android:layout_width="164dp"
+                                android:layout_height="164dp"
+                                android:layout_gravity="center"
+                                android:padding="7dp">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cardSalawat"
+                                    android:layout_width="150dp"
+                                    android:layout_height="150dp"
+                                    android:layout_gravity="center"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    app:cardCornerRadius="75dp"
+                                    app:cardElevation="6dp"
+                                    app:strokeWidth="2.5dp"
+                                    app:strokeColor="#8B7355"
+                                    app:cardBackgroundColor="#FFFFFF">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:scaleType="centerCrop"
+                                            android:src="@drawable/pop" />
+
+                                        <View
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:background="#33000000" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginBottom="18dp"
+                                            android:text="صلّ على النبي"
+                                            android:textColor="#FFE082"
+                                            android:textSize="20sp"
+                                            android:textStyle="bold"
+                                            android:shadowColor="#DD000000"
+                                            android:shadowDx="2"
+                                            android:shadowDy="3"
+                                            android:shadowRadius="6"
+                                            android:gravity="center"
+                                            android:fontFamily="@font/amiri_quran" />
+                                    </RelativeLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </com.sabah.bikhushue.BeadedFrameLayout>
+                        </FrameLayout>
+
+                        <!-- Bottom Free Dangling Bead & Fluttering Ribbons (خرزة حرّة متدلية تتدلى منها أشرطة ترفرف) -->
+                        <LinearLayout
+                            android:id="@+id/bottomDanglingBeadContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="16dp"
+                            android:clipChildren="false"
+                            android:clipToPadding="false">
+
+                            <!-- Dangling String Space (حبل التعليق الحر) -->
+                            <View
+                                android:layout_width="3dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/bg_tasbeeh_string" />
+
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="8dp"
+                                android:background="@drawable/bg_bead_connector_ring" />
+
+                            <!-- Free Bead (الخرزة الحرّة التي تتدلى يميناً ويساراً) -->
+                            <LinearLayout
+                                android:id="@+id/freeDanglingBead"
+                                android:layout_width="52dp"
+                                android:layout_height="52dp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:background="@drawable/bg_free_dangling_bead"
+                                android:elevation="8dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="اللّه"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:shadowColor="#EE000000"
+                                    android:shadowDx="1"
+                                    android:shadowDy="1.5"
+                                    android:shadowRadius="4"
+                                    android:fontFamily="@font/amiri_quran" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="1dp"
+                                    android:text="أستغفر"
+                                    android:textColor="#FFD700"
+                                    android:textSize="9.5sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center"
+                                    android:shadowColor="#EE000000"
+                                    android:shadowDx="1"
+                                    android:shadowDy="1.5"
+                                    android:shadowRadius="4"
+                                    android:fontFamily="@font/kitab_regular" />
+                            </LinearLayout>
+
+                            <!-- Fluttering Ribbons Tassel (أشرطة ترفرف) -->
+                            <RelativeLayout
+                                android:id="@+id/flutteringRibbons"
+                                android:layout_width="72dp"
+                                android:layout_height="62dp"
+                                android:layout_marginTop="-4dp"
+                                android:gravity="center_horizontal"
+                                android:clipChildren="false"
+                                android:clipToPadding="false">
+
+                                <!-- Left Ribbon Strand -->
+                                <ImageView
+                                    android:id="@+id/ribbonLeft"
+                                    android:layout_width="18dp"
+                                    android:layout_height="55dp"
+                                    android:layout_marginEnd="6dp"
+                                    android:layout_toStartOf="@id/ribbonCenter"
+                                    android:src="@drawable/ic_ribbon_strand_left" />
+
+                                <!-- Center Ribbon Strand -->
+                                <ImageView
+                                    android:id="@+id/ribbonCenter"
+                                    android:layout_width="20dp"
+                                    android:layout_height="60dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:src="@drawable/ic_ribbon_strand_center" />
+
+                                <!-- Right Ribbon Strand -->
+                                <ImageView
+                                    android:id="@+id/ribbonRight"
+                                    android:layout_width="18dp"
+                                    android:layout_height="55dp"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_toEndOf="@id/ribbonCenter"
+                                    android:src="@drawable/ic_ribbon_strand_right" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </com.sabah.bikhushue.BeadedFrameLayout>
+
+            <!-- 3. Article Rectangle Card: صورة ag داخل مستطيل المقال (انقر لفتح صفحة المقال) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFooterGhg"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="2.5dp"
+                app:strokeColor="#8B7355"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ag" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#45000000" />
+
+                    <!-- Decorative Frame Outline Overlay -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_decorative_frame" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp">
+
+                        <ImageView
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_assistant"
+                            app:tint="#FFD700" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:text="مامعنى التسبيح"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:shadowColor="#EE000000"
+                            android:shadowDx="1"
+                            android:shadowDy="2"
+                            android:shadowRadius="5"
+                            android:fontFamily="@font/amiri_quran" />
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_arrow_right"
+                            android:rotation="180"
+                            app:tint="#FFFFFF" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Bottom Title Footer Card: سبح بخشوع - Scroll to Top Trigger -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFooterScrollToTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="6dp"
+                app:strokeWidth="2dp"
+                app:strokeColor="#8B7355"
+                app:cardBackgroundColor="#FFFFFF">
+
+                <LinearLayout
+                    android:id="@+id/btnFooterScrollToTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:paddingVertical="14dp"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:id="@+id/tvFooterTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="سبّح بخشوع"
+                        android:textColor="#2E5B42"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:fontFamily="@font/amiri_quran" />
+
+                    <TextView
+                        android:id="@+id/tvFooterSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="تطبيق لتدبر وقراءة القرآن وإكمال الأذكار اليومية"
+                        android:textColor="#8B7355"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:fontFamily="@font/kitab_regular" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/layout_bottom_bar" />
+
+</RelativeLayout>
