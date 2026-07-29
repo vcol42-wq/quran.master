@@ -169,67 +169,9 @@ class QuranAdapter(
                     ssb.setSpan(RelativeSizeSpan(0.65f), mStart, mStart + marker.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
 
-                // Ensure the Ayah end symbol is directly attached to the text without spaces
+                // Clean verse text and append naturally
                 val rawVerseText = v.textTajweed.replace(Regex("[\\s\\u00A0\\u2000-\\u200F\\u202F\\uFEFF]+([\\u06DD۝])"), "$1")
-                val verseStartInSsb = ssb.length
                 ssb.append(rawVerseText)
-
-                val circleMatch = verseCircleRegex.find(rawVerseText)
-                if (circleMatch != null) {
-                    val circleStart = verseStartInSsb + circleMatch.range.first
-                    val circleEnd = verseStartInSsb + circleMatch.range.last + 1
-                    
-                    val isEvery5 = v.aya % 5 == 0
-                    val bgHex = currentBgColor.uppercase()
-                    
-                    val isBurgundyTheme = bgHex.contains("581825") || bgHex.contains("4A0E17") || bgHex.contains("800020")
-                    val isLunarTheme = bgHex.contains("455A64") || bgHex.contains("37474F") || bgHex.contains("263238") || bgHex.contains("D4CEC4")
-                    
-                    val circleColor: Int
-                    val bgFill: Int
-                    val numTextColor: Int
-                    
-                    if (isEvery5) {
-                        circleColor = Color.parseColor("#FFD700") // Gold frame
-                        bgFill = when {
-                            isBurgundyTheme -> Color.parseColor("#3A0B12")
-                            isLunarTheme -> Color.parseColor("#1C262B")
-                            isDarkMode -> Color.parseColor("#3E3200")
-                            else -> Color.parseColor("#FFF9C4")
-                        }
-                        numTextColor = if (isDarkMode || isBurgundyTheme || isLunarTheme) Color.parseColor("#FFD700") else Color.parseColor("#B78103")
-                    } else {
-                        when {
-                            isBurgundyTheme -> {
-                                circleColor = Color.parseColor("#D4AF37") // Gold frame
-                                bgFill = Color.parseColor("#350B12")       // Dark Burgundy fill
-                                numTextColor = Color.parseColor("#FFF8E7") // High-contrast cream white text
-                            }
-                            isLunarTheme -> {
-                                circleColor = Color.parseColor("#80DEEA") // Soft Cyan frame
-                                bgFill = Color.parseColor("#1C262B")       // Slate fill
-                                numTextColor = Color.parseColor("#E0F7FA") // Bright Cyan-white text
-                            }
-                            isDarkMode -> {
-                                circleColor = Color.parseColor("#81C784") // Soft Green frame
-                                bgFill = Color.parseColor("#1B382B")       // Dark Green fill
-                                numTextColor = Color.parseColor("#FFFFFF") // Pure White text
-                            }
-                            else -> {
-                                circleColor = Color.parseColor("#4CAF50") // Green frame
-                                bgFill = Color.parseColor("#E8F5E9")       // Light Green fill
-                                numTextColor = Color.parseColor("#1B5E20") // Dark Green text
-                            }
-                        }
-                    }
-                    
-                    ssb.setSpan(
-                        VerseCircleSpan(textColorInt, circleColor, bgFill, numTextColor),
-                        circleStart,
-                        circleEnd,
-                        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                }
 
                 if (isRukooActive) {
                     val rTotal = if (isKhatma30) v.rukooShTotal else v.rukooArTotal
@@ -352,7 +294,4 @@ class QuranAdapter(
         return sepView
     }
 
-    companion object {
-        val verseCircleRegex = Regex("([\\u06DD۝][\\u0660-\\u0669\\u06F0-\\u06F9]+)")
-    }
 }
