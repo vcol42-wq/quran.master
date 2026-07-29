@@ -9,7 +9,8 @@ import android.text.style.ReplacementSpan
 class VerseCircleSpan(
     private val textColor: Int,
     private val circleColor: Int,
-    private val bgCircleColor: Int = Color.TRANSPARENT
+    private val bgCircleColor: Int = Color.TRANSPARENT,
+    private val numberTextColor: Int = textColor
 ) : ReplacementSpan() {
 
     override fun getSize(
@@ -68,14 +69,15 @@ class VerseCircleSpan(
         val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             color = circleColor
-            strokeWidth = 1.3f
+            strokeWidth = 1.4f
         }
         canvas.drawOval(ovalRect, circlePaint)
 
-        // 3. رسم رمز ورقم الآية في المنتصف تماماً
+        // 3. رسم رمز ورقم الآية في المنتصف تماماً بوضوح عالي
         val textPaint = Paint(paint).apply {
-            color = textColor
+            color = numberTextColor
             textAlign = Paint.Align.CENTER
+            isFakeBoldText = true
         }
         val fontMetrics = paint.fontMetrics
         val textY = lineBoxCenterY - ((fontMetrics.descent + fontMetrics.ascent) / 2f)
