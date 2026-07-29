@@ -20,9 +20,9 @@ class VerseCircleSpan(
         fm: Paint.FontMetricsInt?
     ): Int {
         val textWidth = paint.measureText(text, start, end)
-        val fontMetrics = paint.fontMetrics
-        val fontHeight = fontMetrics.descent - fontMetrics.ascent
-        val contentSize = Math.max(textWidth, fontHeight)
+        val ry = paint.textSize * 0.40f
+        val rx = Math.max(ry * 1.1f, textWidth / 2f + 2f)
+        val spanWidth = (rx * 2f) + 2f
 
         if (fm != null) {
             val fontMetricsInt = paint.fontMetricsInt
@@ -31,7 +31,7 @@ class VerseCircleSpan(
             fm.descent = fontMetricsInt.descent
             fm.bottom = fontMetricsInt.bottom
         }
-        return (contentSize + 4f).toInt()
+        return spanWidth.toInt()
     }
 
     override fun draw(
@@ -45,19 +45,17 @@ class VerseCircleSpan(
         bottom: Int,
         paint: Paint
     ) {
-        val fullSize = getSize(paint, text, start, end, null).toFloat()
-        
-        // تصغير أبعاد الشكل البيضوي قليلاً جداً ليكون لطيفاً ودقيقاً
-        val ry = ((fullSize / 2f) - 0.5f) * 0.38f
-        val rx = ry * 1.25f // نسبة محكمة ومصغرة جداً للشكل البيضوي
+        val textWidth = paint.measureText(text, start, end)
+        val ry = paint.textSize * 0.40f
+        val rx = Math.max(ry * 1.1f, textWidth / 2f + 2f)
 
-        val centerX = x + (fullSize / 2f)
+        val spanWidth = (rx * 2f) + 2f
+        val centerX = x + (spanWidth / 2f)
         val lineBoxCenterY = (top + bottom) / 2f
-        val circleCenterY = y.toFloat()
 
-        val ovalRect = RectF(centerX - rx, circleCenterY - ry, centerX + rx, circleCenterY + ry)
+        val ovalRect = RectF(centerX - rx, y.toFloat() - ry, centerX + rx, y.toFloat() + ry)
 
-        // 1. خلفية بيضوية مصغرة جداً
+        // 1. خلفية بيضوية مدمجة
         if (bgCircleColor != Color.TRANSPARENT) {
             val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 style = Paint.Style.FILL
@@ -66,7 +64,7 @@ class VerseCircleSpan(
             canvas.drawOval(ovalRect, bgPaint)
         }
 
-        // 2. إطار بيضوي مصغر جداً
+        // 2. إطار بيضوي
         val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             color = circleColor
@@ -74,7 +72,7 @@ class VerseCircleSpan(
         }
         canvas.drawOval(ovalRect, circlePaint)
 
-        // 3. رسم الشكل ورقم الآية بحجمهما الكامل في منتصف الإطار البيضوي
+        // 3. رسم رمز ورقم الآية في المنتصف تماماً
         val textPaint = Paint(paint).apply {
             color = textColor
             textAlign = Paint.Align.CENTER

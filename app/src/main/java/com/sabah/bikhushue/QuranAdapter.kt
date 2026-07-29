@@ -169,7 +169,8 @@ class QuranAdapter(
                     ssb.setSpan(RelativeSizeSpan(0.65f), mStart, mStart + marker.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
 
-                val rawVerseText = v.textTajweed
+                // Ensure the Ayah end symbol is directly attached to the text without spaces
+                val rawVerseText = v.textTajweed.replace(Regex("[\\s\\u00A0\\u2000-\\u200F\\u202F\\uFEFF]+([\\u06DD۝])"), "$1")
                 val verseStartInSsb = ssb.length
                 ssb.append(rawVerseText)
 
@@ -177,8 +178,19 @@ class QuranAdapter(
                 if (circleMatch != null) {
                     val circleStart = verseStartInSsb + circleMatch.range.first
                     val circleEnd = verseStartInSsb + circleMatch.range.last + 1
-                    val circleColor = if (isDarkMode) Color.parseColor("#81C784") else Color.parseColor("#4CAF50")
-                    val bgFill = if (isDarkMode) Color.parseColor("#1B382B") else Color.parseColor("#E8F5E9")
+                    
+                    val isEvery5 = v.aya % 5 == 0
+                    
+                    // Colors for normal ayahs
+                    var circleColor = if (isDarkMode) Color.parseColor("#81C784") else Color.parseColor("#4CAF50")
+                    var bgFill = if (isDarkMode) Color.parseColor("#1B382B") else Color.parseColor("#E8F5E9")
+                    
+                    // Distinctive Gold color for every 5th ayah
+                    if (isEvery5) {
+                        circleColor = Color.parseColor("#FFD700") // Gold
+                        bgFill = if (isDarkMode) Color.parseColor("#3E3200") else Color.parseColor("#FFF9C4")
+                    }
+                    
                     ssb.setSpan(
                         VerseCircleSpan(textColorInt, circleColor, bgFill),
                         circleStart,
@@ -190,15 +202,18 @@ class QuranAdapter(
                 if (isRukooActive) {
                     val rTotal = if (isKhatma30) v.rukooShTotal else v.rukooArTotal
                     if (rTotal > 0) {
-                        val rukuMarker = " (ع) "
+                        val rukuMarker = "(ع)"
                         val rStart = ssb.length
                         ssb.append(rukuMarker)
                         val rColor = if (isDarkMode) Color.parseColor("#FFD700") else Color.parseColor("#00A86B")
                         ssb.setSpan(ForegroundColorSpan(rColor), rStart, rStart + rukuMarker.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        ssb.setSpan(RelativeSizeSpan(0.75f), rStart, rStart + rukuMarker.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        ssb.setSpan(RelativeSizeSpan(0.7f), rStart, rStart + rukuMarker.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                     }
                 }
-                ssb.append(" ")
+                
+                // Reduced spacing between ayahs
+                ssb.append("\u2004") // One-third em space (narrower than regular space)
+                
                 val end = ssb.length
                 verseRanges.add(Triple(start, end, v))
             }
@@ -306,6 +321,6 @@ class QuranAdapter(
     }
 
     companion object {
-        val verseCircleRegex = Regex("(\\u06DD[\\u0660-\\u0669\\u06F0-\\u06F9]+)")
+        val verseCircleRegex = Regex("([\\u06DD۝][\\u0660-\\u0669\\u06F0-\\u06F9]+)")
     }
 }
