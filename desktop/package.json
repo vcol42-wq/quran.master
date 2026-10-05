@@ -1,0 +1,56 @@
+{
+  "name": "sabbeh-bikhushue",
+  "version": "1.2.0",
+  "description": "تطبيق سبح بخشوع - المصحف الشريف والأذكار والسبحة ومواقيت الصلاة",
+  "main": "main.js",
+  "author": "waleed al-hasson",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:msix": "electron-builder --win --x64",
+    "build:portable": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "34.2.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.sabah.bikhushue",
+    "productName": "سبح بخشوع",
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist_store"
+    },
+    "electronDownload": {
+      "isVerifyChecksum": false
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icons/icon.ico",
+      "target": [
+        "appx"
+      ]
+    },
+    "appx": {
+      "identityName": "waleedal-hasson.10803CE91DD38",
+      "publisher": "CN=E9515DF7-7B48-41F8-AEE6-8C2B08D31708",
+      "publisherDisplayName": "waleed al-hasson",
+      "applicationId": "SabbehBiKhushue",
+      "displayName": "سبح بخشوع",
+      "backgroundColor": "#064E3B",
+      "languages": [
+        "ar",
+        "en-US"
+      ],
+      "minVersion": "10.0.17763.0",
+      "maxVersionTested": "10.0.22621.0",
+      "artifactName": "Sabbeh_BiKhushue_v1.2_MicrosoftStore.msix"
+    }
+  }
+}

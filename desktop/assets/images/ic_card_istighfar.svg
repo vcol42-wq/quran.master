@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background Circle with Soft Golden Glow -->
+  <circle cx="32" cy="32" r="30" fill="#15D4AF37" />
+  <!-- Outer Decorative Ring -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#C5A059" stroke-width="1.5" />
+  <!-- Crescent Moon Motif -->
+  <path fill="#D4AF37" d="M34,16 C25.1634,16 18,23.1634 18,32 C18,40.8366 25.1634,48 34,48 C37.8927,48 41.4647,46.6111 44.2657,44.2965 C39.1171,43.2081 35.1952,38.6475 35.1952,33.1538 C35.1952,27.6601 39.1171,23.0995 44.2657,22.0111 C41.4647,19.6965 37.8927,16 34,16 Z" />
+  <!-- Dua Star / Light Sparkle -->
+  <path fill="#FFD700" d="M43,26 L44.2,29.8 L48,31 L44.2,32.2 L43,36 L41.8,32.2 L38,31 L41.8,29.8 Z" />
+  <!-- Small Accent Dot -->
+  <circle cx="46" cy="21.5" r="1.5" fill="#C5A059" />
+</svg>
